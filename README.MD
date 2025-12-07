@@ -1,8 +1,4 @@
-좋아. 지금 너가 깃허브에 올리려고 하는 **MP-QUIC 프로젝트**를 위한 README.md는 *아카데믹 + 엔지니어링 + 실험 프로젝트*의 성격을 동시에 담아야 해.
-코드는 C 기반(Picoquic)이고, 구조적으로 client/server + PQI 기반 path algorithm + frame assembler + pcaps까지 있는 형태라, **연구용 + 실험용 QUIC Mobility Framework**라는 포지션이 좋다.
 
-아래는 **그대로 복붙해서 깃허브에 올려도 되는 수준의 High-quality README.md**야.
-(너의 박사 프로젝트 설명, PQI, Failover, 라즈베리파이 실험까지 다 녹여 넣음)
 
 ---
 
