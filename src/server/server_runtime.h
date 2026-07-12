@@ -2,9 +2,7 @@
 #define SERVER_RUNTIME_H
 
 #include "init.h"
-#include "server_legacy.h"
 #include "server_utils.h"
-#include "server_worker.h"
 
 typedef struct {
     int port;

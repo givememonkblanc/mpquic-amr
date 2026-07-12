@@ -8,11 +8,6 @@ set(CMAKE_C_STANDARD_REQUIRED ON)
 set(CMAKE_CXX_STANDARD 17)
 set(CMAKE_CXX_STANDARD_REQUIRED ON)
 
-# macOS Apple Silicon을 기본으로 (혼합 아키텍처 방지)
-if(APPLE AND NOT CMAKE_OSX_ARCHITECTURES)
-  set(CMAKE_OSX_ARCHITECTURES "arm64" CACHE STRING "" FORCE)
-endif()
-
 # 최적화 기본
 if(NOT CMAKE_BUILD_TYPE)
   set(CMAKE_BUILD_TYPE Release CACHE STRING "" FORCE)
@@ -21,25 +16,7 @@ endif()
 # 실행파일 출력 디렉토리
 set(CMAKE_RUNTIME_OUTPUT_DIRECTORY ${CMAKE_BINARY_DIR})
 
-# ---- 종속성 힌트 (Homebrew OpenSSL) ----
-# 터미널에서: brew install openssl@3
-if(APPLE AND NOT DEFINED OPENSSL_ROOT_DIR)
-  # 사용자가 환경변수로 넘겨줄 수도 있음: export OPENSSL_ROOT_DIR=$(brew --prefix openssl@3)
-  find_program(BREW_EXEC brew)
-  if(BREW_EXEC)
-    execute_process(COMMAND "${BREW_EXEC}" --prefix openssl@3
-                    OUTPUT_VARIABLE BREW_OPENSSL_PREFIX
-                    OUTPUT_STRIP_TRAILING_WHITESPACE)
-    if(EXISTS "${BREW_OPENSSL_PREFIX}")
-      set(OPENSSL_ROOT_DIR "${BREW_OPENSSL_PREFIX}" CACHE PATH "OpenSSL root from Homebrew")
-      # pkg-config 힌트 (일부 하위 프로젝트가 사용)
-      set(ENV{PKG_CONFIG_PATH} "${OPENSSL_ROOT_DIR}/lib/pkgconfig:$ENV{PKG_CONFIG_PATH}")
-    endif()
-  endif()
-endif()
-
 # ---- include 경로 ----
-include_directories(${CMAKE_SOURCE_DIR}/include)
 include_directories(${CMAKE_SOURCE_DIR}/third_party/picoquic/loglib)
 
 # ---- picoquic + picotls 자동 Fetch ----
@@ -57,21 +34,6 @@ find_package(OpenCV QUIET)
 # ---- PNG / JPEG (server depth preview용) ----
 find_package(PNG REQUIRED)
 find_package(JPEG REQUIRED)
-
-# ---- 공통 loglib 소스 (필요 시 직접 포함) ----
-# 참고: picoquic 쪽에 'picoquic-loglib' 타깃이 있다면 그걸 링크하는 방식으로 바꿔도 됩니다.
-set(LOG_LIB_SRCS
-    third_party/picoquic/loglib/qlog.c
-    third_party/picoquic/loglib/logconvert.c
-    third_party/picoquic/loglib/logreader.c
-    third_party/picoquic/loglib/memory_log.c
-    third_party/picoquic/loglib/cidset.c
-    third_party/picoquic/loglib/csv.c
-    third_party/picoquic/loglib/svg.c
-    third_party/picoquic/loglib/autoqlog.c
-    third_party/picoquic/loglib/qlog_fns.c
-    third_party/picoquic/loglib/qlog_frames.c
-)
 
 # ---- 서버 ----
 add_executable(server_recv

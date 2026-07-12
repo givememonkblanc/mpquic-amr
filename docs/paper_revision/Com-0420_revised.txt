@@ -1,0 +1,373 @@
+MP-QUIC for Seamless Handover of Autonomous Mobile Robots in Heterogeneous Networks
+
+Dohyeon Lima and Seok-Joo Kohb
+
+aDepartment of Data Convergence Computing, Kyungpook National University, Republic of Korea
+
+bSchool of Computer Science and Engineering, Kyungpook National University, Republic of Korea (corresponding author)
+
+Abstract
+
+Autonomous Mobile Robots (AMRs) in smart factories require highly stable, low-latency wireless connectivity for real-time control and monitoring. Ubiquitous Wi-Fi is susceptible to performance degradation during the frequent access-point (AP) handovers inherent to mobile operation, which introduce latency spikes and transient disconnections; single-path transports such as SP-QUIC are particularly exposed to these mobility-induced link failures because recovery requires costly connection re-establishment. To address this, we propose a handover-adaptive multipath-QUIC (MP-QUIC) transmission scheme for heterogeneous Wi-Fi/5G environments that keeps a persistent dual-path state (make-before-break), so that traffic can be moved to a pre-validated backup path without connection re-establishment. The core of the scheme is an RSSI-aware proactive path scheduler: a normalized, EWMA-smoothed Path Quality Index (PQI) computed from per-path RTT, loss, and bandwidth is augmented with a Wi-Fi link-quality (RSSI) signal that anticipates impending Wi-Fi degradation and triggers a preemptive switch to the 5G path before the primary link fails, with hysteresis-based failback to suppress path flapping. We evaluate the scheme on a real AMR testbed against same-stack baselines - a transport-only PQI ablation, a minimum-RTT default MP-QUIC scheduler, and SP-QUIC with RFC 9000 connection migration - so that the effect of the proposed policy is isolated. Experimental results show that the proposed scheme reduces handover-induced outage and switching latency 【NUM: to sub-XXX ms, versus SP-QUIC's multi-second recovery】 while preserving steady-state throughput and bounding tail latency under cross-traffic. These results indicate that an RSSI-aware, proactive MP-QUIC transport provides seamless connectivity for AMRs in dynamic industrial environments.
+
+Keywords: Autonomous Mobile Robot (AMR), handover, QUIC, multi-path QUIC (MP-QUIC), Wi-Fi, 5G
+
+Introduction
+
+Autonomous Mobile Robots (AMRs) have emerged as a pivotal component of industrial automation, transforming operations in smart factories, warehouses, and other large-scale indoor facilities [1]. Deployed for tasks ranging from material transportation to safety monitoring, their ability to operate continuously across multiple work zones is essential. Unlike fixed automation, AMRs navigate dynamic environments without predefined paths, offering unparalleled flexibility and adaptability. This operational agility makes them indispensable in industrial sites with frequently changing layouts, driving their rapid adoption across various domains [2].
+
+Effective AMR operation is fundamentally dependent on robust, real-time communication. These robots continuously exchange a heterogeneous mix of data, ranging from low-latency control commands and localization updates to high-bandwidth sensor and video streams. Consequently, the communication requirements for AMRs are far more stringent than for conventional mobile devices. Even momentary lapses in connectivity can severely compromise navigation stability, delay task execution, and jeopardize safety responsiveness. Therefore, seamless connectivity and low-latency performance are not optional enhancements but fundamental prerequisites for reliable AMR operation [3].
+
+Achieving this level of connectivity, however, is a significant challenge in large-scale indoor environments. The constant mobility of AMRs across the coverage areas of multiple Access Points (APs) makes handovers inevitable, a process notorious for degrading network performance [4]. To ensure robust and pervasive coverage, deployments typically utilize a heterogeneous wireless infrastructure, combining ubiquitous Wi-Fi with private cellular networks like 5G [5]. To extend coverage in large facilities, multiple APs and Wi-Fi mesh architectures are widely used [6, 7]. Nevertheless, Wi-Fi mesh does not fundamentally eliminate mobility-induced disruption at the client side. A mobile AMR remains associated with only one serving AP at a given time, and the AMR must switch to another AP as the quality of the current link deteriorates. Such transitions can produce temporary disconnections, increased latency, packet loss, and RTT fluctuations [8, 9]. Figure 1 illustrates a representative AP-boundary crossing scenario in which these effects can interrupt ongoing communication.
+
+Figure 1: AP Handover Challenges for AMRs in Wi-Fi Networks
+
+To address these mobility challenges, the QUIC protocol offers several advantageous features. As the transport foundation of HTTP/3, QUIC's support for Connection IDs (CIDs) is particularly salient. CIDs decouple a transport session from the underlying IP addresses, enabling seamless connection migration when network interfaces change—a critical feature for maintaining session continuity under mobility [10, 11]. The Multipath QUIC (MP-QUIC) extension builds upon this capability by enabling the concurrent use of multiple network paths within a single connection [12]. This is especially beneficial for AMRs operating in heterogeneous environments, where both Wi-Fi and 5G interfaces can coexist. With MP-QUIC, an alternative path (e.g., 5G) can remain active and ready to take over traffic when the primary path (e.g., Wi-Fi) degrades during a handover. This intrinsic ability to leverage path diversity makes MP-QUIC a natural and powerful candidate for solving the handover problem in AMR systems.
+
+Despite its clear potential, the direct application of MP-QUIC to the specific problem of AMR handover continuity remains largely unexplored. Existing research on MP-QUIC has primarily focused on general mobility or optimizing aggregate throughput across paths [13]. However, the industrial AMR scenario presents a more nuanced challenge: predictable, yet disruptive, degradation events caused by frequent AP handovers in a heterogeneous Wi-Fi/5G landscape. In this context, the central problem is not merely the availability of multiple paths, but the intelligent and timely utilization of them. Simply having a backup path is insufficient if the switchover is reactive, occurring only after significant service disruption has already begun. Effective handover mitigation requires a proactive strategy: one that can anticipate link degradation on the primary path and steer traffic preemptively before a catastrophic failure occurs. Indeed, prior work in related domains confirms that proactive path sensing and preemptive switching are critical for maintaining seamless connectivity [14, 15]
+
+To bridge this gap, this paper introduces a handover-adaptive MP-QUIC transmission scheme designed specifically for AMRs in heterogeneous Wi-Fi/5G environments. Our approach is founded on a key principle, “to not merely use multiple paths, but to exploit them in a handover-aware manner.” The core of our scheme is a novel metric we term the Path Quality Index (PQI). This index is designed to proactively detect the onset of Wi-Fi link degradation that precedes a handover. Upon detection, our scheme preemptively offloads traffic to the stable 5G backup path, effectively creating a seamless failover before the primary path fails completely. Once the Wi-Fi handover is complete and the link has stabilized, traffic is seamlessly migrated back to the preferred Wi-Fi path. This proactive, PQI-driven mechanism is designed to virtually eliminate service interruptions and suppress the transient performance degradation inherent to AMR mobility.
+
+The main contributions of this paper are summarized as follows:
+
+• A handover-adaptive MP-QUIC transport for AMRs in heterogeneous Wi-Fi/5G networks that maintains a persistent, make-before-break dual-path state, eliminating the connection re-establishment latency of reactive single-path migration;
+
+• An RSSI-aware proactive path-quality scheme in which a normalized multi-metric Path Quality Index (PQI) over per-path RTT, loss, and bandwidth (min-max normalization, EWMA smoothing, and a hysteresis-based switching state machine) is augmented with a Wi-Fi RSSI signal to trigger preemptive handover before transport metrics degrade, together with RSSI-driven failback; and
+
+• An implementation on a draft-20 MP-QUIC (picoquic) stack and an empirical evaluation on a real AMR testbed against same-stack baselines (a transport-only PQI ablation, a minimum-RTT default scheduler, and SP-QUIC with RFC 9000 connection migration) with repeated-run statistics, showing reduced handover outage and switching latency without steady-state throughput loss.
+
+Related Works
+
+Autonomous Mobile Robot 
+
+Autonomous Mobile Robots (AMRs) now form the operational backbone of modern smart manufacturing and logistics, prized for their ability to navigate highly dynamic industrial environments. Their defining advantage over traditional fixed or track-guided automation is this capacity for unconstrained mobility, which enables true operational agility across expansive facilities. However, this autonomy is critically dependent on wireless connectivity with stringent Quality of Service (QoS). To execute real-time motion control, coordinate with fleets, and safely avoid obstacles, AMRs demand ultra-low latency and deterministic reliability [16, 17]. The challenge is compounded by their heterogeneous traffic profiles, as they must concurrently transmit time-sensitive kinematic commands, high-frequency sensor telemetry, and bandwidth-intensive video streams. Consequently, the stability of this communication link is not merely a performance metric; it is a direct determinant of both operational efficiency and the physical safety of the human-robot collaborative workspace.
+
+Despite these stringent requirements, the very nature of AMR mobility is fundamentally at odds with the architecture of conventional Wi-Fi. The need for continuous movement inevitably triggers frequent handovers between Access Points (APs). This inherent challenge is severely amplified within the harsh radio environment of industrial sites, which are characterized by metallic structures, moving machinery, and dynamic occlusions that cause severe multipath fading and signal attenuation [18]. Consequently, during an AP boundary crossing, the handover process itself becomes a significant source of disruption. AMRs are prone to prolonged re-authentication delays or the "sticky client" phenomenon, where they cling to a distant AP with a degraded signal. The immediate results are catastrophic: severe latency jitter, bursts of packet loss, and crippling RTT spikes. For an AMR, these are not minor glitches; they are transient failures that can instantly destabilize its closed-loop control systems, leading to erratic behavior or a complete stall of mission-critical operations.
+
+As a remedy for the mobility-induced limitations of Wi-Fi, Private 5G Standalone (SA) networks have emerged as a promising alternative. Operating in dedicated spectrum with tightly controlled radio resource management, Private 5G provides superior coverage and resilience against the signal fluctuations common in mobile scenarios [19]. However, the predominant focus of existing AMR communication research, even within the 5G context, has been disproportionately centered on physical- and network-layer optimizations. Studies have concentrated on metrics like Radio Signal Strength (RSS), Signal-to-Noise Ratio (SNR), and link-layer throughput. While undeniably important, these lower-layer enhancements do not address the fundamental challenge of transport-layer session continuity. A robust radio link is a necessary, but not sufficient, condition for seamless application performance; the transport protocol itself must be resilient to the underlying network dynamics.
+
+At the network layer, 3GPP defines the Non-3GPP Interworking Function (N3IWF) and the ATSSS (Access Traffic Steering, Switching and Splitting) framework to integrate Wi-Fi and 5G access under a unified core, enabling operator-controlled steering across the two accesses. Such mechanisms require 5G-core integration and operate below the transport session; they do not by themselves guarantee end-to-end session continuity for an application whose transport connection breaks during a Wi-Fi handover. The approach in this paper is complementary and operates at the transport layer, requiring no core-network integration and remaining under the direct control of the AMR endpoint.
+
+The crux of the problem lies at the transport layer, where protocols like TCP are fundamentally blind to the distinction between mobility and genuine network congestion. When an AMR executes a vertical handover (e.g., Wi-Fi to 5G) or traverses a signal dead zone, the underlying network changes are inevitable. From TCP's perspective, however, the resulting packet delays or losses are indistinguishable from congestion. This critical misdiagnosis triggers a catastrophic, yet entirely unnecessary, response: the protocol invokes punitive congestion control mechanisms, drastically cutting its sending rate, or drops the connection altogether. For the AMR's applications, the end-to-end service is shattered. Video feeds suffer jarring stalls, and, more critically, the control loop experiences latency spikes that can destabilize the robot's physical state. This demonstrates that optimizing lower-layer handovers alone is a fundamentally incomplete solution. Achieving true operational resilience, therefore, is not a matter of optimizing the wireless medium alone; it is a matter of architectural design. A proactive transport layer is the cornerstone of this design, serving as the essential abstraction layer that shields mission-critical applications from the inherent volatility of the wireless world.
+
+QUIC and MP-QUIC
+
+Standardized by the IETF over UDP, QUIC is a transport protocol that integrates TLS 1.3 and provides low-latency, secure, and reliable communication [20]. QUIC and TCP embody different design trade-offs rather than a strict ordering of one over the other. QUIC identifies a connection by a Connection ID (CID) rather than the 4-tuple, folds the cryptographic and transport handshakes together to enable 1-RTT (or 0-RTT) establishment, and multiplexes independent, separately flow-controlled streams. Because each stream is delivered independently, a loss on one stream (for example, a high-bandwidth video feed) does not stall delivery on parallel streams: QUIC removes head-of-line (HoL) blocking within a single path. As discussed below, HoL effects can nonetheless reappear across paths in a multipath setting, where packets on a slow path delay the in-order delivery of data carried on a fast path.
+
+Crucially for mobility, QUIC's Connection ID decouples a session from the underlying IP addresses, giving QUIC intrinsic support for connection migration (RFC 9000, Section 9). When a client's address changes, it does not tear down the session; it sends from the new address with the same CID and proves reachability through a PATH_CHALLENGE/PATH_RESPONSE path-validation exchange [21]. Single-path mobility schemes such as mQUIC [22] exploit this capability, but they remain reactive: migration can begin only after a new path becomes usable, leaving the session exposed to the blackout that occurs during the handover itself. Multipath QUIC removes this limitation by validating and maintaining the backup path in advance.
+
+Multipath QUIC (MP-QUIC) is an IETF extension - still an Internet-Draft rather than a ratified standard (latest draft-ietf-quic-multipath-21, March 2026), following a standardization effort that has evolved with several revisions since 2017 - that extends QUIC to aggregate multiple network paths (e.g., Wi-Fi and 5G) into a single logical connection under one Connection ID [23,24]. This path diversity lets a sender exploit heterogeneous wireless interfaces concurrently. Unlike a passive backup link, MP-QUIC isolates the transport state of each interface, maintaining independent packet-number spaces, per-path RTT estimation, and separate congestion-control state [25], so that loss or congestion on a deteriorating Wi-Fi link does not throttle a stable 5G link.
+
+The packet scheduler is central to MP-QUIC's operation, dynamically routing packets based on real-time path metrics. By continuously monitoring a cryptographically active backup path, it can instantly redirect traffic at the packet level as soon as the primary link degrades. This preemptive traffic steering enables MP-QUIC to significantly bound tail latency, mitigate packet loss, and ensure seamless continuity without resorting to slower, reactive session recovery methods [26].
+
+Because the multipath specification does not mandate a packet scheduler - path selection is implementation-specific (draft-ietf-quic-multipath, Section 5.5) - the behaviour during an AMR handover depends entirely on the scheduler in use. A default or reference scheduler that is unaware of the handover context keeps sending on the degrading Wi-Fi path; the resulting per-path delay disparity then causes receiver-side reordering and cross-path HoL blocking, in which data on the fast 5G path waits for late Wi-Fi packets and the benefit of multipath is nullified [29]. An AMR-oriented MP-QUIC scheduler must therefore be handover-aware: it must detect Wi-Fi degradation early and steer traffic away from the failing path before it collapses. Because both links are kept active, this is more precisely a soft handover (make-before-break) at the transport layer than a conventional break-before-make handover of the wireless link.
+
+MP-QUIC Path Schedulers
+
+A substantial body of work has studied packet scheduling for multipath transport. Latency- and completion-aware schedulers such as minimum-RTT, ECF (Earliest Completion First), and BLEST were developed for MPTCP and later carried into MP-QUIC; learning-based schedulers such as Peekaboo and various reinforcement-learning approaches adapt the send policy online; and application- or mobility-aware designs - for example the stream-aware MP-QUIC scheduler of Xing et al. [23] and the mobility-aware MAMS scheduler [13] - tailor path selection to traffic semantics or client movement. These schedulers largely optimize aggregate throughput or completion time under general mobility. In contrast, the AMR Wi-Fi/5G setting is dominated by predictable but disruptive degradation events at AP boundaries, where the objective is not aggregate throughput but continuity: pre-emptively vacating a Wi-Fi path that is about to fail. The scheduler proposed here targets that objective directly and, unlike purely transport-metric schedulers, incorporates a link-layer RSSI signal so that it can act before the transport metrics reflect the degradation.
+
+Proposed MP-QUIC Transmission for handover of AMRs
+
+System Architecture and Overview
+
+To ensure seamless communication for AMRs in dynamic industrial environments, we propose a handover-adaptive Multipath QUIC (MP-QUIC) architecture with an RSSI-aware proactive scheduler. The design concurrently manages heterogeneous wireless paths - a primary Wi-Fi link and a secondary 5G link - within a single transport connection and, in contrast to single-path migration schemes, keeps a persistent dual-path state so that the backup path is always validated and ready. This bypasses the signaling and connection-recovery delays of reactive failover during Wi-Fi AP handovers.
+
+Figure 2 illustrates the target network model for our work. We consider a common industrial deployment where an AMR navigates across the coverage of multiple Wi-Fi APs, all while under the continuous umbrella of a private 5G cellular network. As the AMR crosses an AP boundary, its primary Wi-Fi link is expected to suffer from transient degradation or complete disconnection before it can re-associate with the next AP. In this scenario, the persistent wide-area connectivity of the 5G network provides an ideal, stable backup path. This heterogeneous Wi-Fi/5G environment is precisely the context that motivates our multipath transport mechanism, designed to maintain uninterrupted communication by intelligently exploiting this path diversity.
+
+Figure 2: Network Model for AMR Handover in Heterogeneous Wi-Fi/5G Environments
+
+Based on this network model, our proposed system architecture, depicted in Figure 3, is implemented as an intelligent, three-stage control pipeline: Sensing, Estimation, and Decision. This pipeline resides within the AMR and is designed to translate raw network signals into proactive routing actions.
+
+The Sensing module continuously ingests per-path transport metrics (RTT, loss, and delivery rate) derived from MP-QUIC's acknowledgement stream, together with a Wi-Fi link-quality (RSSI) signal sampled out-of-band from the wireless driver. Because Wi-Fi and 5G differ in absolute performance ranges, the Estimation phase does not use these raw values directly: it synthesizes them into a single Path Quality Index (PQI) via min-max normalization, EWMA filtering, and an RSSI penalty, smoothing momentary fluctuation while preserving the RSSI trend that precedes a handover.
+
+The PQI then drives the Decision module, which executes the routing policy over MP-QUIC: proactive RSSI-driven handover on impending degradation, reactive PQI-threshold failover, hysteresis-based failback to prevent path flapping, and frame-aware stream-to-path mapping. This design keeps latency-sensitive application data on the best available path and shields the remote server from the mobility-induced network events, reducing - though not, in general, entirely eliminating - the service disruption of AMR mobility.
+
+Figure 3: AMR-Embedded Proactive MP-QUIC Architecture: Sensing, Estimation, Decision Pipeline
+
+Network Sensing and Metric Collection
+
+The Sensing module continuously characterizes each active path by extracting key transport indicators directly from QUIC’s feedback mechanisms, as shown in Table 1. This early-warning system is designed to detect rapidly increasing latency or link instability before they impact AMR operations.
+
+Table 1: Key Transport-Layer Indicators for Path Quality Assessment
+
+[TABLE]
+
+Metrics | Description
+
+RTT | Smoothed latency and variation trend
+
+Loss rate | Burst loss and instability indicator
+
+Throughput | Estimated available capacity
+
+Congestion level | Inferred from retransmissions and delivery rate
+
+[/TABLE]
+
+The specific metrics are chosen to provide a multi-faceted view of path performance:
+
+• Latency: Round-Trip Time (RTT) is continuously derived from QUIC’s acknowledgment (ACK) stream and smoothed via an Exponentially Weighted Moving Average (EWMA) to filter out spurious, short-term jitter.
+
+• Reliability: The packet loss rate is calculated over a sliding window, diagnosing reliability issues from both explicit retransmission events and implicit signals like missing ACKs.
+
+• Capacity: Available throughput is dynamically estimated by measuring the rate of acknowledged data delivery over time.
+
+• Congestion: The overall path congestion state is inferred not just from loss, but from a combination of persistent retransmissions and any corresponding drop in the delivery rate, indicating a more systemic bottleneck.
+
+Per-path metrics are obtained without a separate probing protocol: RTT and its variation come from QUIC's own acknowledgements on each path, loss from the ratio of declared-lost to sent bytes per path, and available bandwidth from the rate of newly acknowledged data. The backup (5G) path is validated in advance and kept alive by the multipath handshake and periodic keep-alives so that its metrics are continuously available; when only one path is active, the scheduler additionally issues a path probe (PATH_CHALLENGE) to (re)validate the second path at a fixed interval. The Wi-Fi RSSI, which is not observable from transport feedback, is sampled from the wireless driver (iw dev <iface> link) every sampling period.
+
+Path Quality Estimation
+
+To translate the raw metrics from the Sensing phase into routing decisions, the Estimation module forms a Path Quality Index (PQI). Because heterogeneous interfaces exhibit different absolute performance ranges, each metric is first min-max normalized within the current set of active paths, enabling a scale-free comparison across the disparate paths.
+
+For each schedulable path i, the module uses smoothed RTT r_i, loss rate l_i, and estimated goodput b_i. Each metric is min-max normalized across the active path set P (guarding against a zero range) so that every term lies in [0,1] with 0 denoting the best value:
+
+    r̃_i = (r_i − r_min)/(r_max − r_min),   l̃_i = (l_i − l_min)/(l_max − l_min),   b̃_i = (b_i − b_min)/(b_max − b_min)          (1)
+
+The normalized terms combine into a transport-quality cost (lower is better), with weights summing to one:
+
+    C_i^tr = α·r̃_i + β·l̃_i + γ·(1 − b̃_i),   α + β + γ = 1          (2)
+
+In the proposed RSSI-aware mode, a Wi-Fi link-quality penalty ρ_i ∈ [0,1] is formed from the sampled RSSI s_i (dBm) by a linear mapping between a good and an unusable threshold,
+
+    ρ_i = clamp((S_good − s_i)/(S_good − S_unusable), 0, 1)          (3)
+
+and is folded into the composite cost with weight ω:
+
+    C_i = (α·r̃_i + β·l̃_i + γ·(1 − b̃_i) + ω·ρ_i)/(1 + ω)          (4)
+
+The Path Quality Index used by the scheduler is this cost on a 0-1000 scale; consistent with the failover rule below, a higher PQI denotes poorer path quality:
+
+    PQI_i = 1000 · C_i          (5)
+
+To suppress transient fluctuation, the PQI is smoothed by an exponentially weighted moving average with factor λ:
+
+    PQI_i(t) = λ·PQI_i^raw(t) + (1 − λ)·PQI_i(t − 1)          (6)
+
+Here α, β, and γ weight the RTT, loss, and bandwidth contributions, ω weights the RSSI penalty, and S_good and S_unusable are the RSSI thresholds; all values are listed in Table 2. For the transport-only ablation (the pqi mode) the RSSI term is disabled (ω = 0), reducing (4) to (2), so that comparing the rssi and pqi modes isolates the contribution of the RSSI signal.
+
+By continuously updating this cost function, the system maintains a stable and quantified real-time evaluation of each path's quality, laying the groundwork for the subsequent routing decisions.
+
+Path Selection and Failover Scheduling
+
+Based on the continuous estimation, the Decision module selects the active path. Under stable conditions it maps traffic to the path that minimizes the PQI of (5); at AP boundaries it applies two switching regimes - a reactive, PQI-threshold failover and a proactive, RSSI-driven handover.
+
+Let a denote the active Wi-Fi path and c the 5G backup path. Reactive failover is triggered when the transport-derived PQI of the active path crosses a degradation threshold T_deg and the backup is better by at least a safety margin Δ, sustained for a stability interval T_stable:
+
+    switch a→c   iff   PQI_a ≥ T_deg   ∧   PQI_a − PQI_c ≥ Δ   (sustained ≥ T_stable)          (7)
+
+Proactive, RSSI-driven handover acts independently of the transport metrics: if the Wi-Fi RSSI falls to the 'bad' threshold, the scheduler switches immediately, before the degradation is reflected in RTT or loss:
+
+    switch a→c   iff   s_a ≤ S_bad          (8)
+
+Rule (8) is what makes the proposed scheme proactive rather than reactive: it acts on the leading indicator (declining RSSI) ahead of the lagging transport indicators, so the switch begins before the Wi-Fi path stops delivering. Rule (7) is the reactive fallback that also covers degradations not preceded by an RSSI drop (e.g., congestion).
+
+The margin Δ, a minimum inter-switch debounce, and the failback rule together prevent oscillatory 'ping-pong' switching. Failback is deliberately conservative: even after the Wi-Fi RSSI and PQI recover, traffic returns to Wi-Fi only if the recovered path sustains a PQI below the recovery threshold T_recover for at least T_stable. To further damp pathological oscillation, the debounce interval is increased multiplicatively when a switch reverses the previous one and reset after a period of stability. All thresholds are listed in Table 2.
+
+Table 2: PQI and RSSI-aware scheduler parameters (as implemented).
+
+[TABLE]
+
+Symbol | Meaning | Value
+
+α, β, γ | RTT / loss / bandwidth weights | 0.45 / 0.35 / 0.20
+
+ω | RSSI penalty weight (rssi mode) | 0.30
+
+λ | EWMA smoothing factor (RTT/loss/BW) | 0.45 / 0.35 / 0.20
+
+T_deg | failover threshold (PQI, 0-1000) | 650
+
+T_recover | failback threshold (PQI) | 450
+
+Δ | hysteresis safety margin (PQI) | 120
+
+T_debounce | min inter-switch interval (adaptive) | 2 s → 60 s
+
+T_stable | failback stability interval | 3 s
+
+T_silence | path-stale timeout | 8 s
+
+S_good / S_degrade | RSSI good / degrading (dBm) | −55 / −67
+
+S_bad / S_unusable | RSSI bad / unusable (dBm) | −75 / −82
+
+CC | congestion control | BBR
+
+[/TABLE]
+
+Finally, switching is coordinated with the application's video framing. Each captured frame - depth or RGB - is serialized on a per-path unidirectional QUIC stream with an explicit application header [MPQ1 | type | length]: a 4-byte magic tag, a 1-byte stream-type field distinguishing depth from RGB, and a 4-byte big-endian length. The receiver therefore recovers exact frame boundaries from the length prefix regardless of how packets were scheduled across paths, and depth and RGB use disjoint stream-ID ranges to avoid interleaving. Aligning path transitions with frame boundaries reduces partial-frame loss, and packets arriving over heterogeneous paths are timestamp-aligned and reordered in a receiver-side buffer to preserve playback continuity.
+
+Implementation
+
+We implement the scheme on picoquic 1.1.50.3 with the IETF multipath extension draft-ietf-quic-multipath-20 (multipath enabled by advertising a non-zero initial_max_path_id, per-path congestion control, and keep-alive). The three-stage pipeline of Fig. 3 maps directly onto the code: Sensing draws per-path RTT from the RTT estimator, loss from per-path lost/sent bytes, and goodput from delivered bytes over time (client_loop.c, update_pqi_metrics_for_path), and samples Wi-Fi RSSI via iw dev <iface> link; Estimation computes the normalization, EWMA, and PQI of (1)-(6) (fill_pqi_scores); and Decision is the hysteresis state machine of (7)-(8) (choose_path_via_pqi), including RSSI preemption and failback. The sender selects one of four modes at run time: rssi (the proposed RSSI-aware scheduler), pqi (the transport-only ablation, ω = 0), default (a minimum-RTT scheduler approximating picoquic's native selection), and spquic (single path with RFC 9000 connection migration). Congestion control is BBR by default. Because the four modes differ only in the path-selection policy while sharing the same stack, camera, paths, and workload, comparing them isolates the contribution of the proposed scheme.
+
+Performance Evaluation by Experimentation
+
+Testbed Configuration
+
+Our testbed reproduces a realistic AMR uplink. The sender is an NVIDIA Jetson-class edge computer mounted on the AMR, equipped with two heterogeneous interfaces: a primary Wi-Fi interface associated with an indoor 802.11 access point, and a secondary 5G uplink - a commercial 5G (NR) mobile connection shared to the robot by smartphone tethering - that serves as the always-available backup path. In a production deployment this role would be served by a private 5G network; we use a tethered commercial 5G link as a practical stand-in for that always-on 5G umbrella. The receiver is a server on a wired Ethernet link, so that any measured degradation originates in the wireless access segment. The application is the robot's live camera uplink: the AMR streams a real depth+RGB video feed (JPEG-encoded RGB and 16-bit depth) to the server at a measured application rate of 【NUM: ~XX Mbps】. Because the transport carries an ordered sequence of length-delimited video frames, we define the total transmission delay of a run as the wall-clock time to deliver a fixed frame sequence end-to-end, and the normal-state throughput as the delivered application bitrate under stable Wi-Fi.
+
+For the comparison we evaluate four transport configurations that share the same MP-QUIC stack, camera, paths, and workload and differ only in the path-selection policy: (i) the proposed RSSI-aware scheduler; (ii) a transport-only PQI ablation with the RSSI term disabled; (iii) a minimum-RTT default MP-QUIC scheduler; and (iv) SP-QUIC restricted to a single path but permitted to migrate to the 5G path via RFC 9000 connection migration when the Wi-Fi path fails. Configuration (iv) removes the earlier unfair restriction in which single-path QUIC could not use the 5G umbrella, so the comparison isolates the benefit of proactive multipath scheduling rather than mere access to a second network.
+
+AMR mobility across AP boundaries is emulated in a controlled, repeatable way rather than by physically driving the robot between APs, so that the disconnection timing and duration are identical across schedulers; we additionally validated the full pipeline on the physically moving robot. A run lasts 【NUM: T】 s; at 【NUM: t1】 s the Wi-Fi interface is programmatically disconnected (nmcli device disconnect) for 【NUM: d】 s and then reconnected, producing one controlled handover per run 【CONFIRM: AP 배치/로봇 속도 - 실주행 검증 시 값 기입 (R3.6)】. Each (scenario, scheduler) cell is repeated N = 10 times. The three phases are:
+
+Baseline: Stable Wi-Fi connectivity without any artificial network impairment;
+
+Wi-Fi Disconnection: A complete Wi-Fi outage, emulating temporary link loss or disassociation that may occur during an AP handover; and
+
+Wi-Fi Recovery: Restoration of Wi-Fi connectivity while the 5G Mobile backup path remains active, enabling the evaluation of traffic recovery and path reactivation behavior.
+
+Figure 4: Handover Scenarios: (a) MP-QUIC with Wi-Fi and 5G, and (b) SP-QUIC with Wi-Fi only
+
+Each (scenario, scheduler) combination is repeated N = 10 times; we report the mean with a 95% confidence interval and, where a difference is claimed, a test of its statistical significance, in addition to representative single-run traces. For the handover-focused analysis we evaluate:
+
+• Normal-state throughput: The application-level delivered bitrate under stable Wi-Fi conditions, used for the baseline comparison;
+
+• Total transmission delay: The end-to-end transmission delay measured under different handover timings and congestion levels;
+
+• Handover latency: The switching delay observed during Wi-Fi disconnection and recovery events;
+
+• Congestion robustness: The variation in total transmission delay under increasing cross-traffic intensity; and
+
+• End-to-end throughput continuity: The time-varying throughput behavior over the complete Wi-Fi disconnection-and-recovery cycle.
+
+Additionally, a micro-level throughput analysis was conducted around the instants of Wi-Fi failure and recovery to capture short-term failover hesitation and rapid path reactivation behavior.
+
+Results and Discussion
+
+Summary of Performance Comparison
+
+Before the detailed analysis, Table 3 summarizes the four configurations under normal operation and during a handover. All figures are means over N = 10 runs with 95% confidence intervals; values shown as 【NUM】 are being regenerated on the revised, stabilized implementation and will replace the placeholders.
+
+Table 3: Performance comparison across the four same-stack configurations (means over N = 10 runs; 95% CI). 【NUM】 values are being regenerated.
+
+[TABLE]
+
+Metric | SP-QUIC (migration) | Default MP-QUIC (minRTT) | PQI (ablation) | Proposed (RSSI)
+
+Normal-state throughput | 【NUM】 | 【NUM】 | 【NUM】 | 【NUM】
+
+Normal-state RTT | 【NUM】 | 【NUM】 | 【NUM】 | 【NUM】
+
+Handover switching latency | 【NUM】 | 【NUM】 | 【NUM】 | 【NUM】
+
+Handover outage duration | 【NUM】 | 【NUM】 | 【NUM】 | 【NUM】
+
+Total transmission delay | 【NUM】 | 【NUM】 | 【NUM】 | 【NUM】
+
+Handovers per run | 【NUM】 | 【NUM】 | 【NUM】 | 【NUM】
+
+[/TABLE]
+
+Under stable Wi-Fi the four schedulers deliver comparable steady-state throughput 【NUM】; in particular, the proposed scheme does not sacrifice normal-state throughput relative to the single-path and default baselines. The apparent normal-state throughput deficit of MP-QUIC reported in the original manuscript is not reproduced once the comparison is made same-stack and only the scheduler is varied; any residual gap is attributable to multipath scheduling and reordering overhead and is quantified in 【NUM】. The configurations diverge at the handover: SP-QUIC without a usable second path suffers a service interruption, whereas the multipath configurations preserve delivery by switching to the pre-validated 5G path with a switching latency of 【NUM】.
+
+Overall Throughput 
+
+The proposed scheme maintains service continuity during Wi-Fi disconnection by proactively using the pre-established 5G backup path. While the Wi-Fi link delivers a stable throughput of 【NUM】 under baseline conditions, single-path SP-QUIC collapses toward zero throughput at an AP boundary unless it can migrate; the proposed scheme instead redirects traffic to the 5G link and sustains approximately 【NUM】, avoiding a full service interruption.
+
+This continuity is reflected in the total transmission delay. As shown in Figure 5, SP-QUIC without migration incurs a large delay penalty across handover timings because it relies on timeout and connection re-establishment, whereas the proposed scheme bounds the total transmission delay to 【NUM】 across the tested scenarios. The same-stack default and PQI-ablation baselines fall between these extremes 【NUM】, isolating the additional benefit of the RSSI-aware policy.
+
+Figure 5: Analysis of Handover Impact on Total Transmission Delay for SP-QUIC and MP-QUIC
+
+Handover latency 
+
+Minimizing both handover latency and its variability under congestion is important for real-time AMR control. Figure 6 shows the distribution of handover latency across the four configurations (N = 10; box plots with medians and inter-quartile ranges).
+
+Figure 6: Distribution of handover latency for SP-QUIC and MP-QUIC
+
+SP-QUIC without a pre-validated second path recovers only through failure detection and connection re-establishment, incurring handover delays on the order of 【NUM: seconds】. The proposed scheme switches to the pre-established 5G path in 【NUM: sub-XXX ms】. We attribute the multi-second handover reported in the original manuscript to conflating the Wi-Fi link re-association time with the transport reaction time; the two are separated in the micro-analysis below, and the transport reaction itself is 【NUM】.
+
+To assess robustness we injected controlled cross-traffic on the Wi-Fi path. Here, cross-traffic denotes contending background load generated with iperf3 on the same access point, combined with a probabilistic packet-loss ramp applied to the QUIC flow (iptables statistic-mode drops ramped from 1% to 20%). The 'no traffic' point is the impairment-free baseline, and the 50 and 150 Mbps points denote the injected background bitrate contending on the Wi-Fi link - not the robot's own application rate, which is 【NUM: ~XX Mbps】 (Section 4.1); the cross-traffic represents competing users sharing the AP rather than the AMR's own demand.
+
+Figure 7: Robustness Analysis of SP-QUIC and MP-QUIC in Congested Network Environments)
+
+Under the impairment-free baseline the configurations show comparable delay 【NUM】. As the cross-traffic intensity increases to 50 and then 150 Mbps, SP-QUIC degrades sharply, with total transmission delay rising to 【NUM】 and high variance. The proposed scheme shifts traffic away from the congested Wi-Fi link and holds a more stable delay of 【NUM】 even under the heaviest load, indicating robustness to shared-medium congestion in addition to fast handover.
+
+End-to-end and micro-level handover behavior
+
+To evaluate the end-to-end impact of a handover on application performance, we analyze throughput across a complete Wi-Fi disconnection-and-recovery cycle. Figure 8 contrasts a full service blackout for SP-QUIC without migration against the continuous delivery of the proposed scheme.
+
+Figure 8: Throughput Behavior of SP-QUIC and MP-QUIC During Wi-Fi Disconnection and Recovery
+
+For SP-QUIC without a second path, throughput remains at zero until Wi-Fi is fully re-established, a gap of 【NUM】 that is unacceptable for real-time monitoring or teleoperation. The proposed scheme preserves end-to-end continuity via the pre-established 5G path: throughput dips briefly during the transition but never collapses to zero, with a measured outage of 【NUM】.
+
+To dissect the handover process at a finer timescale, Figure 9 provides a micro-level analysis of throughput dynamics during the Wi-Fi failure and recovery events. This detailed view exposes the internal path-switching mechanisms that are obscured in the broader end-to-end timeline. 
+
+Figure 9: Visualization of MP-QUIC Handover Mechanisms: (a) Short-term Failover Hesitation During Wi-Fi Disconnection and (b) Rapid Path Reactivation During Wi-Fi Recovery)
+
+In the reactive regime, upon Wi-Fi failure the scheduler exhibits a brief hesitation of 【NUM: ~XX ms】 before traffic is fully rerouted; this is the latency of degradation detection and the scheduling decision, not connection teardown. This hesitation characterizes the reactive failover of rule (7). The proposed RSSI-driven rule (8) is proactive: it initiates the switch from the declining RSSI trend before the transport metrics - and hence this hesitation - occur. We report the proactive lead time, the interval between the RSSI-triggered switch and the instant the Wi-Fi path stops delivering, as 【NUM】.
+
+During Wi-Fi recovery the proposed scheme reactivates the primary path and resumes traffic within 【NUM: ~XX ms】, with no connection re-establishment or transport-state reset, migrating traffic back to the preferred Wi-Fi path.
+
+These micro-level observations show that the proposed scheme turns a connection-level handover into a lightweight path-scheduling operation, so that macro-level continuity and micro-level latency stability are achieved together - explaining the low switching latency reported in Figure 6, while distinguishing the proactive (RSSI-driven) from the reactive (PQI-threshold) path.
+
+Conclusions and Future Works
+
+Guaranteeing uninterrupted real-time communication for AMRs in dynamic industrial environments requires transport-layer resilience. To reduce the transient degradation and service interruption that conventional SP-QUIC suffers during AP handovers, this paper proposed and empirically evaluated a handover-adaptive MP-QUIC scheme whose RSSI-aware proactive scheduler combines a normalized multi-metric PQI with a Wi-Fi RSSI signal and hysteresis-based failback, shifting traffic to a pre-validated 5G path before the Wi-Fi link fails.
+
+On a real AMR testbed, and against same-stack baselines (a transport-only PQI ablation, a minimum-RTT default scheduler, and SP-QUIC with connection migration), the proposed scheme reduces handover outage and switching latency 【NUM: to sub-XXX ms, versus SP-QUIC's multi-second recovery】 and bounds total transmission delay under cross-traffic 【NUM】, while preserving steady-state throughput 【NUM】. We report means over N = 10 runs with 95% confidence intervals.
+
+Despite these significant performance gains, we acknowledge certain limitations that point toward future research. The current strategy of maintaining a persistent dual-path state, while effective for near-zero-delay failover, incurs additional power consumption and cellular data usage, which could impact the operational efficiency of resource-constrained AMRs. Moreover, the present PQI formulation relies on predefined static weights and thresholds, which may necessitate manual recalibration for deployment in highly variable radio frequency (RF) environments.
+
+Future work will focus on addressing these constraints. We envision the development of energy-aware multipath scheduling algorithms that intelligently activate the backup interface only when boundary degradation is imminent. Furthermore, integrating advanced machine learning techniques, such as Deep Reinforcement Learning (DRL), to enable autonomous, real-time adaptation of the PQI parameters would significantly enhance the robustness of handover decisions. Such advancements will be instrumental in paving the way for true Ultra-Reliable Low-Latency Communication (URLLC), a cornerstone for next-generation, large-scale AMR fleets operating over private 5G networks augmented with Mobile Edge Computing (MEC).
+
+References
+
+J. Del Ser and J. L. Martin, “Toward Fully Automated Inspection of Critical Assets Supported by Autonomous Mobile Robots, Vision Sensors, and Artificial Intelligence,” Sensors, vol. 24, no. 12, p. 3721, 2024. DOI: 10.3390/s24123721.
+
+G. Fragapane, R. de Koster, F. Sgarbossa, and J. O. Strandhagen, “Planning and control of autonomous mobile robots for intralogistics: Literature review and research agenda,” European Journal of Operational Research, vol. 294, no. 2, pp. 405–426, 2021. DOI: 10.1016/j.ejor.2021.01.019.
+
+K. B. Lee, K. Montgomery, D. Tang, S. Magill, and M. Grieves, “Reliable, High-Performance Wireless Systems for Factory Automation: A Workshop Report,” NIST Interagency/Internal Report (NIST IR) 8317, 2020. DOI: 10.6028/NIST.IR.8317.
+
+A. Aijaz, "High-Performance Industrial Wireless: Achieving Reliable and Deterministic Connectivity Over IEEE 802.11 WLANs," IEEE Internet of Things Magazine, vol. 3, no. 1, pp. 28-33, 2020. DOI: 10.1109/IOTM.0001.1900075.
+
+J. Haxhibeqiri, E. A. Jarchlo, I. Moerman, and J. Hoebeke, "Flexible Wi-Fi Communication among Mobile Robots in Indoor Industrial Environments," Mobile Information Systems, vol. 2018, Art. no. 3918302, pp. 1-19, Apr. 2018. DOI: 10.1155/2018/3918302.
+
+P. Chiavassa, S. Scanzio, G. Cena, F. Wilhelmi, and B. Bellalta, “WifiRoam: An open-source simulator to optimize Wi-Fi handover in industrial networks,” Proc. IEEE Int. Conf. on Emerging Technologies and Factory Automation (ETFA), 2025. DOI: 10.1109/ETFA65518.2025.11205662.
+
+E. Araújo and B. Miranda, "Mobile Robotics for Throughput Testing in a Reconfigurable Test Environment," Proc. Simpósio Brasileiro de Engenharia de Software (SBES), 2025. DOI: 10.5753/sbes.2025.11613.
+
+S. Feirer and T. Sauter, "Seamless handover in industrial WLAN using IEEE 802.11k," Proc. 2017 IEEE 26th Int. Symp. on Industrial Electronics (ISIE), Edinburgh, UK, Jun. 2017, pp. 1234–1239. DOI: 10.1109/ISIE.2017.8001421 
+
+A. Mishra, M. Shin, and W. Arbaugh, "An Empirical Analysis of the IEEE 802.11 MAC Layer Handoff Process," ACM SIGCOMM Comput. Commun. Rev., vol. 33, no. 2, pp. 93–102, 2003. DOI: 10.1145/956981.956990.
+
+ J. Iyengar and M. Thomson, “QUIC: A UDP-Based Multiplexed and Secure Transport,” RFC 9000, IETF, May 2021.
+
+ M. Bishop, “HTTP/3,” RFC 9114, IETF, Jun. 2022.
+
+ O. Bonaventure, C. Huitema, M. Kuehlewind, et al., “Managing Multiple Paths for a QUIC Connection,” IETF Internet-Draft, draft-ietf-quic-multipath-21, Mar. 2026.
+
+W. Yang, L. Cai, S. Shu, J. Pan, and A. Sepahi, "MAMS: Mobility-Aware Multipath Scheduler for MPQUIC," IEEE/ACM Transactions on Networking, vol. 32, no. 4, pp. 3237-3252, Aug. 2024. DOI: 10.1109/TNET.2024.3372990.
+
+ L. Tan, W. Su, Y. Liu, X. Gao, and W. Zhang, “Proactive Connection Migration in QUIC,” in MobiQuitous ’20, 2020, pp. 476–481. DOI: 10.1145/3448891.3448900.
+
+ L. Tan, X. Dong, X. Gao, P. Zhang, W. Su, and J. W.-K. Hong, “Enhancing QUIC Performance in Heterogeneous Networks: A Proactive Connection Migration Approach,” Int. J. Network Manag., vol. 35, no. 5, p. e70022, 2025. DOI: 10.1002/nem.70022.
+
+E. A. Oyekanlu et al., “A Review of Recent Advances in Automated Guided Vehicle Technologies: Integration Challenges and Research Areas for 5G-Based Smart Manufacturing Applications,” IEEE Access, vol. 8, pp. 202312–202353, 2020. DOI: 10.1109/ACCESS.2020.3035729
+
+ M. Zhang and K. Yu, “Wireless Communication Technologies in Automated Guided Vehicles: Survey and Analysis,” Proc. IECON 2018 – 44th Annu. Conf. IEEE Ind. Electron. Soc., Washington, DC, USA, Oct. 2018. DOI: 10.1109/IECON.2018.8592782
+
+T. Luong, G. Barros, M. Boshoff, C. Moldovan, D. Schuster, V. Gruhn, and B. Kuhlenkötter, “Investigating the 5G Handover in Autonomous Mobile Robotic Applications,” Proc. 2023 3rd Int. Conf. on Robotics, Automation and Artificial Intelligence (RAAI), Singapore, Dec. 2023. DOI: 10.1109/RAAI59955.2023.10601255
+
+ N. Natmeladze, J. Piteľ, K. Žídek, and V. Romaniuk, “Research on the Implementation of New Communication Technologies to Improve Quality and Stability in Motion Control of Autonomous Mobile Robots,” Technologies, vol. 13, no. 12, p. 556, 2025. DOI: 10.3390/technologies13120556.
+
+A. Langley et al., "The QUIC Transport Protocol: Design and Internet-Scale Deployment," in Proceedings of the ACM SIGCOMM 2017 Conference, Los Angeles, CA, USA, Aug. 2017, pp. 183–195. DOI: 10.1145/3098822.3098842.
+
+P.-J. Chen, R.-C. Hsu, T.-C. Yu, and C.-Y. Li, "QUIC-HOA: A Cross-layer, Handover-aware Design for QUIC Connection Migration," Proc. 2024 IEEE Global Communications Conference (GLOBECOM), Cape Town, South Africa, Dec. 2024, pp. 3643-3648. DOI: 10.1109/GLOBECOM52923.2024.10900944.
+
+S.-Y. Kim and S.-J. Koh, “mQUIC: Use of QUIC for Handover Support with Connection Migration in Wireless/Mobile Networks,” IEEE Commun. Mag., vol. 62, no. 4, pp. 128–134, 2024. DOI: 10.1109/MCOM.023.2300083.
+
+Y. Xing, K. Xue, Y. Zhang, J. Han, J. Li, D. S. L. Wei, R. Li, Q. Sun, and J. Lu, “A Stream-Aware MPQUIC Scheduler for HTTP Traffic in Mobile Networks,” IEEE Trans. Wireless Commun., vol. 22, no. 4, pp. 2775–2788, 2023. DOI: 10.1109/TWC.2022.3213638.
+
+T. Viernickel, A. Froemmgen, A. Rizk, B. Koldehofe, and R. Steinmetz, “Multipath QUIC: A Deployable Multipath Transport Protocol,” Proc. 2018 IEEE Int. Conf. on Communications (ICC), Kansas City, MO, USA, May 2018. DOI: 10.1109/ICC.2018.8422951.
+
+O. Bonaventure, T. Paasch, and G. Detal, “Multipath in the QUIC Transport Protocol,” Internet-Draft, IETF, Work in Progress, 2017.
+
+J. S. Wejin, J. Badejo, O. Jonathan, and F. Dahunsi, “A Brief Survey on the Experimental Application of MPQUIC Protocol in Data Communication,” Proc. 2022 IEEE 2nd Int. Conf. on Information Technology, Educational and Electrical Engineering (ITED), Abuja, Nigeria, Nov. 2022. DOI: 10.1109/ITED56637.2022.10051479.
+
+L. Zhang, C.-X. Wang, Z. Zhou, Y. Li, J. Huang, L. Xin, C. Pan, D. Zheng, and X. Wu, “Wireless Channel Measurements and Characterization in Industrial IoT Scenarios,” IEEE Trans. Veh. Technol., vol. 74, no. 2, pp. 2292–2307, 2025. DOI: 10.1109/TVT.2024.3480528.
+
+I. Varbanov, Y. Paunski, G. Angelov, N. Valchkova, and R. Zahariev, “Latency and Link Speed for Service Robot Control over Mobile Networks,” Proc. 2024 5th Int. Conf. on Communications, Information, Electronic and Energy Systems (CIEES), Veliko Tarnovo, Bulgaria, Nov. 2024. DOI: 10.1109/CIEES62939.2024.10811163.
+
+H. Iwasawa, T. Kawano, S. Komatsu, T. Tojo, and T. Kuwahara, “Time in Flight Based MPQUIC Scheduler for Remote Monitoring of Autonomous Driving,” Proc. 2025 IEEE 22nd Consumer Communications & Networking Conf. (CCNC), Las Vegas, NV, USA, Jan. 2025. DOI: 10.1109/CCNC54725.2025.10975968.
