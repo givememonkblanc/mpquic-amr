@@ -12,7 +12,9 @@
 #endif
 
 #ifndef MAX_STREAMS
-#define MAX_STREAMS 16  /* 동시에 처리할 최대 스트림(경로) 수 */
+#define MAX_STREAMS 128  /* max concurrent reassembly slots (dual-stream × paths).
+                          * Single source of truth — frame_assembler.c's g_bank
+                          * relies on this; a smaller value silently drops streams. */
 #endif
 
 #ifndef MAX_FRAME_SIZE

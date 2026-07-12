@@ -286,14 +286,21 @@ static uint8_t* depth_png_to_preview_jpeg(const uint8_t* png_data, size_t png_le
             vmin = samples[n_valid / 50];       /*  2nd percentile */
             vmax = samples[(n_valid * 49) / 50]; /* 98th percentile */
             if (vmax <= vmin) vmax = vmin + 1;
-            /* Normalize */
+            /* Normalize per PIXEL from the original depth rows. `samples` is
+             * sorted (used only for the percentiles) — indexing it by raster
+             * position would scramble the image and read past n_valid. */
             float scale = 255.0f / (float)(vmax - vmin);
-            for (int i = 0; i < w * h; i++) {
-                uint16_t v = samples[i];
-                int u8 = (v <= vmin) ? 0 : (int)((v - vmin) * scale);
-                if (u8 > 255) u8 = 255;
-                gray8[i] = (uint8_t)u8;
+            for (int y = 0; y < h; y++) {
+                uint16_t* row = (uint16_t*)rows[y];
+                for (int x = 0; x < w; x++) {
+                    uint16_t v = row[x];
+                    int u8 = (v <= vmin) ? 0 : (int)((v - vmin) * scale);
+                    if (u8 > 255) u8 = 255;
+                    gray8[y * w + x] = (uint8_t)u8;
+                }
             }
+        } else {
+            memset(gray8, 0, (size_t)(w * h)); /* no valid depth → all-black preview */
         }
         free(samples);
     } else {

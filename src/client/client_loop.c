@@ -495,10 +495,16 @@ static void fill_pqi_scores(tx_t* st, int primary_i, int backup_i) {
         nrssi = (st->scheduler_mode == scheduler_mode_rssi)
             ? rssi_penalty_from_dbm(st->path_rssi_ewma_dbm[i]) : 0;
 
+        /* Normalize by the sum of the ACTIVE weights. In pure-PQI mode the RSSI
+         * term is inactive (nrssi==0), so dividing by (1000+ω) would scale every
+         * score to ~77% of [0,1000] and make the absolute thresholds
+         * (PQI_DEGRADE_SCORE/PQI_RECOVER_SCORE) inconsistent with RSSI mode. */
+        uint64_t denom = (st->scheduler_mode == scheduler_mode_rssi)
+            ? (1000ULL + PQI_RSSI_WEIGHT) : 1000ULL;
         st->pqi_score[i] = (PQI_ALPHA * nrtt + PQI_BETA * nloss
                             + PQI_GAMMA * (1000ULL - nbw)
                             + PQI_RSSI_WEIGHT * nrssi)
-                         / (1000ULL + PQI_RSSI_WEIGHT);
+                         / denom;
     }
 }
 

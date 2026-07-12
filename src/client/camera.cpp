@@ -403,9 +403,11 @@ int camera_capture_jpeg(camera_handle_t handle, unsigned char* buffer, int buf_s
 
         if (ctx->is_depth) {
             // ── Depth path: 16-bit → PNG (lossless) ─────
-            static std::vector<uchar> png_buf;
+            // thread_local: depth and RGB capture threads both call this fn
+            // concurrently — a shared static buffer would be a data race.
+            thread_local std::vector<uchar> png_buf;
             png_buf.clear();
-            static std::vector<int> png_params;
+            thread_local std::vector<int> png_params;
             if (png_params.empty()) {
                 png_params.push_back(cv::IMWRITE_PNG_COMPRESSION);
                 png_params.push_back(3);
@@ -427,10 +429,10 @@ int camera_capture_jpeg(camera_handle_t handle, unsigned char* buffer, int buf_s
             cv::Mat gray8;
             if (frame.depth() == CV_16U && frame.channels() == 1) {
                 // Robust percentile normalization
-                cv::Mat flat = frame.reshape(1, 640 * 480);
+                int n = frame.rows * frame.cols;
+                cv::Mat flat = frame.reshape(1, n);
                 cv::Mat sorted;
                 cv::sort(flat, sorted, cv::SORT_EVERY_COLUMN + cv::SORT_ASCENDING);
-                int n = 640 * 480;
                 uint16_t* sp = sorted.ptr<uint16_t>(0);
                 uint16_t vmin = sp[n / 50];      //  2nd percentile
                 uint16_t vmax = sp[(n * 49) / 50]; // 98th percentile
@@ -445,9 +447,9 @@ int camera_capture_jpeg(camera_handle_t handle, unsigned char* buffer, int buf_s
             cv::Mat color;
             cv::applyColorMap(gray8, color, cv::COLORMAP_JET);
 
-            static std::vector<uchar> jpg_buf;
+            thread_local std::vector<uchar> jpg_buf;
             jpg_buf.clear();
-            static std::vector<int> jpg_params;
+            thread_local std::vector<int> jpg_params;
             if (jpg_params.empty()) {
                 jpg_params.push_back(cv::IMWRITE_JPEG_QUALITY);
                 jpg_params.push_back(85);
@@ -465,9 +467,9 @@ int camera_capture_jpeg(camera_handle_t handle, unsigned char* buffer, int buf_s
             return static_cast<int>(jpg_buf.size());
         } else {
             // ── RGB path: BGR → JPEG ────────────────────
-            static std::vector<uchar> jpg_buf;
+            thread_local std::vector<uchar> jpg_buf;
             jpg_buf.clear();
-            static std::vector<int> jpg_params;
+            thread_local std::vector<int> jpg_params;
             if (jpg_params.empty()) {
                 jpg_params.push_back(cv::IMWRITE_JPEG_QUALITY);
                 jpg_params.push_back(70);
@@ -516,9 +518,9 @@ int camera_capture_jpeg(camera_handle_t handle, unsigned char* buffer, int buf_s
     cv::putText(test_img, ts, cv::Point(20, 40),
                 cv::FONT_HERSHEY_SIMPLEX, 1.0, cv::Scalar(255, 255, 255), 2);
 
-    static std::vector<uchar> jpg_buf;
+    thread_local std::vector<uchar> jpg_buf;
     jpg_buf.clear();
-    static std::vector<int> test_compress_params;
+    thread_local std::vector<int> test_compress_params;
     if (test_compress_params.empty()) {
         test_compress_params.push_back(cv::IMWRITE_JPEG_QUALITY);
         test_compress_params.push_back(70);
