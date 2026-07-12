@@ -14,11 +14,15 @@ SVR_PREVIEW="${SVR_PREVIEW:-0}"
 SVR_SAVE_FRAMES="${SVR_SAVE_FRAMES:-1}"
 SVR_PREVIEW_CMD="${SVR_PREVIEW_CMD:-}"
 
-# ── Single server IP; backup path goes through Tailscale subnet routing ──
-SERVER_IP="${SERVER_IP:-192.168.0.80}"
-PORT="${PORT:-4433}"
+# Deployment truth (SERVER_IP, EDGE_PROJECT_DIR, CLIENT_BIN, and crucially
+# SSH_ADDRESS=Tailscale) + shared ssh/env helpers. The Tailscale control channel
+# is essential here: the handover disconnects Wi-Fi, which would sever a
+# Wi-Fi-routed ssh session mid-experiment.
+source "${SCRIPT_DIR}/exp_env.sh"
+source "${SCRIPT_DIR}/lib/common.sh"
 
-EDGE_PROJECT_DIR="${EDGE_PROJECT_DIR:-/home/jetson/client_multi_path_enhanced}"
+PORT="${PORT:-4433}"
+EDGE_HOTSPOT_IFACE="${EDGE_HOTSPOT_IFACE:-enx924cc5c9a35f}"
 EDGE_WIRED_IFACE="${EDGE_WIRED_IFACE:-eno1}"
 DISABLE_EDGE_WIRED_IFACE="${DISABLE_EDGE_WIRED_IFACE:-0}"
 SKIP_EDGE_ROUTE_SETUP="${SKIP_EDGE_ROUTE_SETUP:-0}"
@@ -53,54 +57,21 @@ die(){ printf '[!] %s\n' "$*" >&2; exit 1; }
 [ -f "$ENV_FILE" ] || die "env file not found: $ENV_FILE"
 mkdir -p "$RUN_DIR" "$FRAMES_DIR"
 
-# ── Parse credentials ──
-SSH_ADDRESS="${SSH_ADDRESS:-$(python3 -c "
-import pathlib, re, sys
-text = pathlib.Path(sys.argv[1]).read_text()
-vals = {m.group(1): m.group(2) for m in re.finditer(r'^(ssh_address|ssh_id|ssh_password)\s*=\s*[\x27\"]([^\x27\"]+)[\x27\"]\s*$', text, re.M)}
-print(vals['ssh_address'])
-" "$ENV_FILE")}"
-SSH_ID="${SSH_ID:-$(python3 -c "
-import pathlib, re, sys
-text = pathlib.Path(sys.argv[1]).read_text()
-vals = {m.group(1): m.group(2) for m in re.finditer(r'^(ssh_address|ssh_id|ssh_password)\s*=\s*[\x27\"]([^\x27\"]+)[\x27\"]\s*$', text, re.M)}
-print(vals['ssh_id'])
-" "$ENV_FILE")}"
-SSH_PASSWORD="${SSH_PASSWORD:-$(python3 -c "
-import pathlib, re, sys
-text = pathlib.Path(sys.argv[1]).read_text()
-vals = {m.group(1): m.group(2) for m in re.finditer(r'^(ssh_address|ssh_id|ssh_password)\s*=\s*[\x27\"]([^\x27\"]+)[\x27\"]\s*$', text, re.M)}
-print(vals['ssh_password'])
-" "$ENV_FILE")}"
-
-ssh_edge() {
-    # Combine all args into one quoted string so SSH preserves quoting on the remote side
-    local cmd=""
-    for arg in "$@"; do
-        if [[ "$arg" =~ \  ]]; then
-            cmd="$cmd '$arg'"
-        else
-            cmd="$cmd $arg"
-        fi
-    done
-    sshpass -p "$SSH_PASSWORD" ssh -o StrictHostKeyChecking=no -o UserKnownHostsFile=/tmp/opencode/known_hosts "${SSH_ID}@${SSH_ADDRESS}" "$cmd"
-}
+# Credentials + ssh_edge/ssh_edge_sh come from lib/common.sh.
+parse_env
 
 setup_policy_routing() {
     [ "$SKIP_EDGE_ROUTE_SETUP" = "1" ] && return 0
-    if ! sshpass -p "$SSH_PASSWORD" ssh -o StrictHostKeyChecking=no -o UserKnownHostsFile=/tmp/opencode/known_hosts "${SSH_ID}@${SSH_ADDRESS}" \
-      "echo '$SSH_PASSWORD' | sudo -S sh -lc 'ip rule del from ${EDGE_WIFI_IP}/32 table 100 2>/dev/null || true; ip route flush table 100 2>/dev/null || true; ip route add ${SERVER_IP}/32 via 192.168.0.1 dev ${EDGE_WIFI_IFACE} table 100; ip rule add from ${EDGE_WIFI_IP}/32 table 100 priority 1000;'"; then
+    if ! ssh_edge_sh "echo '$SSH_PASSWORD' | sudo -S sh -lc 'ip rule del from ${EDGE_WIFI_IP}/32 table 100 2>/dev/null || true; ip route flush table 100 2>/dev/null || true; ip route add ${SERVER_IP}/32 via 192.168.0.1 dev ${EDGE_WIFI_IFACE} table 100; ip rule add from ${EDGE_WIFI_IP}/32 table 100 priority 1000;'"; then
         printf '[*] policy routing unsupported; falling back to direct Wi-Fi host route\n'
-        sshpass -p "$SSH_PASSWORD" ssh -o StrictHostKeyChecking=no -o UserKnownHostsFile=/tmp/opencode/known_hosts "${SSH_ID}@${SSH_ADDRESS}" \
-          "echo '$SSH_PASSWORD' | sudo -S sh -lc 'ip route del ${SERVER_IP}/32 via 165.229.169.1 dev ${EDGE_WIRED_IFACE} 2>/dev/null || true; ip route del ${SERVER_IP}/32 dev ${EDGE_WIRED_IFACE} 2>/dev/null || true; ip route replace ${SERVER_IP}/32 dev ${EDGE_WIFI_IFACE} src ${EDGE_WIFI_IP} metric 5'" \
+        ssh_edge_sh "echo '$SSH_PASSWORD' | sudo -S sh -lc 'ip route del ${SERVER_IP}/32 via 165.229.169.1 dev ${EDGE_WIRED_IFACE} 2>/dev/null || true; ip route del ${SERVER_IP}/32 dev ${EDGE_WIRED_IFACE} 2>/dev/null || true; ip route replace ${SERVER_IP}/32 dev ${EDGE_WIFI_IFACE} src ${EDGE_WIFI_IP} metric 5'" \
           || die "failed to install fallback Wi-Fi host route"
     fi
 }
 
 cleanup_policy_routing() {
     [ "$SKIP_EDGE_ROUTE_SETUP" = "1" ] && return 0
-    sshpass -p "$SSH_PASSWORD" ssh -o StrictHostKeyChecking=no -o UserKnownHostsFile=/tmp/opencode/known_hosts "${SSH_ID}@${SSH_ADDRESS}" \
-      "echo '$SSH_PASSWORD' | sudo -S sh -lc 'ip rule del from ${EDGE_WIFI_IP}/32 table 100 2>/dev/null || true; ip route flush table 100 2>/dev/null || true'" 2>/dev/null || true
+    ssh_edge_sh "echo '$SSH_PASSWORD' | sudo -S sh -lc 'ip rule del from ${EDGE_WIFI_IP}/32 table 100 2>/dev/null || true; ip route flush table 100 2>/dev/null || true'" 2>/dev/null || true
 }
 
 require_edge_interface() {
@@ -110,14 +81,12 @@ require_edge_interface() {
 
 disable_edge_wired_iface() {
     [ "$DISABLE_EDGE_WIRED_IFACE" = "1" ] || return 0
-    sshpass -p "$SSH_PASSWORD" ssh -o StrictHostKeyChecking=no -o UserKnownHostsFile=/tmp/opencode/known_hosts "${SSH_ID}@${SSH_ADDRESS}" \
-      "echo '$SSH_PASSWORD' | sudo -S ip link set ${EDGE_WIRED_IFACE} down"
+    ssh_edge_sh "echo '$SSH_PASSWORD' | sudo -S ip link set ${EDGE_WIRED_IFACE} down"
 }
 
 enable_edge_wired_iface() {
     [ "$DISABLE_EDGE_WIRED_IFACE" = "1" ] || return 0
-    sshpass -p "$SSH_PASSWORD" ssh -o StrictHostKeyChecking=no -o UserKnownHostsFile=/tmp/opencode/known_hosts "${SSH_ID}@${SSH_ADDRESS}" \
-      "echo '$SSH_PASSWORD' | sudo -S ip link set ${EDGE_WIRED_IFACE} up" 2>/dev/null || true
+    ssh_edge_sh "echo '$SSH_PASSWORD' | sudo -S ip link set ${EDGE_WIRED_IFACE} up" 2>/dev/null || true
 }
 
 # ── Print config ──
@@ -127,7 +96,7 @@ printf '├───────────────────────
 printf '│  Server:    %-43s │\n' "${SERVER_IP}:${PORT}"
 printf '│  Edge:      %-43s │\n' "${SSH_ID}@${SSH_ADDRESS}"
 printf '│  Wi‑Fi:     %-23s → %-14s │\n' "$EDGE_WIFI_IFACE" "$EDGE_WIFI_IP"
-printf '│  Hotspot:   %-23s → %-14s │\n' "enx924cc5c9a35f" "$EDGE_HOTSPOT_IP"
+printf '│  Hotspot:   %-23s → %-14s │\n' "$EDGE_HOTSPOT_IFACE" "$EDGE_HOTSPOT_IP"
 printf '│  Mode:      %-43s │\n' "$MODE_LABEL"
 printf '│  Runtime:   %-10s  Handover@+%ss  Reconnect@+%ss │\n' "${RUNTIME_SEC}s" "${HANDOVER_AT_SEC}" "$((HANDOVER_AT_SEC + FAILBACK_AFTER_SEC))"
 printf '│  Frames →   %-43s │\n' "$FRAMES_DIR"
@@ -139,7 +108,7 @@ SERVER_PID=$!
 # NOTE: edge has no passwordless sudo — use `sudo -S` with the ssh password
 # (same pattern as run_degradation_experiment.sh). Con name is parametrized.
 EDGE_WIFI_CON_NAME="${EDGE_WIFI_CON_NAME:-solfac 220 5G}"
-trap 'kill "$SERVER_PID" >/dev/null 2>&1 || true; enable_edge_wired_iface; cleanup_policy_routing; ssh_edge "echo '"'"'${SSH_PASSWORD}'"'"' | sudo -S nmcli con up \"${EDGE_WIFI_CON_NAME}\"" 2>/dev/null || true' EXIT
+trap 'kill "$SERVER_PID" >/dev/null 2>&1 || true; enable_edge_wired_iface; cleanup_policy_routing; ssh_edge_sh "echo '"'"'${SSH_PASSWORD}'"'"' | sudo -S nmcli con up \"${EDGE_WIFI_CON_NAME}\"" 2>/dev/null || true' EXIT
 
 sleep 3
 if ! kill -0 "$SERVER_PID" 2>/dev/null; then
@@ -149,15 +118,15 @@ printf '[*] Server started (PID %d)\n' "$SERVER_PID"
 
 # ── Install temporary source-policy routing on edge ──
 require_edge_interface "$EDGE_WIFI_IFACE"
-require_edge_interface "enx924cc5c9a35f"
+require_edge_interface "$EDGE_HOTSPOT_IFACE"
 disable_edge_wired_iface
 setup_policy_routing
 
 # ── 2. Start edge client ──
 # client_uploader argv contract:
 #   <server_ip> <primary_local_ip> [port] [backup_local_ip]
-# Primary: WiFi (192.168.0.13 → 192.168.0.80 direct)
-# Backup:  Tailscale (100.109.159.8 → 192.168.0.80 via subnet route)
+# Primary: WiFi (192.168.0.13 → the server (SERVER_IP) direct)
+# Backup:  Tailscale (100.109.159.8 → the server (SERVER_IP) via subnet route)
 # NOTE: env requires VAR=value form — the old `env MPQUIC_SCHED_MODE "$SCHED_MODE"`
 # made env try to EXECUTE "MPQUIC_SCHED_MODE" as a command (mode never applied).
 # Duration is pinned to RUNTIME_SEC: the client's internal default is 30 s and
@@ -169,12 +138,12 @@ printf '[*] Edge client started (PID %d) — %s\n' "$CLIENT_PID" "$CLIENT_BIN_NA
 # ── 3. Wait for handover point, then disconnect Wi‑Fi ──
 sleep "$HANDOVER_AT_SEC"
 printf '[*] *** HANDOVER: disconnect Wi‑Fi (%s) ***\n' "$EDGE_WIFI_IFACE"
-ssh_edge "echo '${SSH_PASSWORD}' | sudo -S nmcli device disconnect ${EDGE_WIFI_IFACE}" 2>&1 | head -5 || true
+ssh_edge_sh "echo '${SSH_PASSWORD}' | sudo -S nmcli device disconnect ${EDGE_WIFI_IFACE}" 2>&1 | head -5 || true
 
 # ── 4. Wait, then reconnect Wi‑Fi ──
 sleep "$FAILBACK_AFTER_SEC"
 printf '[*] *** FAILBACK: reconnect Wi‑Fi ***\n'
-ssh_edge "echo '${SSH_PASSWORD}' | sudo -S nmcli con up \"${EDGE_WIFI_CON_NAME}\"" 2>&1 | head -5 || true
+ssh_edge_sh "echo '${SSH_PASSWORD}' | sudo -S nmcli con up \"${EDGE_WIFI_CON_NAME}\"" 2>&1 | head -5 || true
 
 # ── 5. Wait for client/server to finish ──
 wait "$CLIENT_PID" 2>/dev/null || true
