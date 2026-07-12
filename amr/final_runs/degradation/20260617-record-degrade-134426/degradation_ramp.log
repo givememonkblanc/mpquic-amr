@@ -1,0 +1,21 @@
+=== degradation ramp start 2026-06-17T13:44:34+09:00 ===
+target: 192.168.0.80:4433 on wlP1p1s0
+ramp steps:
+  1% loss for 5s
+  3% loss for 5s
+  5% loss for 5s
+  10% loss for 5s
+  20% loss for 10s
+
+--- step: 1% loss for 5s (prob=.01) ---
+[sudo] jetson 암호: --- step 1% done ---
+--- step: 3% loss for 5s (prob=.03) ---
+[sudo] jetson 암호: --- step 3% done ---
+--- step: 5% loss for 5s (prob=.05) ---
+[sudo] jetson 암호: --- step 5% done ---
+--- step: 10% loss for 5s (prob=.10) ---
+[sudo] jetson 암호: --- step 10% done ---
+--- step: 20% loss for 10s (prob=.20) ---
+[sudo] jetson 암호: --- step 20% done ---
+=== clearing iptables, recovering for 15s ===
+=== experiment end 2026-06-17T13:45:24+09:00 ===

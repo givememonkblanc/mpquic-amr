@@ -1,0 +1,1814 @@
+[CLI] [MAIN] args: server=192.168.0.80 port=4433 alt=172.20.10.3 usb=192.168.0.13
+[CLI] [MAIN] creating QUIC ctx...
+[CLI] [MAIN] initial QUIC local addr forced to Wi-Fi
+[CLI] [MAIN] start_client_cnx ok state=0
+[CAM] using /dev/video0
+[CAM] real camera opened
+[CLI] [MAIN] binding main socket to Wi-Fi NIC...
+[CLI] [CAM] thread started
+[CLI] [SOCK] bound 192.168.0.13:55002 fd=10 (Hardware-Locked)
+[CLI] [SOCK] bound 172.20.10.3:51021 fd=11 (Hardware-Locked)
+[CLI] [MAIN] entering packet loop...
+[CLI] [TRACE] loop_cb mode=0 state=0 nb_paths=1 hs_done=0
+[CLI] [TRACE] alt socket port=40021 for hotspot path
+[CLI] [PROBE] Hotspot path missing. Creating NEW path...
+[CLI] [CB] handshake complete → ready
+[CLI] [EXP_HANDSHAKE] ts=164445375555 state=14
+[CLI] [EXP_PATH_STATE] ts=164445395299 idx=0 local_ip=192.168.0.13 verified=1 smoothed_rtt_us=1883 recv_rate_Bps=191364 lost_bytes=1236
+[CLI] [EXP_PATH_STATE] ts=164445395299 idx=1 local_ip=172.20.10.3 verified=1 smoothed_rtt_us=1971 recv_rate_Bps=191458 lost_bytes=0
+[CLI] [PQI_METRIC] ts=164445395378 verified=1 rtt=1.88ms loss=4.973% bw=1.460Mbps grade=1 score=1000
+[CLI] [PQI_METRIC] ts=164445395391 verified=1 rtt=1.97ms loss=0.000% bw=1.461Mbps grade=0 score=1000
+[CLI] [PQI] WLAN grade=1 score=550 rtt=1.88ms loss=4.973% bw=1.460Mbps
+[CLI] [PQI] USB  grade=1 score=450 rtt=1.97ms loss=0.000% bw=1.461Mbps
+[CLI] [PQI_SWITCH] ts=164445395299 from=-1 to=0 cause=prefer_wifi wifi_score=550 usb_score=450
+[CLI] [EXP_SEND] ts=164445395299 path_idx=0 local_ip=192.168.0.13 bytes=42559 sid=2
+[CLI] [PQI_METRIC] ts=164445423934 verified=1 rtt=1.99ms loss=1.500% bw=1.842Mbps grade=0 score=1000
+[CLI] [PQI_METRIC] ts=164445423972 verified=1 rtt=1.97ms loss=0.000% bw=1.843Mbps grade=0 score=1000
+[CLI] [PQI] WLAN grade=1 score=550 rtt=1.93ms loss=3.758% bw=1.536Mbps
+[CLI] [PQI] USB  grade=1 score=450 rtt=1.97ms loss=0.000% bw=1.537Mbps
+[CLI] [EXP_SEND] ts=164445423927 path_idx=0 local_ip=192.168.0.13 bytes=41953 sid=2
+[CLI] [PQI_METRIC] ts=164445460545 verified=1 rtt=2.09ms loss=0.828% bw=1.964Mbps grade=0 score=1000
+[CLI] [PQI_METRIC] ts=164445460582 verified=1 rtt=2.11ms loss=0.000% bw=1.952Mbps grade=0 score=1000
+[CLI] [PQI] WLAN grade=0 score=350 rtt=2.00ms loss=2.732% bw=1.622Mbps
+[CLI] [PQI] USB  grade=1 score=650 rtt=2.03ms loss=0.000% bw=1.620Mbps
+[CLI] [EXP_SEND] ts=164445460539 path_idx=0 local_ip=192.168.0.13 bytes=40897 sid=2
+[CLI] [PQI_METRIC] ts=164445493050 verified=1 rtt=1.81ms loss=0.572% bw=1.811Mbps grade=0 score=1000
+[CLI] [PQI_METRIC] ts=164445493080 verified=1 rtt=1.81ms loss=0.000% bw=1.810Mbps grade=0 score=1000
+[CLI] [PQI] WLAN grade=0 score=350 rtt=1.92ms loss=1.976% bw=1.660Mbps
+[CLI] [PQI] USB  grade=1 score=650 rtt=1.93ms loss=0.000% bw=1.658Mbps
+[CLI] [EXP_SEND] ts=164445493044 path_idx=0 local_ip=192.168.0.13 bytes=41174 sid=2
+[CLI] [PQI_METRIC] ts=164445529393 verified=1 rtt=2.35ms loss=0.429% bw=0.440Mbps grade=0 score=1000
+[CLI] [PQI_METRIC] ts=164445529411 verified=1 rtt=2.36ms loss=0.000% bw=0.440Mbps grade=0 score=1000
+[CLI] [PQI] WLAN grade=0 score=350 rtt=2.11ms loss=1.435% bw=1.416Mbps
+[CLI] [PQI] USB  grade=1 score=650 rtt=2.12ms loss=0.000% bw=1.414Mbps
+[CLI] [EXP_SEND] ts=164445529388 path_idx=0 local_ip=192.168.0.13 bytes=41058 sid=2
+[CLI] [PQI_METRIC] ts=164445561507 verified=1 rtt=2.29ms loss=0.345% bw=0.533Mbps grade=0 score=1000
+[CLI] [PQI_METRIC] ts=164445561519 verified=1 rtt=2.29ms loss=0.000% bw=0.533Mbps grade=0 score=1000
+[CLI] [PQI] WLAN grade=0 score=350 rtt=2.19ms loss=1.053% bw=1.239Mbps
+[CLI] [PQI] USB  grade=1 score=650 rtt=2.20ms loss=0.000% bw=1.238Mbps
+[CLI] [EXP_SEND] ts=164445561501 path_idx=0 local_ip=192.168.0.13 bytes=41333 sid=2
+[CLI] [PQI_METRIC] ts=164445594370 verified=1 rtt=2.36ms loss=0.288% bw=0.539Mbps grade=0 score=1000
+[CLI] [PQI_METRIC] ts=164445594383 verified=1 rtt=2.36ms loss=0.000% bw=0.536Mbps grade=0 score=1000
+[CLI] [PQI] WLAN grade=1 score=800 rtt=2.27ms loss=0.785% bw=1.099Mbps
+[CLI] [PQI] USB  grade=0 score=200 rtt=2.27ms loss=0.000% bw=1.098Mbps
+[CLI] [EXP_SEND] ts=164445594364 path_idx=0 local_ip=192.168.0.13 bytes=41690 sid=2
+[CLI] [PQI_METRIC] ts=164445630322 verified=1 rtt=2.48ms loss=0.243% bw=3.181Mbps grade=0 score=1000
+[CLI] [PQI_METRIC] ts=164445630341 verified=1 rtt=2.48ms loss=0.000% bw=3.181Mbps grade=0 score=1000
+[CLI] [PQI] WLAN grade=1 score=800 rtt=2.37ms loss=0.596% bw=1.516Mbps
+[CLI] [PQI] USB  grade=0 score=200 rtt=2.36ms loss=0.000% bw=1.514Mbps
+[CLI] [EXP_SEND] ts=164445630317 path_idx=0 local_ip=192.168.0.13 bytes=41560 sid=2
+[CLI] [PQI_METRIC] ts=164445662348 verified=1 rtt=2.47ms loss=0.213% bw=0.519Mbps grade=0 score=1000
+[CLI] [PQI_METRIC] ts=164445662362 verified=1 rtt=2.56ms loss=0.000% bw=0.519Mbps grade=0 score=1000
+[CLI] [PQI] WLAN grade=0 score=350 rtt=2.41ms loss=0.462% bw=1.316Mbps
+[CLI] [PQI] USB  grade=1 score=650 rtt=2.45ms loss=0.000% bw=1.315Mbps
+[CLI] [EXP_SEND] ts=164445662343 path_idx=0 local_ip=192.168.0.13 bytes=41484 sid=2
+[CLI] [PQI_METRIC] ts=164445694330 verified=1 rtt=2.48ms loss=0.190% bw=0.546Mbps grade=0 score=1000
+[CLI] [PQI_METRIC] ts=164445694349 verified=1 rtt=2.48ms loss=0.000% bw=0.546Mbps grade=0 score=1000
+[CLI] [PQI] WLAN grade=0 score=350 rtt=2.44ms loss=0.367% bw=1.162Mbps
+[CLI] [PQI] USB  grade=1 score=650 rtt=2.46ms loss=0.000% bw=1.161Mbps
+[CLI] [EXP_SEND] ts=164445694325 path_idx=0 local_ip=192.168.0.13 bytes=41408 sid=2
+[CLI] [PQI_METRIC] ts=164445730378 verified=1 rtt=2.29ms loss=0.171% bw=0.436Mbps grade=0 score=1000
+[CLI] [PQI_METRIC] ts=164445730393 verified=1 rtt=2.06ms loss=0.000% bw=0.437Mbps grade=0 score=1000
+[CLI] [PQI] WLAN grade=1 score=800 rtt=2.37ms loss=0.298% bw=1.017Mbps
+[CLI] [PQI] USB  grade=0 score=200 rtt=2.28ms loss=0.000% bw=1.016Mbps
+[CLI] [EXP_SEND] ts=164445730372 path_idx=0 local_ip=192.168.0.13 bytes=41275 sid=2
+[CLI] [PQI_METRIC] ts=164445762573 verified=1 rtt=2.43ms loss=0.156% bw=0.430Mbps grade=0 score=1000
+[CLI] [PQI_METRIC] ts=164445762586 verified=1 rtt=2.43ms loss=0.000% bw=0.430Mbps grade=0 score=1000
+[CLI] [PQI] WLAN grade=1 score=800 rtt=2.40ms loss=0.248% bw=0.900Mbps
+[CLI] [PQI] USB  grade=0 score=200 rtt=2.35ms loss=0.000% bw=0.899Mbps
+[CLI] [EXP_SEND] ts=164445762567 path_idx=0 local_ip=192.168.0.13 bytes=41410 sid=2
+[CLI] [PQI_METRIC] ts=164445794630 verified=1 rtt=2.09ms loss=0.143% bw=0.532Mbps grade=0 score=1000
+[CLI] [PQI_METRIC] ts=164445794643 verified=1 rtt=2.07ms loss=0.000% bw=0.531Mbps grade=0 score=1000
+[CLI] [PQI] WLAN grade=1 score=800 rtt=2.26ms loss=0.211% bw=0.826Mbps
+[CLI] [PQI] USB  grade=0 score=200 rtt=2.22ms loss=0.000% bw=0.826Mbps
+[CLI] [EXP_SEND] ts=164445794624 path_idx=0 local_ip=192.168.0.13 bytes=41419 sid=2
+[CLI] [PQI_METRIC] ts=164445831347 verified=1 rtt=2.19ms loss=0.131% bw=0.436Mbps grade=0 score=1000
+[CLI] [PQI_METRIC] ts=164445831360 verified=1 rtt=2.18ms loss=0.000% bw=0.436Mbps grade=0 score=1000
+[CLI] [PQI] WLAN grade=1 score=800 rtt=2.23ms loss=0.183% bw=0.748Mbps
+[CLI] [PQI] USB  grade=0 score=200 rtt=2.20ms loss=0.000% bw=0.748Mbps
+[CLI] [EXP_SEND] ts=164445831341 path_idx=0 local_ip=192.168.0.13 bytes=41476 sid=2
+[CLI] [PQI_METRIC] ts=164445863347 verified=1 rtt=2.33ms loss=0.122% bw=0.550Mbps grade=0 score=1000
+[CLI] [PQI_METRIC] ts=164445863363 verified=1 rtt=2.33ms loss=0.000% bw=0.540Mbps grade=0 score=1000
+[CLI] [PQI] WLAN grade=1 score=800 rtt=2.27ms loss=0.162% bw=0.708Mbps
+[CLI] [PQI] USB  grade=0 score=200 rtt=2.26ms loss=0.000% bw=0.706Mbps
+[CLI] [EXP_SEND] ts=164445863341 path_idx=0 local_ip=192.168.0.13 bytes=41861 sid=2
+[CLI] [PQI_METRIC] ts=164445899284 verified=1 rtt=2.46ms loss=0.114% bw=0.441Mbps grade=0 score=1000
+[CLI] [PQI_METRIC] ts=164445899298 verified=1 rtt=2.45ms loss=0.000% bw=0.441Mbps grade=0 score=1000
+[CLI] [PQI] WLAN grade=1 score=800 rtt=2.36ms loss=0.145% bw=0.655Mbps
+[CLI] [PQI] USB  grade=0 score=200 rtt=2.35ms loss=0.000% bw=0.653Mbps
+[CLI] [EXP_SEND] ts=164445899279 path_idx=0 local_ip=192.168.0.13 bytes=42178 sid=2
+[CLI] [PQI_METRIC] ts=164445931461 verified=1 rtt=2.51ms loss=0.107% bw=0.441Mbps grade=0 score=1000
+[CLI] [PQI_METRIC] ts=164445931474 verified=1 rtt=2.51ms loss=0.000% bw=0.441Mbps grade=0 score=1000
+[CLI] [PQI] WLAN grade=1 score=800 rtt=2.42ms loss=0.132% bw=0.612Mbps
+[CLI] [PQI] USB  grade=0 score=200 rtt=2.42ms loss=0.000% bw=0.611Mbps
+[CLI] [EXP_SEND] ts=164445931456 path_idx=0 local_ip=192.168.0.13 bytes=42117 sid=2
+[CLI] [PQI_METRIC] ts=164445963430 verified=1 rtt=2.83ms loss=0.100% bw=0.428Mbps grade=0 score=1000
+[CLI] [PQI_METRIC] ts=164445963446 verified=1 rtt=2.87ms loss=0.000% bw=0.431Mbps grade=0 score=1000
+[CLI] [PQI] WLAN grade=0 score=350 rtt=2.60ms loss=0.121% bw=0.575Mbps
+[CLI] [PQI] USB  grade=1 score=650 rtt=2.62ms loss=0.000% bw=0.575Mbps
+[CLI] [EXP_SEND] ts=164445963425 path_idx=0 local_ip=192.168.0.13 bytes=42127 sid=2
+[CLI] [PQI_METRIC] ts=164445998471 verified=1 rtt=2.71ms loss=0.094% bw=0.333Mbps grade=0 score=1000
+[CLI] [PQI_METRIC] ts=164445998489 verified=1 rtt=2.70ms loss=0.000% bw=0.333Mbps grade=0 score=1000
+[CLI] [PQI] WLAN grade=0 score=350 rtt=2.65ms loss=0.111% bw=0.527Mbps
+[CLI] [PQI] USB  grade=1 score=650 rtt=2.66ms loss=0.000% bw=0.526Mbps
+[CLI] [EXP_SEND] ts=164445998466 path_idx=0 local_ip=192.168.0.13 bytes=42376 sid=2
+[CLI] [PQI_METRIC] ts=164446031601 verified=1 rtt=2.48ms loss=0.089% bw=0.432Mbps grade=0 score=1000
+[CLI] [PQI_METRIC] ts=164446031618 verified=1 rtt=2.45ms loss=0.000% bw=0.432Mbps grade=0 score=1000
+[CLI] [PQI] WLAN grade=1 score=800 rtt=2.57ms loss=0.104% bw=0.508Mbps
+[CLI] [PQI] USB  grade=0 score=200 rtt=2.57ms loss=0.000% bw=0.508Mbps
+[CLI] [EXP_SEND] ts=164446031589 path_idx=0 local_ip=192.168.0.13 bytes=42953 sid=2
+[CLI] [PQI_METRIC] ts=164446063573 verified=1 rtt=2.49ms loss=0.085% bw=0.439Mbps grade=0 score=1000
+[CLI] [PQI_METRIC] ts=164446063592 verified=1 rtt=2.52ms loss=0.000% bw=0.439Mbps grade=0 score=1000
+[CLI] [PQI] WLAN grade=0 score=350 rtt=2.54ms loss=0.097% bw=0.494Mbps
+[CLI] [PQI] USB  grade=1 score=650 rtt=2.55ms loss=0.000% bw=0.494Mbps
+[CLI] [EXP_SEND] ts=164446063566 path_idx=0 local_ip=192.168.0.13 bytes=43908 sid=2
+[CLI] [PQI_METRIC] ts=164446098755 verified=1 rtt=2.60ms loss=0.080% bw=0.442Mbps grade=0 score=1000
+[CLI] [PQI_METRIC] ts=164446098773 verified=1 rtt=2.59ms loss=0.000% bw=0.442Mbps grade=0 score=1000
+[CLI] [PQI] WLAN grade=0 score=350 rtt=2.57ms loss=0.091% bw=0.484Mbps
+[CLI] [PQI] USB  grade=1 score=650 rtt=2.57ms loss=0.000% bw=0.483Mbps
+[CLI] [EXP_SEND] ts=164446098749 path_idx=0 local_ip=192.168.0.13 bytes=44982 sid=2
+[CLI] [PQI_METRIC] ts=164446130767 verified=1 rtt=2.98ms loss=0.077% bw=0.331Mbps grade=0 score=1000
+[CLI] [PQI_METRIC] ts=164446130782 verified=1 rtt=2.99ms loss=0.000% bw=0.331Mbps grade=0 score=1000
+[CLI] [PQI] WLAN grade=0 score=350 rtt=2.75ms loss=0.086% bw=0.453Mbps
+[CLI] [PQI] USB  grade=1 score=650 rtt=2.76ms loss=0.000% bw=0.453Mbps
+[CLI] [EXP_SEND] ts=164446130760 path_idx=0 local_ip=192.168.0.13 bytes=45515 sid=2
+[CLI] [PQI_METRIC] ts=164446162758 verified=1 rtt=2.79ms loss=0.073% bw=0.660Mbps grade=0 score=1000
+[CLI] [PQI_METRIC] ts=164446162774 verified=1 rtt=2.83ms loss=0.000% bw=0.660Mbps grade=0 score=1000
+[CLI] [PQI] WLAN grade=0 score=350 rtt=2.77ms loss=0.081% bw=0.494Mbps
+[CLI] [PQI] USB  grade=1 score=650 rtt=2.79ms loss=0.000% bw=0.494Mbps
+[CLI] [EXP_SEND] ts=164446162752 path_idx=0 local_ip=192.168.0.13 bytes=45641 sid=2
+[CLI] [PQI_METRIC] ts=164446198666 verified=1 rtt=2.41ms loss=0.070% bw=0.222Mbps grade=0 score=1000
+[CLI] [PQI_METRIC] ts=164446198682 verified=1 rtt=2.39ms loss=0.000% bw=0.222Mbps grade=0 score=1000
+[CLI] [PQI] WLAN grade=0 score=350 rtt=2.61ms loss=0.077% bw=0.440Mbps
+[CLI] [PQI] USB  grade=1 score=650 rtt=2.61ms loss=0.000% bw=0.440Mbps
+[CLI] [EXP_SEND] ts=164446198660 path_idx=0 local_ip=192.168.0.13 bytes=44665 sid=2
+[CLI] [PQI_METRIC] ts=164446230774 verified=1 rtt=2.82ms loss=0.067% bw=0.355Mbps grade=0 score=1000
+[CLI] [PQI_METRIC] ts=164446230789 verified=1 rtt=2.83ms loss=0.000% bw=0.355Mbps grade=0 score=1000
+[CLI] [PQI] WLAN grade=0 score=350 rtt=2.70ms loss=0.074% bw=0.423Mbps
+[CLI] [PQI] USB  grade=1 score=650 rtt=2.71ms loss=0.000% bw=0.423Mbps
+[CLI] [EXP_SEND] ts=164446230768 path_idx=0 local_ip=192.168.0.13 bytes=44151 sid=2
+[CLI] [PQI_METRIC] ts=164446266611 verified=1 rtt=2.96ms loss=0.064% bw=0.924Mbps grade=0 score=1000
+[CLI] [PQI_METRIC] ts=164446266625 verified=1 rtt=3.08ms loss=0.000% bw=0.925Mbps grade=0 score=1000
+[CLI] [PQI] WLAN grade=1 score=550 rtt=2.82ms loss=0.070% bw=0.523Mbps
+[CLI] [PQI] USB  grade=1 score=450 rtt=2.87ms loss=0.000% bw=0.523Mbps
+[CLI] [EXP_SEND] ts=164446266605 path_idx=0 local_ip=192.168.0.13 bytes=43606 sid=2
+[CLI] [PQI_METRIC] ts=164446298580 verified=1 rtt=2.91ms loss=0.061% bw=0.343Mbps grade=0 score=1000
+[CLI] [PQI_METRIC] ts=164446298595 verified=1 rtt=2.89ms loss=0.000% bw=0.343Mbps grade=0 score=1000
+[CLI] [PQI] WLAN grade=1 score=550 rtt=2.86ms loss=0.067% bw=0.487Mbps
+[CLI] [PQI] USB  grade=1 score=450 rtt=2.88ms loss=0.000% bw=0.487Mbps
+[CLI] [EXP_SEND] ts=164446298575 path_idx=0 local_ip=192.168.0.13 bytes=42756 sid=2
+[CLI] [PQI_METRIC] ts=164446330545 verified=1 rtt=2.95ms loss=0.059% bw=0.357Mbps grade=0 score=1000
+[CLI] [PQI_METRIC] ts=164446330558 verified=1 rtt=2.96ms loss=0.000% bw=0.357Mbps grade=0 score=1000
+[CLI] [PQI] WLAN grade=1 score=550 rtt=2.90ms loss=0.064% bw=0.461Mbps
+[CLI] [PQI] USB  grade=1 score=450 rtt=2.92ms loss=0.000% bw=0.461Mbps
+[CLI] [EXP_SEND] ts=164446330539 path_idx=0 local_ip=192.168.0.13 bytes=42407 sid=2
+[CLI] [TRACE] loop_cb mode=2 state=14 nb_paths=2 hs_done=1
+[CLI] [PQI_METRIC] ts=164446366543 verified=1 rtt=2.57ms loss=0.057% bw=0.377Mbps grade=0 score=1000
+[CLI] [PQI_METRIC] ts=164446366555 verified=1 rtt=2.57ms loss=0.000% bw=0.379Mbps grade=0 score=1000
+[CLI] [PQI] WLAN grade=1 score=550 rtt=2.75ms loss=0.062% bw=0.444Mbps
+[CLI] [PQI] USB  grade=1 score=450 rtt=2.76ms loss=0.000% bw=0.445Mbps
+[CLI] [EXP_SEND] ts=164446366537 path_idx=0 local_ip=192.168.0.13 bytes=42451 sid=2
+[CLI] [EXP_PATH_STATE] ts=164446398579 idx=0 local_ip=192.168.0.13 verified=1 smoothed_rtt_us=2906 recv_rate_Bps=49382 lost_bytes=1236
+[CLI] [EXP_PATH_STATE] ts=164446398579 idx=1 local_ip=172.20.10.3 verified=1 smoothed_rtt_us=2905 recv_rate_Bps=49370 lost_bytes=0
+[CLI] [PQI_METRIC] ts=164446398600 verified=1 rtt=2.91ms loss=0.055% bw=0.377Mbps grade=0 score=1000
+[CLI] [PQI_METRIC] ts=164446398606 verified=1 rtt=2.90ms loss=0.000% bw=0.377Mbps grade=0 score=1000
+[CLI] [PQI] WLAN grade=1 score=550 rtt=2.82ms loss=0.059% bw=0.431Mbps
+[CLI] [PQI] USB  grade=1 score=450 rtt=2.82ms loss=0.000% bw=0.431Mbps
+[CLI] [EXP_SEND] ts=164446398579 path_idx=0 local_ip=192.168.0.13 bytes=42422 sid=2
+[CLI] [PQI_METRIC] ts=164446430525 verified=1 rtt=2.46ms loss=0.053% bw=0.503Mbps grade=0 score=1000
+[CLI] [PQI_METRIC] ts=164446430538 verified=1 rtt=2.47ms loss=0.000% bw=0.503Mbps grade=0 score=1000
+[CLI] [PQI] WLAN grade=1 score=550 rtt=2.66ms loss=0.057% bw=0.445Mbps
+[CLI] [PQI] USB  grade=1 score=450 rtt=2.66ms loss=0.000% bw=0.446Mbps
+[CLI] [EXP_SEND] ts=164446430519 path_idx=0 local_ip=192.168.0.13 bytes=42660 sid=2
+[CLI] [PQI_METRIC] ts=164446466518 verified=1 rtt=3.63ms loss=0.051% bw=0.768Mbps grade=0 score=1000
+[CLI] [PQI_METRIC] ts=164446466535 verified=1 rtt=3.73ms loss=0.000% bw=0.768Mbps grade=0 score=1000
+[CLI] [PQI] WLAN grade=1 score=550 rtt=3.10ms loss=0.055% bw=0.510Mbps
+[CLI] [PQI] USB  grade=1 score=450 rtt=3.14ms loss=0.000% bw=0.510Mbps
+[CLI] [EXP_SEND] ts=164446466513 path_idx=0 local_ip=192.168.0.13 bytes=41866 sid=2
+[CLI] [PQI_METRIC] ts=164446498397 verified=1 rtt=3.01ms loss=0.050% bw=0.379Mbps grade=0 score=1000
+[CLI] [PQI_METRIC] ts=164446498410 verified=1 rtt=3.01ms loss=0.000% bw=0.379Mbps grade=0 score=1000
+[CLI] [PQI] WLAN grade=1 score=550 rtt=3.06ms loss=0.053% bw=0.484Mbps
+[CLI] [PQI] USB  grade=1 score=450 rtt=3.08ms loss=0.000% bw=0.484Mbps
+[CLI] [EXP_SEND] ts=164446498391 path_idx=0 local_ip=192.168.0.13 bytes=41110 sid=2
+[CLI] [PQI_METRIC] ts=164446530593 verified=1 rtt=3.51ms loss=0.048% bw=0.901Mbps grade=0 score=1000
+[CLI] [PQI_METRIC] ts=164446530606 verified=1 rtt=3.48ms loss=0.000% bw=0.901Mbps grade=0 score=1000
+[CLI] [PQI] WLAN grade=1 score=550 rtt=3.26ms loss=0.052% bw=0.567Mbps
+[CLI] [PQI] USB  grade=1 score=450 rtt=3.26ms loss=0.000% bw=0.567Mbps
+[CLI] [EXP_SEND] ts=164446530587 path_idx=0 local_ip=192.168.0.13 bytes=41020 sid=2
+[CLI] [PQI_METRIC] ts=164446566644 verified=1 rtt=2.69ms loss=0.047% bw=0.373Mbps grade=0 score=1000
+[CLI] [PQI_METRIC] ts=164446566658 verified=1 rtt=2.73ms loss=0.000% bw=0.373Mbps grade=0 score=1000
+[CLI] [PQI] WLAN grade=1 score=550 rtt=3.00ms loss=0.050% bw=0.528Mbps
+[CLI] [PQI] USB  grade=1 score=450 rtt=3.02ms loss=0.000% bw=0.528Mbps
+[CLI] [EXP_SEND] ts=164446566639 path_idx=0 local_ip=192.168.0.13 bytes=41283 sid=2
+[CLI] [PQI_METRIC] ts=164446599341 verified=1 rtt=2.74ms loss=0.046% bw=0.378Mbps grade=0 score=1000
+[CLI] [PQI_METRIC] ts=164446599356 verified=1 rtt=2.74ms loss=0.000% bw=0.378Mbps grade=0 score=1000
+[CLI] [PQI] WLAN grade=1 score=550 rtt=2.88ms loss=0.048% bw=0.498Mbps
+[CLI] [PQI] USB  grade=1 score=450 rtt=2.90ms loss=0.000% bw=0.498Mbps
+[CLI] [EXP_SEND] ts=164446599336 path_idx=0 local_ip=192.168.0.13 bytes=41445 sid=2
+[CLI] [PQI_METRIC] ts=164446635360 verified=1 rtt=2.69ms loss=0.044% bw=0.388Mbps grade=0 score=1000
+[CLI] [PQI_METRIC] ts=164446635376 verified=1 rtt=2.71ms loss=0.000% bw=0.388Mbps grade=0 score=1000
+[CLI] [PQI] WLAN grade=1 score=550 rtt=2.79ms loss=0.047% bw=0.476Mbps
+[CLI] [PQI] USB  grade=1 score=450 rtt=2.81ms loss=0.000% bw=0.476Mbps
+[CLI] [EXP_SEND] ts=164446635355 path_idx=0 local_ip=192.168.0.13 bytes=41581 sid=2
+[CLI] [PQI_METRIC] ts=164446667370 verified=1 rtt=3.26ms loss=0.043% bw=0.124Mbps grade=0 score=1000
+[CLI] [PQI_METRIC] ts=164446667386 verified=1 rtt=3.34ms loss=0.000% bw=0.124Mbps grade=0 score=1000
+[CLI] [PQI] WLAN grade=1 score=550 rtt=3.01ms loss=0.046% bw=0.406Mbps
+[CLI] [PQI] USB  grade=1 score=450 rtt=3.05ms loss=0.000% bw=0.406Mbps
+[CLI] [EXP_SEND] ts=164446667365 path_idx=0 local_ip=192.168.0.13 bytes=41648 sid=2
+[CLI] [PQI_METRIC] ts=164446699336 verified=1 rtt=3.00ms loss=0.042% bw=0.592Mbps grade=0 score=1000
+[CLI] [PQI_METRIC] ts=164446699352 verified=1 rtt=3.05ms loss=0.000% bw=0.593Mbps grade=0 score=1000
+[CLI] [PQI] WLAN grade=1 score=550 rtt=3.00ms loss=0.044% bw=0.443Mbps
+[CLI] [PQI] USB  grade=1 score=450 rtt=3.05ms loss=0.000% bw=0.443Mbps
+[CLI] [EXP_SEND] ts=164446699330 path_idx=0 local_ip=192.168.0.13 bytes=41672 sid=2
+[CLI] [PQI_METRIC] ts=164446735381 verified=1 rtt=2.82ms loss=0.041% bw=0.375Mbps grade=0 score=1000
+[CLI] [PQI_METRIC] ts=164446735396 verified=1 rtt=2.81ms loss=0.000% bw=0.375Mbps grade=0 score=1000
+[CLI] [PQI] WLAN grade=1 score=550 rtt=2.92ms loss=0.043% bw=0.429Mbps
+[CLI] [PQI] USB  grade=1 score=450 rtt=2.94ms loss=0.000% bw=0.430Mbps
+[CLI] [EXP_SEND] ts=164446735375 path_idx=0 local_ip=192.168.0.13 bytes=41736 sid=2
+[CLI] [PQI_METRIC] ts=164446767397 verified=1 rtt=2.86ms loss=0.040% bw=0.379Mbps grade=0 score=1000
+[CLI] [PQI_METRIC] ts=164446767411 verified=1 rtt=2.87ms loss=0.000% bw=0.379Mbps grade=0 score=1000
+[CLI] [PQI] WLAN grade=1 score=550 rtt=2.89ms loss=0.042% bw=0.419Mbps
+[CLI] [PQI] USB  grade=1 score=450 rtt=2.91ms loss=0.000% bw=0.419Mbps
+[CLI] [EXP_SEND] ts=164446767392 path_idx=0 local_ip=192.168.0.13 bytes=41728 sid=2
+[CLI] [PQI_METRIC] ts=164446799266 verified=1 rtt=3.48ms loss=0.039% bw=0.122Mbps grade=0 score=1000
+[CLI] [PQI_METRIC] ts=164446799281 verified=1 rtt=3.52ms loss=0.000% bw=0.121Mbps grade=0 score=1000
+[CLI] [PQI] WLAN grade=1 score=550 rtt=3.16ms loss=0.041% bw=0.360Mbps
+[CLI] [PQI] USB  grade=1 score=450 rtt=3.18ms loss=0.000% bw=0.360Mbps
+[CLI] [EXP_SEND] ts=164446799260 path_idx=0 local_ip=192.168.0.13 bytes=41656 sid=2
+[CLI] [PQI_METRIC] ts=164446835337 verified=1 rtt=2.84ms loss=0.038% bw=0.440Mbps grade=0 score=1000
+[CLI] [PQI_METRIC] ts=164446835351 verified=1 rtt=2.84ms loss=0.000% bw=0.440Mbps grade=0 score=1000
+[CLI] [PQI] WLAN grade=1 score=550 rtt=3.01ms loss=0.040% bw=0.376Mbps
+[CLI] [PQI] USB  grade=1 score=450 rtt=3.03ms loss=0.000% bw=0.376Mbps
+[CLI] [EXP_SEND] ts=164446835331 path_idx=0 local_ip=192.168.0.13 bytes=41296 sid=2
+[CLI] [PQI_METRIC] ts=164446867350 verified=1 rtt=3.32ms loss=0.037% bw=0.753Mbps grade=0 score=1000
+[CLI] [PQI_METRIC] ts=164446867364 verified=1 rtt=3.27ms loss=0.000% bw=0.754Mbps grade=0 score=1000
+[CLI] [PQI] WLAN grade=1 score=1000 rtt=3.15ms loss=0.039% bw=0.451Mbps
+[CLI] [PQI] USB  grade=0 score=0 rtt=3.14ms loss=0.000% bw=0.452Mbps
+[CLI] [EXP_SEND] ts=164446867344 path_idx=0 local_ip=192.168.0.13 bytes=41096 sid=2
+[CLI] [PQI_METRIC] ts=164446899236 verified=1 rtt=2.77ms loss=0.036% bw=0.382Mbps grade=0 score=1000
+[CLI] [PQI_METRIC] ts=164446899250 verified=1 rtt=2.78ms loss=0.000% bw=0.381Mbps grade=0 score=1000
+[CLI] [PQI] WLAN grade=1 score=1000 rtt=2.98ms loss=0.038% bw=0.437Mbps
+[CLI] [PQI] USB  grade=0 score=0 rtt=2.98ms loss=0.000% bw=0.437Mbps
+[CLI] [EXP_SEND] ts=164446899231 path_idx=0 local_ip=192.168.0.13 bytes=41031 sid=2
+[CLI] [PQI_METRIC] ts=164446935383 verified=1 rtt=2.58ms loss=0.036% bw=0.505Mbps grade=0 score=1000
+[CLI] [PQI_METRIC] ts=164446935397 verified=1 rtt=2.55ms loss=0.000% bw=0.505Mbps grade=0 score=1000
+[CLI] [PQI] WLAN grade=1 score=1000 rtt=2.80ms loss=0.037% bw=0.451Mbps
+[CLI] [PQI] USB  grade=0 score=0 rtt=2.78ms loss=0.000% bw=0.451Mbps
+[CLI] [EXP_SEND] ts=164446935377 path_idx=0 local_ip=192.168.0.13 bytes=41417 sid=2
+[CLI] [PQI_METRIC] ts=164446967293 verified=1 rtt=2.94ms loss=0.035% bw=0.380Mbps grade=0 score=1000
+[CLI] [PQI_METRIC] ts=164446967306 verified=1 rtt=2.95ms loss=0.000% bw=0.380Mbps grade=0 score=1000
+[CLI] [PQI] WLAN grade=1 score=1000 rtt=2.86ms loss=0.036% bw=0.437Mbps
+[CLI] [PQI] USB  grade=0 score=0 rtt=2.86ms loss=0.000% bw=0.437Mbps
+[CLI] [EXP_SEND] ts=164446967287 path_idx=0 local_ip=192.168.0.13 bytes=41657 sid=2
+[CLI] [PQI_METRIC] ts=164447003466 verified=1 rtt=2.36ms loss=0.034% bw=0.423Mbps grade=0 score=1000
+[CLI] [PQI_METRIC] ts=164447003480 verified=1 rtt=2.36ms loss=0.000% bw=0.423Mbps grade=0 score=1000
+[CLI] [PQI] WLAN grade=1 score=1000 rtt=2.64ms loss=0.036% bw=0.434Mbps
+[CLI] [PQI] USB  grade=0 score=0 rtt=2.63ms loss=0.000% bw=0.434Mbps
+[CLI] [EXP_SEND] ts=164447003460 path_idx=0 local_ip=192.168.0.13 bytes=42105 sid=2
+[CLI] [PQI_METRIC] ts=164447035506 verified=1 rtt=2.60ms loss=0.033% bw=0.384Mbps grade=0 score=1000
+[CLI] [PQI_METRIC] ts=164447035518 verified=1 rtt=2.61ms loss=0.000% bw=0.496Mbps grade=0 score=1000
+[CLI] [PQI] WLAN grade=1 score=550 rtt=2.62ms loss=0.035% bw=0.424Mbps
+[CLI] [PQI] USB  grade=1 score=450 rtt=2.62ms loss=0.000% bw=0.446Mbps
+[CLI] [EXP_SEND] ts=164447035500 path_idx=0 local_ip=192.168.0.13 bytes=42802 sid=2
+[CLI] [PQI_METRIC] ts=164447067603 verified=1 rtt=2.78ms loss=0.033% bw=0.379Mbps grade=0 score=1000
+[CLI] [PQI_METRIC] ts=164447067617 verified=1 rtt=2.80ms loss=0.000% bw=0.379Mbps grade=0 score=1000
+[CLI] [PQI] WLAN grade=1 score=550 rtt=2.69ms loss=0.034% bw=0.415Mbps
+[CLI] [PQI] USB  grade=1 score=450 rtt=2.70ms loss=0.000% bw=0.433Mbps
+[CLI] [EXP_SEND] ts=164447067597 path_idx=0 local_ip=192.168.0.13 bytes=43288 sid=2
+[CLI] [PQI_METRIC] ts=164447102609 verified=1 rtt=2.96ms loss=0.032% bw=0.503Mbps grade=0 score=1000
+[CLI] [PQI_METRIC] ts=164447102630 verified=1 rtt=3.10ms loss=0.000% bw=0.503Mbps grade=0 score=1000
+[CLI] [PQI] WLAN grade=1 score=550 rtt=2.81ms loss=0.033% bw=0.432Mbps
+[CLI] [PQI] USB  grade=1 score=450 rtt=2.88ms loss=0.000% bw=0.447Mbps
+[CLI] [EXP_SEND] ts=164447102603 path_idx=0 local_ip=192.168.0.13 bytes=43531 sid=2
+[CLI] [PQI_METRIC] ts=164447135489 verified=1 rtt=2.58ms loss=0.031% bw=0.535Mbps grade=0 score=1000
+[CLI] [PQI_METRIC] ts=164447135507 verified=1 rtt=2.57ms loss=0.000% bw=0.550Mbps grade=0 score=1000
+[CLI] [PQI] WLAN grade=1 score=550 rtt=2.71ms loss=0.033% bw=0.453Mbps
+[CLI] [PQI] USB  grade=1 score=450 rtt=2.74ms loss=0.000% bw=0.467Mbps
+[CLI] [EXP_SEND] ts=164447135483 path_idx=0 local_ip=192.168.0.13 bytes=43630 sid=2
+[CLI] [PQI_METRIC] ts=164447167508 verified=1 rtt=2.06ms loss=0.031% bw=0.376Mbps grade=0 score=1000
+[CLI] [PQI_METRIC] ts=164447167525 verified=1 rtt=2.32ms loss=0.000% bw=0.373Mbps grade=0 score=1000
+[CLI] [PQI] WLAN grade=1 score=550 rtt=2.42ms loss=0.032% bw=0.438Mbps
+[CLI] [PQI] USB  grade=1 score=450 rtt=2.55ms loss=0.000% bw=0.449Mbps
+[CLI] [EXP_SEND] ts=164447167502 path_idx=0 local_ip=192.168.0.13 bytes=43295 sid=2
+[CLI] [PQI_METRIC] ts=164447202509 verified=1 rtt=2.89ms loss=0.030% bw=0.508Mbps grade=0 score=1000
+[CLI] [PQI_METRIC] ts=164447202525 verified=1 rtt=2.54ms loss=0.000% bw=0.508Mbps grade=0 score=1000
+[CLI] [PQI] WLAN grade=1 score=1000 rtt=2.63ms loss=0.031% bw=0.452Mbps
+[CLI] [PQI] USB  grade=0 score=0 rtt=2.55ms loss=0.000% bw=0.461Mbps
+[CLI] [EXP_SEND] ts=164447202503 path_idx=0 local_ip=192.168.0.13 bytes=42157 sid=2
+[CLI] [PQI_METRIC] ts=164447235519 verified=1 rtt=3.14ms loss=0.029% bw=0.125Mbps grade=0 score=1000
+[CLI] [PQI_METRIC] ts=164447235537 verified=1 rtt=3.23ms loss=0.002% bw=0.125Mbps grade=0 score=1000
+[CLI] [PQI] WLAN grade=1 score=1000 rtt=2.86ms loss=0.031% bw=0.386Mbps
+[CLI] [PQI] USB  grade=0 score=0 rtt=2.85ms loss=0.001% bw=0.393Mbps
+[CLI] [EXP_SEND] ts=164447235513 path_idx=0 local_ip=192.168.0.13 bytes=41748 sid=2
+[CLI] [PQI_METRIC] ts=164447267440 verified=1 rtt=2.31ms loss=0.029% bw=0.375Mbps grade=0 score=1000
+[CLI] [PQI_METRIC] ts=164447267457 verified=1 rtt=2.37ms loss=0.002% bw=0.374Mbps grade=0 score=1000
+[CLI] [PQI] WLAN grade=1 score=550 rtt=2.61ms loss=0.030% bw=0.384Mbps
+[CLI] [PQI] USB  grade=1 score=450 rtt=2.64ms loss=0.001% bw=0.390Mbps
+[CLI] [EXP_SEND] ts=164447267434 path_idx=0 local_ip=192.168.0.13 bytes=41692 sid=2
+[CLI] [PQI_METRIC] ts=164447302492 verified=1 rtt=2.30ms loss=0.028% bw=0.376Mbps grade=0 score=1000
+[CLI] [PQI_METRIC] ts=164447302509 verified=1 rtt=2.60ms loss=0.002% bw=0.376Mbps grade=0 score=1000
+[CLI] [PQI] WLAN grade=1 score=550 rtt=2.47ms loss=0.029% bw=0.382Mbps
+[CLI] [PQI] USB  grade=1 score=450 rtt=2.62ms loss=0.001% bw=0.387Mbps
+[CLI] [EXP_SEND] ts=164447302486 path_idx=0 local_ip=192.168.0.13 bytes=41612 sid=2
+[CLI] [PQI_METRIC] ts=164447335453 verified=1 rtt=3.43ms loss=0.028% bw=0.125Mbps grade=0 score=1000
+[CLI] [PQI_METRIC] ts=164447335469 verified=1 rtt=4.17ms loss=0.002% bw=0.782Mbps grade=0 score=1000
+[CLI] [PQI] WLAN grade=1 score=550 rtt=2.90ms loss=0.029% bw=0.331Mbps
+[CLI] [PQI] USB  grade=1 score=450 rtt=3.32ms loss=0.002% bw=0.466Mbps
+[CLI] [EXP_SEND] ts=164447335447 path_idx=0 local_ip=192.168.0.13 bytes=41305 sid=2
+[CLI] [TRACE] loop_cb mode=2 state=14 nb_paths=2 hs_done=1
+[CLI] [PQI_METRIC] ts=164447371360 verified=1 rtt=3.17ms loss=0.027% bw=0.500Mbps grade=0 score=1000
+[CLI] [PQI_METRIC] ts=164447371375 verified=0 rtt=200.00ms loss=0.002% bw=0.501Mbps grade=1 score=1000
+[CLI] [PQI] WLAN grade=1 score=550 rtt=3.02ms loss=0.028% bw=0.365Mbps
+[CLI] [PQI] USB  grade=1 score=450 rtt=91.82ms loss=0.002% bw=0.473Mbps
+[CLI] [EXP_SEND] ts=164447371354 path_idx=0 local_ip=192.168.0.13 bytes=41250 sid=2
+[CLI] [EXP_PATH_STATE] ts=164447403394 idx=0 local_ip=192.168.0.13 verified=1 smoothed_rtt_us=2709 recv_rate_Bps=66448 lost_bytes=1236
+[CLI] [EXP_PATH_STATE] ts=164447403394 idx=1 local_ip=172.20.10.3 verified=1 smoothed_rtt_us=2840 recv_rate_Bps=66415 lost_bytes=40
+[CLI] [PQI_METRIC] ts=164447403415 verified=1 rtt=2.71ms loss=0.027% bw=0.507Mbps grade=0 score=1000
+[CLI] [PQI_METRIC] ts=164447403424 verified=1 rtt=2.84ms loss=0.002% bw=0.507Mbps grade=0 score=1000
+[CLI] [PQI] WLAN grade=1 score=550 rtt=2.88ms loss=0.028% bw=0.393Mbps
+[CLI] [PQI] USB  grade=1 score=450 rtt=51.78ms loss=0.002% bw=0.480Mbps
+[CLI] [EXP_SEND] ts=164447403394 path_idx=0 local_ip=192.168.0.13 bytes=41262 sid=2
+[CLI] [PQI_METRIC] ts=164447435366 verified=1 rtt=2.38ms loss=0.026% bw=0.504Mbps grade=0 score=1000
+[CLI] [PQI_METRIC] ts=164447435380 verified=1 rtt=2.30ms loss=0.002% bw=0.504Mbps grade=0 score=1000
+[CLI] [PQI] WLAN grade=1 score=550 rtt=2.66ms loss=0.027% bw=0.415Mbps
+[CLI] [PQI] USB  grade=1 score=450 rtt=29.51ms loss=0.002% bw=0.485Mbps
+[CLI] [EXP_SEND] ts=164447435361 path_idx=0 local_ip=192.168.0.13 bytes=41359 sid=2
+[CLI] [PQI_METRIC] ts=164447471287 verified=1 rtt=2.35ms loss=0.026% bw=0.495Mbps grade=0 score=1000
+[CLI] [PQI_METRIC] ts=164447471299 verified=1 rtt=2.27ms loss=0.002% bw=0.495Mbps grade=0 score=1000
+[CLI] [PQI] WLAN grade=1 score=550 rtt=2.52ms loss=0.027% bw=0.431Mbps
+[CLI] [PQI] USB  grade=1 score=450 rtt=17.26ms loss=0.002% bw=0.487Mbps
+[CLI] [EXP_SEND] ts=164447471281 path_idx=0 local_ip=192.168.0.13 bytes=41456 sid=2
+[CLI] [PQI_METRIC] ts=164447503411 verified=1 rtt=2.49ms loss=0.025% bw=0.516Mbps grade=0 score=1000
+[CLI] [PQI_METRIC] ts=164447503425 verified=1 rtt=2.35ms loss=0.002% bw=0.516Mbps grade=0 score=1000
+[CLI] [PQI] WLAN grade=1 score=550 rtt=2.50ms loss=0.026% bw=0.448Mbps
+[CLI] [PQI] USB  grade=1 score=450 rtt=10.55ms loss=0.002% bw=0.493Mbps
+[CLI] [EXP_SEND] ts=164447503406 path_idx=0 local_ip=192.168.0.13 bytes=41512 sid=2
+[CLI] [PQI_METRIC] ts=164447535423 verified=1 rtt=3.27ms loss=0.025% bw=0.249Mbps grade=0 score=1000
+[CLI] [PQI_METRIC] ts=164447535436 verified=1 rtt=3.52ms loss=0.002% bw=0.249Mbps grade=0 score=1000
+[CLI] [PQI] WLAN grade=1 score=550 rtt=2.85ms loss=0.026% bw=0.408Mbps
+[CLI] [PQI] USB  grade=1 score=450 rtt=7.38ms loss=0.002% bw=0.444Mbps
+[CLI] [EXP_SEND] ts=164447535418 path_idx=0 local_ip=192.168.0.13 bytes=41710 sid=2
+[CLI] [PQI_METRIC] ts=164447571427 verified=1 rtt=2.24ms loss=0.024% bw=0.381Mbps grade=0 score=1000
+[CLI] [PQI_METRIC] ts=164447571443 verified=1 rtt=2.21ms loss=0.002% bw=0.381Mbps grade=0 score=1000
+[CLI] [PQI] WLAN grade=1 score=550 rtt=2.58ms loss=0.025% bw=0.403Mbps
+[CLI] [PQI] USB  grade=1 score=450 rtt=5.06ms loss=0.002% bw=0.431Mbps
+[CLI] [EXP_SEND] ts=164447571422 path_idx=0 local_ip=192.168.0.13 bytes=41968 sid=2
+[CLI] [PQI_METRIC] ts=164447603404 verified=1 rtt=2.43ms loss=0.024% bw=0.495Mbps grade=0 score=1000
+[CLI] [PQI_METRIC] ts=164447603419 verified=1 rtt=2.54ms loss=0.002% bw=0.494Mbps grade=0 score=1000
+[CLI] [PQI] WLAN grade=1 score=550 rtt=2.51ms loss=0.025% bw=0.421Mbps
+[CLI] [PQI] USB  grade=1 score=450 rtt=3.92ms loss=0.002% bw=0.444Mbps
+[CLI] [EXP_SEND] ts=164447603398 path_idx=0 local_ip=192.168.0.13 bytes=41868 sid=2
+[CLI] [PQI_METRIC] ts=164447635447 verified=1 rtt=2.41ms loss=0.024% bw=0.496Mbps grade=0 score=1000
+[CLI] [PQI_METRIC] ts=164447635460 verified=1 rtt=2.17ms loss=0.002% bw=0.496Mbps grade=0 score=1000
+[CLI] [PQI] WLAN grade=1 score=550 rtt=2.47ms loss=0.024% bw=0.436Mbps
+[CLI] [PQI] USB  grade=1 score=450 rtt=3.13ms loss=0.002% bw=0.454Mbps
+[CLI] [EXP_SEND] ts=164447635441 path_idx=0 local_ip=192.168.0.13 bytes=42107 sid=2
+[CLI] [PQI_METRIC] ts=164447671420 verified=1 rtt=2.74ms loss=0.023% bw=0.123Mbps grade=0 score=1000
+[CLI] [PQI_METRIC] ts=164447671436 verified=1 rtt=3.82ms loss=0.002% bw=0.123Mbps grade=0 score=1000
+[CLI] [PQI] WLAN grade=1 score=550 rtt=2.59ms loss=0.024% bw=0.374Mbps
+[CLI] [PQI] USB  grade=1 score=450 rtt=3.44ms loss=0.002% bw=0.388Mbps
+[CLI] [EXP_SEND] ts=164447671414 path_idx=0 local_ip=192.168.0.13 bytes=42142 sid=2
+[CLI] [PQI_METRIC] ts=164447703408 verified=1 rtt=2.38ms loss=0.023% bw=0.381Mbps grade=0 score=1000
+[CLI] [PQI_METRIC] ts=164447703424 verified=1 rtt=2.42ms loss=0.002% bw=0.381Mbps grade=0 score=1000
+[CLI] [PQI] WLAN grade=1 score=550 rtt=2.49ms loss=0.023% bw=0.375Mbps
+[CLI] [PQI] USB  grade=1 score=450 rtt=2.98ms loss=0.002% bw=0.387Mbps
+[CLI] [EXP_SEND] ts=164447703403 path_idx=0 local_ip=192.168.0.13 bytes=42056 sid=2
+[CLI] [PQI_METRIC] ts=164447739294 verified=1 rtt=2.92ms loss=0.022% bw=0.126Mbps grade=0 score=1000
+[CLI] [PQI_METRIC] ts=164447739309 verified=1 rtt=3.20ms loss=0.002% bw=0.126Mbps grade=0 score=1000
+[CLI] [PQI] WLAN grade=1 score=550 rtt=2.69ms loss=0.023% bw=0.325Mbps
+[CLI] [PQI] USB  grade=1 score=450 rtt=3.08ms loss=0.002% bw=0.334Mbps
+[CLI] [EXP_SEND] ts=164447739288 path_idx=0 local_ip=192.168.0.13 bytes=42046 sid=2
+[CLI] [PQI_METRIC] ts=164447771419 verified=1 rtt=2.36ms loss=0.022% bw=0.496Mbps grade=0 score=1000
+[CLI] [PQI_METRIC] ts=164447771431 verified=1 rtt=2.47ms loss=0.002% bw=0.496Mbps grade=0 score=1000
+[CLI] [PQI] WLAN grade=1 score=550 rtt=2.54ms loss=0.023% bw=0.359Mbps
+[CLI] [PQI] USB  grade=1 score=450 rtt=2.80ms loss=0.002% bw=0.367Mbps
+[CLI] [EXP_SEND] ts=164447771413 path_idx=0 local_ip=192.168.0.13 bytes=42044 sid=2
+[CLI] [PQI_METRIC] ts=164447803478 verified=1 rtt=2.84ms loss=0.022% bw=0.951Mbps grade=0 score=1000
+[CLI] [PQI_METRIC] ts=164447803492 verified=1 rtt=3.35ms loss=0.002% bw=1.038Mbps grade=0 score=1000
+[CLI] [PQI] WLAN grade=1 score=550 rtt=2.67ms loss=0.022% bw=0.478Mbps
+[CLI] [PQI] USB  grade=1 score=450 rtt=3.05ms loss=0.002% bw=0.501Mbps
+[CLI] [EXP_SEND] ts=164447803472 path_idx=0 local_ip=192.168.0.13 bytes=41941 sid=2
+[CLI] [PQI_METRIC] ts=164447839408 verified=1 rtt=2.39ms loss=0.021% bw=0.494Mbps grade=0 score=1000
+[CLI] [PQI_METRIC] ts=164447839425 verified=1 rtt=2.12ms loss=0.002% bw=0.490Mbps grade=0 score=1000
+[CLI] [PQI] WLAN grade=1 score=550 rtt=2.55ms loss=0.022% bw=0.481Mbps
+[CLI] [PQI] USB  grade=1 score=450 rtt=2.63ms loss=0.002% bw=0.499Mbps
+[CLI] [EXP_SEND] ts=164447839402 path_idx=0 local_ip=192.168.0.13 bytes=41906 sid=2
+[CLI] [PQI_METRIC] ts=164447871415 verified=1 rtt=2.56ms loss=0.021% bw=0.507Mbps grade=0 score=1000
+[CLI] [PQI_METRIC] ts=164447871429 verified=1 rtt=2.45ms loss=0.002% bw=0.507Mbps grade=0 score=1000
+[CLI] [PQI] WLAN grade=1 score=1000 rtt=2.56ms loss=0.022% bw=0.486Mbps
+[CLI] [PQI] USB  grade=0 score=0 rtt=2.55ms loss=0.002% bw=0.500Mbps
+[CLI] [PQI_SWITCH] ts=164447871410 from=0 to=1 cause=degrade_failover wifi_score=1000 usb_score=0
+[CLI] [BENCH_SWITCH] ts=164447871410 from_path=0 to_path=1
+[CLI] [EXP_SEND] ts=164447871410 path_idx=1 local_ip=172.20.10.3 bytes=41867 sid=6
+[CLI] [PQI_METRIC] ts=164447903406 verified=1 rtt=3.94ms loss=0.026% bw=0.061Mbps grade=0 score=1000
+[CLI] [PQI_METRIC] ts=164447903424 verified=1 rtt=4.20ms loss=0.002% bw=0.061Mbps grade=0 score=1000
+[CLI] [PQI] WLAN grade=1 score=550 rtt=3.18ms loss=0.023% bw=0.401Mbps
+[CLI] [PQI] USB  grade=1 score=450 rtt=3.29ms loss=0.002% bw=0.412Mbps
+[CLI] [EXP_SEND] ts=164447903400 path_idx=1 local_ip=172.20.10.3 bytes=41743 sid=6
+[CLI] [PQI_METRIC] ts=164447939393 verified=1 rtt=2.54ms loss=0.021% bw=0.379Mbps grade=0 score=1000
+[CLI] [PQI_METRIC] ts=164447939408 verified=1 rtt=2.38ms loss=0.002% bw=0.379Mbps grade=0 score=1000
+[CLI] [PQI] WLAN grade=1 score=1000 rtt=2.89ms loss=0.022% bw=0.397Mbps
+[CLI] [PQI] USB  grade=0 score=0 rtt=2.88ms loss=0.002% bw=0.406Mbps
+[CLI] [EXP_SEND] ts=164447939387 path_idx=1 local_ip=172.20.10.3 bytes=41708 sid=6
+[CLI] [PQI_METRIC] ts=164447971417 verified=1 rtt=2.20ms loss=0.021% bw=0.531Mbps grade=0 score=1000
+[CLI] [PQI_METRIC] ts=164447971429 verified=1 rtt=2.26ms loss=0.002% bw=0.528Mbps grade=0 score=1000
+[CLI] [PQI] WLAN grade=1 score=550 rtt=2.58ms loss=0.022% bw=0.423Mbps
+[CLI] [PQI] USB  grade=1 score=450 rtt=2.60ms loss=0.002% bw=0.430Mbps
+[CLI] [EXP_SEND] ts=164447971412 path_idx=1 local_ip=172.20.10.3 bytes=41815 sid=6
+[CLI] [PQI_METRIC] ts=164448003448 verified=1 rtt=4.14ms loss=0.021% bw=0.762Mbps grade=0 score=1000
+[CLI] [PQI_METRIC] ts=164448003462 verified=1 rtt=3.40ms loss=0.001% bw=0.857Mbps grade=0 score=1000
+[CLI] [PQI] WLAN grade=1 score=1000 rtt=3.28ms loss=0.022% bw=0.491Mbps
+[CLI] [PQI] USB  grade=0 score=0 rtt=2.96ms loss=0.002% bw=0.516Mbps
+[CLI] [EXP_SEND] ts=164448003443 path_idx=1 local_ip=172.20.10.3 bytes=41922 sid=6
+[CLI] [PQI_METRIC] ts=164448039440 verified=1 rtt=2.31ms loss=0.021% bw=0.505Mbps grade=0 score=1000
+[CLI] [PQI_METRIC] ts=164448039454 verified=1 rtt=2.15ms loss=0.001% bw=0.505Mbps grade=0 score=1000
+[CLI] [PQI] WLAN grade=1 score=1000 rtt=2.84ms loss=0.021% bw=0.494Mbps
+[CLI] [PQI] USB  grade=0 score=0 rtt=2.60ms loss=0.001% bw=0.513Mbps
+[CLI] [EXP_SEND] ts=164448039434 path_idx=1 local_ip=172.20.10.3 bytes=41918 sid=6
+[CLI] [PQI_METRIC] ts=164448070777 verified=1 rtt=2.50ms loss=0.021% bw=0.131Mbps grade=0 score=1000
+[CLI] [PQI_METRIC] ts=164448070791 verified=1 rtt=2.29ms loss=0.001% bw=0.371Mbps grade=0 score=1000
+[CLI] [PQI] WLAN grade=1 score=1000 rtt=2.69ms loss=0.021% bw=0.421Mbps
+[CLI] [PQI] USB  grade=0 score=0 rtt=2.46ms loss=0.001% bw=0.485Mbps
+[CLI] [EXP_SEND] ts=164448070771 path_idx=1 local_ip=172.20.10.3 bytes=41816 sid=6
+[CLI] [PQI_METRIC] ts=164448106415 verified=1 rtt=3.21ms loss=0.021% bw=0.551Mbps grade=0 score=1000
+[CLI] [PQI_METRIC] ts=164448106450 verified=1 rtt=3.34ms loss=0.001% bw=0.551Mbps grade=0 score=1000
+[CLI] [PQI] WLAN grade=1 score=1000 rtt=2.92ms loss=0.021% bw=0.447Mbps
+[CLI] [PQI] USB  grade=0 score=0 rtt=2.86ms loss=0.001% bw=0.498Mbps
+[CLI] [EXP_SEND] ts=164448106409 path_idx=1 local_ip=172.20.10.3 bytes=41871 sid=6
+[CLI] [PQI_METRIC] ts=164448139650 verified=1 rtt=2.84ms loss=0.021% bw=0.379Mbps grade=0 score=1000
+[CLI] [PQI_METRIC] ts=164448139670 verified=1 rtt=2.85ms loss=0.001% bw=0.380Mbps grade=0 score=1000
+[CLI] [PQI] WLAN grade=1 score=1000 rtt=2.89ms loss=0.021% bw=0.434Mbps
+[CLI] [PQI] USB  grade=0 score=0 rtt=2.85ms loss=0.001% bw=0.474Mbps
+[CLI] [EXP_SEND] ts=164448139644 path_idx=1 local_ip=172.20.10.3 bytes=41905 sid=6
+[CLI] [PQI_METRIC] ts=164448171458 verified=1 rtt=2.32ms loss=0.021% bw=0.500Mbps grade=0 score=1000
+[CLI] [PQI_METRIC] ts=164448171476 verified=1 rtt=2.32ms loss=0.001% bw=0.497Mbps grade=0 score=1000
+[CLI] [PQI] WLAN grade=1 score=1000 rtt=2.63ms loss=0.021% bw=0.447Mbps
+[CLI] [PQI] USB  grade=0 score=0 rtt=2.61ms loss=0.001% bw=0.479Mbps
+[CLI] [EXP_SEND] ts=164448171453 path_idx=1 local_ip=172.20.10.3 bytes=41747 sid=6
+[CLI] [PQI_METRIC] ts=164448207493 verified=1 rtt=2.72ms loss=0.020% bw=0.534Mbps grade=0 score=1000
+[CLI] [PQI_METRIC] ts=164448207516 verified=1 rtt=2.73ms loss=0.001% bw=0.534Mbps grade=0 score=1000
+[CLI] [PQI] WLAN grade=1 score=1000 rtt=2.67ms loss=0.021% bw=0.464Mbps
+[CLI] [PQI] USB  grade=0 score=0 rtt=2.67ms loss=0.001% bw=0.490Mbps
+[CLI] [EXP_SEND] ts=164448207487 path_idx=1 local_ip=172.20.10.3 bytes=41888 sid=6
+[CLI] [PQI_METRIC] ts=164448239567 verified=1 rtt=3.35ms loss=0.020% bw=0.501Mbps grade=0 score=1000
+[CLI] [PQI_METRIC] ts=164448239585 verified=1 rtt=3.33ms loss=0.001% bw=0.501Mbps grade=0 score=1000
+[CLI] [PQI] WLAN grade=1 score=1000 rtt=2.97ms loss=0.021% bw=0.472Mbps
+[CLI] [PQI] USB  grade=0 score=0 rtt=2.96ms loss=0.001% bw=0.492Mbps
+[CLI] [EXP_SEND] ts=164448239562 path_idx=1 local_ip=172.20.10.3 bytes=41860 sid=6
+[CLI] [PQI_METRIC] ts=164448271455 verified=1 rtt=3.06ms loss=0.020% bw=0.378Mbps grade=0 score=1000
+[CLI] [PQI_METRIC] ts=164448271470 verified=1 rtt=3.09ms loss=0.001% bw=0.378Mbps grade=0 score=1000
+[CLI] [PQI] WLAN grade=1 score=550 rtt=3.01ms loss=0.020% bw=0.453Mbps
+[CLI] [PQI] USB  grade=1 score=450 rtt=3.02ms loss=0.001% bw=0.469Mbps
+[CLI] [EXP_SEND] ts=164448271449 path_idx=1 local_ip=172.20.10.3 bytes=41918 sid=6
+[CLI] [PQI_METRIC] ts=164448306566 verified=1 rtt=2.73ms loss=0.020% bw=0.443Mbps grade=0 score=1000
+[CLI] [PQI_METRIC] ts=164448306580 verified=1 rtt=2.75ms loss=0.001% bw=0.443Mbps grade=0 score=1000
+[CLI] [PQI] WLAN grade=1 score=550 rtt=2.88ms loss=0.020% bw=0.451Mbps
+[CLI] [PQI] USB  grade=1 score=450 rtt=2.90ms loss=0.001% bw=0.464Mbps
+[CLI] [EXP_SEND] ts=164448306560 path_idx=1 local_ip=172.20.10.3 bytes=41949 sid=6
+[CLI] [PQI_METRIC] ts=164448339483 verified=1 rtt=2.98ms loss=0.020% bw=0.638Mbps grade=0 score=1000
+[CLI] [PQI_METRIC] ts=164448339498 verified=1 rtt=2.98ms loss=0.001% bw=0.639Mbps grade=0 score=1000
+[CLI] [PQI] WLAN grade=1 score=550 rtt=2.92ms loss=0.020% bw=0.488Mbps
+[CLI] [PQI] USB  grade=1 score=450 rtt=2.94ms loss=0.001% bw=0.499Mbps
+[CLI] [EXP_SEND] ts=164448339478 path_idx=1 local_ip=172.20.10.3 bytes=41894 sid=6
+[CLI] [TRACE] loop_cb mode=2 state=14 nb_paths=2 hs_done=1
+[CLI] [PQI_METRIC] ts=164448371405 verified=1 rtt=2.65ms loss=0.020% bw=0.382Mbps grade=0 score=1000
+[CLI] [PQI_METRIC] ts=164448371415 verified=0 rtt=200.00ms loss=0.001% bw=0.375Mbps grade=1 score=1000
+[CLI] [PQI] WLAN grade=1 score=550 rtt=2.80ms loss=0.020% bw=0.467Mbps
+[CLI] [PQI] USB  grade=1 score=450 rtt=91.62ms loss=0.001% bw=0.474Mbps
+[CLI] [EXP_PATH_STATE] ts=164448406522 idx=0 local_ip=192.168.0.13 verified=1 smoothed_rtt_us=2673 recv_rate_Bps=67158 lost_bytes=1276
+[CLI] [EXP_PATH_STATE] ts=164448406522 idx=1 local_ip=172.20.10.3 verified=1 smoothed_rtt_us=2667 recv_rate_Bps=67209 lost_bytes=40
+[CLI] [PQI_METRIC] ts=164448406546 verified=1 rtt=2.67ms loss=0.020% bw=0.512Mbps grade=0 score=1000
+[CLI] [PQI_METRIC] ts=164448406555 verified=1 rtt=2.67ms loss=0.001% bw=0.513Mbps grade=0 score=1000
+[CLI] [PQI] WLAN grade=1 score=550 rtt=2.74ms loss=0.020% bw=0.476Mbps
+[CLI] [PQI] USB  grade=1 score=450 rtt=51.59ms loss=0.001% bw=0.482Mbps
+[CLI] [EXP_SEND] ts=164448406522 path_idx=1 local_ip=172.20.10.3 bytes=41010 sid=6
+[CLI] [PQI_METRIC] ts=164448439422 verified=1 rtt=2.81ms loss=0.020% bw=0.375Mbps grade=0 score=1000
+[CLI] [PQI_METRIC] ts=164448439437 verified=1 rtt=2.81ms loss=0.001% bw=0.375Mbps grade=0 score=1000
+[CLI] [PQI] WLAN grade=1 score=550 rtt=2.77ms loss=0.020% bw=0.456Mbps
+[CLI] [PQI] USB  grade=1 score=450 rtt=29.64ms loss=0.001% bw=0.461Mbps
+[CLI] [EXP_SEND] ts=164448439417 path_idx=1 local_ip=172.20.10.3 bytes=40945 sid=6
+[CLI] [PQI_METRIC] ts=164448474647 verified=1 rtt=2.28ms loss=0.019% bw=0.493Mbps grade=0 score=1000
+[CLI] [PQI_METRIC] ts=164448474664 verified=1 rtt=2.29ms loss=0.001% bw=0.492Mbps grade=0 score=1000
+[CLI] [PQI] WLAN grade=1 score=550 rtt=2.55ms loss=0.020% bw=0.463Mbps
+[CLI] [PQI] USB  grade=1 score=450 rtt=17.33ms loss=0.001% bw=0.467Mbps
+[CLI] [EXP_SEND] ts=164448474641 path_idx=1 local_ip=172.20.10.3 bytes=40734 sid=6
+[CLI] [PQI_METRIC] ts=164448507510 verified=1 rtt=2.69ms loss=0.019% bw=0.252Mbps grade=0 score=1000
+[CLI] [PQI_METRIC] ts=164448507534 verified=1 rtt=2.69ms loss=0.001% bw=0.254Mbps grade=0 score=1000
+[CLI] [PQI] WLAN grade=1 score=550 rtt=2.61ms loss=0.020% bw=0.421Mbps
+[CLI] [PQI] USB  grade=1 score=450 rtt=10.74ms loss=0.001% bw=0.424Mbps
+[CLI] [EXP_SEND] ts=164448507504 path_idx=1 local_ip=172.20.10.3 bytes=41639 sid=6
+[CLI] [PQI_METRIC] ts=164448539893 verified=1 rtt=3.25ms loss=0.019% bw=0.751Mbps grade=0 score=1000
+[CLI] [PQI_METRIC] ts=164448539911 verified=1 rtt=3.23ms loss=0.001% bw=0.752Mbps grade=0 score=1000
+[CLI] [PQI] WLAN grade=1 score=550 rtt=2.90ms loss=0.019% bw=0.487Mbps
+[CLI] [PQI] USB  grade=1 score=450 rtt=7.36ms loss=0.001% bw=0.490Mbps
+[CLI] [EXP_SEND] ts=164448539887 path_idx=1 local_ip=172.20.10.3 bytes=43327 sid=6
+[CLI] [PQI_METRIC] ts=164448575765 verified=1 rtt=3.92ms loss=0.019% bw=0.188Mbps grade=0 score=1000
+[CLI] [PQI_METRIC] ts=164448575782 verified=1 rtt=3.58ms loss=0.001% bw=0.188Mbps grade=0 score=1000
+[CLI] [PQI] WLAN grade=1 score=550 rtt=3.36ms loss=0.019% bw=0.427Mbps
+[CLI] [PQI] USB  grade=1 score=450 rtt=5.66ms loss=0.001% bw=0.429Mbps
+[CLI] [EXP_SEND] ts=164448575759 path_idx=1 local_ip=172.20.10.3 bytes=45109 sid=6
+[CLI] [PQI_METRIC] ts=164448607790 verified=1 rtt=5.78ms loss=0.019% bw=0.122Mbps grade=0 score=1000
+[CLI] [PQI_METRIC] ts=164448607813 verified=1 rtt=5.27ms loss=0.001% bw=0.121Mbps grade=0 score=1000
+[CLI] [PQI] WLAN grade=1 score=550 rtt=4.45ms loss=0.019% bw=0.366Mbps
+[CLI] [PQI] USB  grade=1 score=450 rtt=5.48ms loss=0.001% bw=0.368Mbps
+[CLI] [EXP_SEND] ts=164448607784 path_idx=1 local_ip=172.20.10.3 bytes=45376 sid=6
+[CLI] [PQI_METRIC] ts=164448639844 verified=1 rtt=2.63ms loss=0.019% bw=0.502Mbps grade=0 score=1000
+[CLI] [PQI_METRIC] ts=164448639865 verified=1 rtt=2.53ms loss=0.001% bw=0.502Mbps grade=0 score=1000
+[CLI] [PQI] WLAN grade=1 score=550 rtt=3.63ms loss=0.019% bw=0.393Mbps
+[CLI] [PQI] USB  grade=1 score=450 rtt=4.15ms loss=0.001% bw=0.395Mbps
+[CLI] [EXP_SEND] ts=164448639838 path_idx=1 local_ip=172.20.10.3 bytes=45351 sid=6
+[CLI] [PQI_METRIC] ts=164448674827 verified=1 rtt=2.86ms loss=0.019% bw=0.611Mbps grade=0 score=1000
+[CLI] [PQI_METRIC] ts=164448674844 verified=1 rtt=2.72ms loss=0.001% bw=0.669Mbps grade=0 score=1000
+[CLI] [PQI] WLAN grade=1 score=550 rtt=3.28ms loss=0.019% bw=0.437Mbps
+[CLI] [PQI] USB  grade=1 score=450 rtt=3.51ms loss=0.001% bw=0.450Mbps
+[CLI] [EXP_SEND] ts=164448674821 path_idx=1 local_ip=172.20.10.3 bytes=45195 sid=6
+[CLI] [PQI_METRIC] ts=164448706870 verified=1 rtt=3.70ms loss=0.019% bw=0.122Mbps grade=0 score=1000
+[CLI] [PQI_METRIC] ts=164448706887 verified=1 rtt=2.90ms loss=0.001% bw=0.122Mbps grade=0 score=1000
+[CLI] [PQI] WLAN grade=1 score=1000 rtt=3.47ms loss=0.019% bw=0.374Mbps
+[CLI] [PQI] USB  grade=0 score=0 rtt=3.24ms loss=0.001% bw=0.384Mbps
+[CLI] [EXP_SEND] ts=164448706864 path_idx=1 local_ip=172.20.10.3 bytes=44841 sid=6
+[CLI] [PQI_METRIC] ts=164448738820 verified=1 rtt=2.43ms loss=0.019% bw=0.505Mbps grade=0 score=1000
+[CLI] [PQI_METRIC] ts=164448738837 verified=1 rtt=2.55ms loss=0.001% bw=0.505Mbps grade=0 score=1000
+[CLI] [PQI] WLAN grade=1 score=1000 rtt=3.00ms loss=0.019% bw=0.400Mbps
+[CLI] [PQI] USB  grade=0 score=0 rtt=2.93ms loss=0.001% bw=0.408Mbps
+[CLI] [EXP_SEND] ts=164448738814 path_idx=1 local_ip=172.20.10.3 bytes=45318 sid=6
+[CLI] [PQI_METRIC] ts=164448774718 verified=1 rtt=2.05ms loss=0.019% bw=0.379Mbps grade=0 score=1000
+[CLI] [PQI_METRIC] ts=164448774731 verified=1 rtt=2.15ms loss=0.001% bw=0.379Mbps grade=0 score=1000
+[CLI] [PQI] WLAN grade=1 score=550 rtt=2.57ms loss=0.019% bw=0.396Mbps
+[CLI] [PQI] USB  grade=1 score=450 rtt=2.58ms loss=0.001% bw=0.402Mbps
+[CLI] [EXP_SEND] ts=164448774712 path_idx=1 local_ip=172.20.10.3 bytes=43909 sid=6
+[CLI] [PQI_METRIC] ts=164448806708 verified=1 rtt=2.09ms loss=0.019% bw=0.493Mbps grade=0 score=1000
+[CLI] [PQI_METRIC] ts=164448806722 verified=1 rtt=2.33ms loss=0.001% bw=0.493Mbps grade=0 score=1000
+[CLI] [PQI] WLAN grade=1 score=550 rtt=2.36ms loss=0.019% bw=0.415Mbps
+[CLI] [PQI] USB  grade=1 score=450 rtt=2.47ms loss=0.001% bw=0.421Mbps
+[CLI] [EXP_SEND] ts=164448806702 path_idx=1 local_ip=172.20.10.3 bytes=43285 sid=6
+[CLI] [PQI_METRIC] ts=164448842620 verified=1 rtt=2.67ms loss=0.019% bw=0.486Mbps grade=0 score=1000
+[CLI] [PQI_METRIC] ts=164448842638 verified=1 rtt=2.56ms loss=0.001% bw=0.486Mbps grade=0 score=1000
+[CLI] [PQI] WLAN grade=1 score=550 rtt=2.50ms loss=0.019% bw=0.429Mbps
+[CLI] [PQI] USB  grade=1 score=450 rtt=2.51ms loss=0.001% bw=0.434Mbps
+[CLI] [EXP_SEND] ts=164448842614 path_idx=1 local_ip=172.20.10.3 bytes=42924 sid=6
+[CLI] [PQI_METRIC] ts=164448875629 verified=1 rtt=2.38ms loss=0.019% bw=0.501Mbps grade=0 score=1000
+[CLI] [PQI_METRIC] ts=164448875645 verified=1 rtt=2.32ms loss=0.001% bw=0.501Mbps grade=0 score=1000
+[CLI] [PQI] WLAN grade=1 score=1000 rtt=2.45ms loss=0.019% bw=0.444Mbps
+[CLI] [PQI] USB  grade=0 score=0 rtt=2.42ms loss=0.001% bw=0.447Mbps
+[CLI] [EXP_SEND] ts=164448875623 path_idx=1 local_ip=172.20.10.3 bytes=43022 sid=6
+[CLI] [PQI_METRIC] ts=164448907585 verified=1 rtt=2.35ms loss=0.019% bw=0.496Mbps grade=0 score=1000
+[CLI] [PQI_METRIC] ts=164448907599 verified=1 rtt=2.35ms loss=0.001% bw=0.496Mbps grade=0 score=1000
+[CLI] [PQI] WLAN grade=1 score=1000 rtt=2.40ms loss=0.019% bw=0.454Mbps
+[CLI] [PQI] USB  grade=0 score=0 rtt=2.39ms loss=0.001% bw=0.457Mbps
+[CLI] [EXP_SEND] ts=164448907573 path_idx=1 local_ip=172.20.10.3 bytes=43633 sid=6
+[CLI] [PQI_METRIC] ts=164448942599 verified=1 rtt=2.53ms loss=0.019% bw=0.503Mbps grade=0 score=1000
+[CLI] [PQI_METRIC] ts=164448942614 verified=1 rtt=2.76ms loss=0.001% bw=0.503Mbps grade=0 score=1000
+[CLI] [PQI] WLAN grade=1 score=550 rtt=2.46ms loss=0.019% bw=0.464Mbps
+[CLI] [PQI] USB  grade=1 score=450 rtt=2.56ms loss=0.001% bw=0.466Mbps
+[CLI] [EXP_SEND] ts=164448942593 path_idx=1 local_ip=172.20.10.3 bytes=43014 sid=6
+[CLI] [PQI_METRIC] ts=164448975481 verified=1 rtt=2.59ms loss=0.019% bw=0.505Mbps grade=0 score=1000
+[CLI] [PQI_METRIC] ts=164448975495 verified=1 rtt=2.52ms loss=0.001% bw=0.506Mbps grade=0 score=1000
+[CLI] [PQI] WLAN grade=1 score=550 rtt=2.52ms loss=0.019% bw=0.472Mbps
+[CLI] [PQI] USB  grade=1 score=450 rtt=2.54ms loss=0.001% bw=0.474Mbps
+[CLI] [EXP_SEND] ts=164448975475 path_idx=1 local_ip=172.20.10.3 bytes=41579 sid=6
+[CLI] [PQI_METRIC] ts=164449007421 verified=1 rtt=2.14ms loss=0.019% bw=0.505Mbps grade=0 score=1000
+[CLI] [PQI_METRIC] ts=164449007436 verified=1 rtt=2.12ms loss=0.001% bw=0.505Mbps grade=0 score=1000
+[CLI] [PQI] WLAN grade=1 score=550 rtt=2.35ms loss=0.019% bw=0.479Mbps
+[CLI] [PQI] USB  grade=1 score=450 rtt=2.35ms loss=0.001% bw=0.480Mbps
+[CLI] [EXP_SEND] ts=164449007415 path_idx=1 local_ip=172.20.10.3 bytes=41281 sid=6
+[CLI] [PQI_METRIC] ts=164449043535 verified=1 rtt=2.83ms loss=0.019% bw=0.634Mbps grade=0 score=1000
+[CLI] [PQI_METRIC] ts=164449043552 verified=1 rtt=2.50ms loss=0.001% bw=0.635Mbps grade=0 score=1000
+[CLI] [PQI] WLAN grade=1 score=1000 rtt=2.56ms loss=0.019% bw=0.510Mbps
+[CLI] [PQI] USB  grade=0 score=0 rtt=2.42ms loss=0.001% bw=0.511Mbps
+[CLI] [EXP_SEND] ts=164449043530 path_idx=1 local_ip=172.20.10.3 bytes=41414 sid=6
+[CLI] [PQI_METRIC] ts=164449075460 verified=1 rtt=2.61ms loss=0.019% bw=0.493Mbps grade=0 score=1000
+[CLI] [PQI_METRIC] ts=164449075476 verified=1 rtt=2.57ms loss=0.001% bw=0.493Mbps grade=0 score=1000
+[CLI] [PQI] WLAN grade=1 score=1000 rtt=2.58ms loss=0.019% bw=0.506Mbps
+[CLI] [PQI] USB  grade=0 score=0 rtt=2.49ms loss=0.001% bw=0.508Mbps
+[CLI] [EXP_SEND] ts=164449075455 path_idx=1 local_ip=172.20.10.3 bytes=41282 sid=6
+[CLI] [PQI_METRIC] ts=164449107413 verified=1 rtt=2.17ms loss=0.019% bw=0.380Mbps grade=0 score=1000
+[CLI] [PQI_METRIC] ts=164449107431 verified=1 rtt=2.26ms loss=0.001% bw=0.381Mbps grade=0 score=1000
+[CLI] [PQI] WLAN grade=1 score=1000 rtt=2.40ms loss=0.019% bw=0.481Mbps
+[CLI] [PQI] USB  grade=0 score=0 rtt=2.38ms loss=0.001% bw=0.482Mbps
+[CLI] [EXP_SEND] ts=164449107408 path_idx=1 local_ip=172.20.10.3 bytes=41711 sid=6
+[CLI] [PQI_METRIC] ts=164449143530 verified=1 rtt=2.42ms loss=0.018% bw=0.506Mbps grade=0 score=1000
+[CLI] [PQI_METRIC] ts=164449143545 verified=1 rtt=2.54ms loss=0.001% bw=0.510Mbps grade=0 score=1000
+[CLI] [PQI] WLAN grade=1 score=550 rtt=2.41ms loss=0.019% bw=0.486Mbps
+[CLI] [PQI] USB  grade=1 score=450 rtt=2.45ms loss=0.001% bw=0.488Mbps
+[CLI] [EXP_SEND] ts=164449143524 path_idx=1 local_ip=172.20.10.3 bytes=41550 sid=6
+[CLI] [PQI_METRIC] ts=164449175433 verified=1 rtt=2.10ms loss=0.018% bw=0.502Mbps grade=0 score=1000
+[CLI] [PQI_METRIC] ts=164449175448 verified=1 rtt=2.34ms loss=0.001% bw=0.502Mbps grade=0 score=1000
+[CLI] [PQI] WLAN grade=1 score=550 rtt=2.27ms loss=0.018% bw=0.489Mbps
+[CLI] [PQI] USB  grade=1 score=450 rtt=2.40ms loss=0.001% bw=0.491Mbps
+[CLI] [EXP_SEND] ts=164449175428 path_idx=1 local_ip=172.20.10.3 bytes=41446 sid=6
+[CLI] [PQI_METRIC] ts=164449211457 verified=1 rtt=2.08ms loss=0.018% bw=0.498Mbps grade=0 score=1000
+[CLI] [PQI_METRIC] ts=164449211471 verified=1 rtt=2.39ms loss=0.001% bw=0.498Mbps grade=0 score=1000
+[CLI] [PQI] WLAN grade=1 score=550 rtt=2.18ms loss=0.018% bw=0.491Mbps
+[CLI] [PQI] USB  grade=1 score=450 rtt=2.40ms loss=0.001% bw=0.492Mbps
+[CLI] [EXP_SEND] ts=164449211452 path_idx=1 local_ip=172.20.10.3 bytes=41501 sid=6
+[CLI] [PQI_METRIC] ts=164449243485 verified=1 rtt=2.23ms loss=0.018% bw=0.388Mbps grade=0 score=1000
+[CLI] [PQI_METRIC] ts=164449243498 verified=1 rtt=2.20ms loss=0.001% bw=0.388Mbps grade=0 score=1000
+[CLI] [PQI] WLAN grade=1 score=550 rtt=2.21ms loss=0.018% bw=0.470Mbps
+[CLI] [PQI] USB  grade=1 score=450 rtt=2.31ms loss=0.001% bw=0.471Mbps
+[CLI] [EXP_SEND] ts=164449243479 path_idx=1 local_ip=172.20.10.3 bytes=41581 sid=6
+[CLI] [PQI_METRIC] ts=164449275689 verified=1 rtt=2.39ms loss=0.018% bw=0.486Mbps grade=0 score=1000
+[CLI] [PQI_METRIC] ts=164449275704 verified=1 rtt=2.66ms loss=0.001% bw=0.486Mbps grade=0 score=1000
+[CLI] [PQI] WLAN grade=1 score=550 rtt=2.29ms loss=0.018% bw=0.474Mbps
+[CLI] [PQI] USB  grade=1 score=450 rtt=2.47ms loss=0.001% bw=0.474Mbps
+[CLI] [EXP_SEND] ts=164449275684 path_idx=1 local_ip=172.20.10.3 bytes=41443 sid=6
+[CLI] [PQI_METRIC] ts=164449311735 verified=1 rtt=2.45ms loss=0.018% bw=0.490Mbps grade=0 score=1000
+[CLI] [PQI_METRIC] ts=164449311749 verified=1 rtt=2.19ms loss=0.001% bw=0.489Mbps grade=0 score=1000
+[CLI] [PQI] WLAN grade=1 score=1000 rtt=2.36ms loss=0.018% bw=0.477Mbps
+[CLI] [PQI] USB  grade=0 score=0 rtt=2.34ms loss=0.001% bw=0.477Mbps
+[CLI] [EXP_SEND] ts=164449311730 path_idx=1 local_ip=172.20.10.3 bytes=41334 sid=6
+[CLI] [PQI_METRIC] ts=164449343665 verified=1 rtt=3.29ms loss=0.018% bw=0.249Mbps grade=0 score=1000
+[CLI] [PQI_METRIC] ts=164449343683 verified=1 rtt=2.79ms loss=0.001% bw=0.372Mbps grade=0 score=1000
+[CLI] [PQI] WLAN grade=1 score=1000 rtt=2.78ms loss=0.018% bw=0.431Mbps
+[CLI] [PQI] USB  grade=0 score=0 rtt=2.54ms loss=0.001% bw=0.456Mbps
+[CLI] [EXP_SEND] ts=164449343660 path_idx=1 local_ip=172.20.10.3 bytes=41120 sid=6
+[CLI] [TRACE] loop_cb mode=2 state=14 nb_paths=2 hs_done=1
+[CLI] [PQI_METRIC] ts=164449375526 verified=1 rtt=2.62ms loss=0.018% bw=0.503Mbps grade=0 score=1000
+[CLI] [PQI_METRIC] ts=164449375539 verified=1 rtt=2.76ms loss=0.001% bw=0.499Mbps grade=0 score=1000
+[CLI] [PQI] WLAN grade=1 score=1000 rtt=2.71ms loss=0.018% bw=0.446Mbps
+[CLI] [PQI] USB  grade=0 score=0 rtt=2.64ms loss=0.001% bw=0.465Mbps
+[CLI] [EXP_SEND] ts=164449375520 path_idx=1 local_ip=172.20.10.3 bytes=40950 sid=6
+[CLI] [EXP_PATH_STATE] ts=164449411647 idx=0 local_ip=192.168.0.13 verified=1 smoothed_rtt_us=2681 recv_rate_Bps=67779 lost_bytes=1316
+[CLI] [EXP_PATH_STATE] ts=164449411647 idx=1 local_ip=172.20.10.3 verified=1 smoothed_rtt_us=2605 recv_rate_Bps=67329 lost_bytes=40
+[CLI] [PQI_METRIC] ts=164449411670 verified=1 rtt=2.68ms loss=0.018% bw=0.517Mbps grade=0 score=1000
+[CLI] [PQI_METRIC] ts=164449411678 verified=1 rtt=2.60ms loss=0.001% bw=0.514Mbps grade=0 score=1000
+[CLI] [PQI] WLAN grade=1 score=1000 rtt=2.70ms loss=0.018% bw=0.460Mbps
+[CLI] [PQI] USB  grade=0 score=0 rtt=2.63ms loss=0.001% bw=0.475Mbps
+[CLI] [EXP_SEND] ts=164449411647 path_idx=1 local_ip=172.20.10.3 bytes=40750 sid=6
+[CLI] [PQI_METRIC] ts=164449443680 verified=1 rtt=2.39ms loss=0.018% bw=0.512Mbps grade=0 score=1000
+[CLI] [PQI_METRIC] ts=164449443700 verified=1 rtt=2.54ms loss=0.001% bw=0.513Mbps grade=0 score=1000
+[CLI] [PQI] WLAN grade=1 score=550 rtt=2.56ms loss=0.018% bw=0.470Mbps
+[CLI] [PQI] USB  grade=1 score=450 rtt=2.59ms loss=0.001% bw=0.482Mbps
+[CLI] [EXP_SEND] ts=164449443674 path_idx=1 local_ip=172.20.10.3 bytes=40723 sid=6
+[CLI] [PQI_METRIC] ts=164449475865 verified=1 rtt=2.21ms loss=0.018% bw=0.372Mbps grade=0 score=1000
+[CLI] [PQI_METRIC] ts=164449475880 verified=1 rtt=2.23ms loss=0.001% bw=0.372Mbps grade=0 score=1000
+[CLI] [PQI] WLAN grade=1 score=550 rtt=2.40ms loss=0.018% bw=0.451Mbps
+[CLI] [PQI] USB  grade=1 score=450 rtt=2.43ms loss=0.001% bw=0.460Mbps
+[CLI] [EXP_SEND] ts=164449475859 path_idx=1 local_ip=172.20.10.3 bytes=41188 sid=6
+[CLI] [PQI_METRIC] ts=164449511931 verified=1 rtt=4.05ms loss=0.018% bw=0.127Mbps grade=0 score=1000
+[CLI] [PQI_METRIC] ts=164449511948 verified=1 rtt=3.39ms loss=0.001% bw=0.127Mbps grade=0 score=1000
+[CLI] [PQI] WLAN grade=1 score=1000 rtt=3.14ms loss=0.018% bw=0.386Mbps
+[CLI] [PQI] USB  grade=0 score=0 rtt=2.86ms loss=0.001% bw=0.394Mbps
+[CLI] [EXP_SEND] ts=164449511925 path_idx=1 local_ip=172.20.10.3 bytes=42428 sid=6
+[CLI] [PQI_METRIC] ts=164449543935 verified=1 rtt=3.16ms loss=0.018% bw=0.998Mbps grade=0 score=1000
+[CLI] [PQI_METRIC] ts=164449543954 verified=1 rtt=2.90ms loss=0.001% bw=0.997Mbps grade=0 score=1000
+[CLI] [PQI] WLAN grade=1 score=1000 rtt=3.15ms loss=0.018% bw=0.508Mbps
+[CLI] [PQI] USB  grade=0 score=0 rtt=2.88ms loss=0.001% bw=0.514Mbps
+[CLI] [EXP_SEND] ts=164449543929 path_idx=1 local_ip=172.20.10.3 bytes=45114 sid=6
+[CLI] [PQI_METRIC] ts=164449580663 verified=1 rtt=3.25ms loss=0.018% bw=0.258Mbps grade=0 score=1000
+[CLI] [PQI_METRIC] ts=164449580681 verified=1 rtt=2.73ms loss=0.001% bw=0.506Mbps grade=0 score=1000
+[CLI] [PQI] WLAN grade=1 score=1000 rtt=3.20ms loss=0.018% bw=0.458Mbps
+[CLI] [PQI] USB  grade=0 score=0 rtt=2.81ms loss=0.001% bw=0.513Mbps
+[CLI] [EXP_SEND] ts=164449580651 path_idx=1 local_ip=172.20.10.3 bytes=46524 sid=6
+[CLI] [PQI_METRIC] ts=164449612566 verified=1 rtt=3.07ms loss=0.018% bw=0.120Mbps grade=0 score=1000
+[CLI] [PQI_METRIC] ts=164449612585 verified=1 rtt=2.63ms loss=0.001% bw=0.480Mbps grade=0 score=1000
+[CLI] [PQI] WLAN grade=1 score=1000 rtt=3.14ms loss=0.018% bw=0.390Mbps
+[CLI] [PQI] USB  grade=0 score=0 rtt=2.73ms loss=0.001% bw=0.506Mbps
+[CLI] [EXP_SEND] ts=164449612560 path_idx=1 local_ip=172.20.10.3 bytes=45799 sid=6
+[CLI] [PQI_METRIC] ts=164449644584 verified=1 rtt=3.81ms loss=0.018% bw=0.139Mbps grade=0 score=1000
+[CLI] [PQI_METRIC] ts=164449644602 verified=1 rtt=3.30ms loss=0.001% bw=0.139Mbps grade=0 score=1000
+[CLI] [PQI] WLAN grade=1 score=1000 rtt=3.44ms loss=0.018% bw=0.340Mbps
+[CLI] [PQI] USB  grade=0 score=0 rtt=2.99ms loss=0.001% bw=0.433Mbps
+[CLI] [EXP_SEND] ts=164449644578 path_idx=1 local_ip=172.20.10.3 bytes=45592 sid=6
+[CLI] [PQI_METRIC] ts=164449679350 verified=1 rtt=2.39ms loss=0.018% bw=0.391Mbps grade=0 score=1000
+[CLI] [PQI_METRIC] ts=164449679364 verified=1 rtt=2.45ms loss=0.001% bw=0.391Mbps grade=0 score=1000
+[CLI] [PQI] WLAN grade=1 score=1000 rtt=2.97ms loss=0.018% bw=0.350Mbps
+[CLI] [PQI] USB  grade=0 score=0 rtt=2.75ms loss=0.001% bw=0.424Mbps
+[CLI] [EXP_SEND] ts=164449679344 path_idx=1 local_ip=172.20.10.3 bytes=45339 sid=6
+[CLI] [PQI_METRIC] ts=164449711133 verified=1 rtt=3.86ms loss=0.018% bw=0.254Mbps grade=0 score=1000
+[CLI] [PQI_METRIC] ts=164449711149 verified=1 rtt=3.60ms loss=0.001% bw=0.254Mbps grade=0 score=1000
+[CLI] [PQI] WLAN grade=1 score=1000 rtt=3.37ms loss=0.018% bw=0.331Mbps
+[CLI] [PQI] USB  grade=0 score=0 rtt=3.13ms loss=0.001% bw=0.390Mbps
+[CLI] [EXP_SEND] ts=164449711127 path_idx=1 local_ip=172.20.10.3 bytes=44811 sid=6
+[CLI] [PQI_METRIC] ts=164449743045 verified=1 rtt=2.47ms loss=0.018% bw=0.556Mbps grade=0 score=1000
+[CLI] [PQI_METRIC] ts=164449743061 verified=1 rtt=2.80ms loss=0.001% bw=0.556Mbps grade=0 score=1000
+[CLI] [PQI] WLAN grade=1 score=550 rtt=2.97ms loss=0.018% bw=0.376Mbps
+[CLI] [PQI] USB  grade=1 score=450 rtt=2.98ms loss=0.001% bw=0.423Mbps
+[CLI] [EXP_SEND] ts=164449743038 path_idx=1 local_ip=172.20.10.3 bytes=44252 sid=6
+[CLI] [PQI_METRIC] ts=164449778946 verified=1 rtt=2.63ms loss=0.018% bw=0.493Mbps grade=0 score=1000
+[CLI] [PQI_METRIC] ts=164449778961 verified=1 rtt=2.52ms loss=0.001% bw=0.493Mbps grade=0 score=1000
+[CLI] [PQI] WLAN grade=1 score=1000 rtt=2.81ms loss=0.018% bw=0.399Mbps
+[CLI] [PQI] USB  grade=0 score=0 rtt=2.77ms loss=0.001% bw=0.437Mbps
+[CLI] [EXP_SEND] ts=164449778940 path_idx=1 local_ip=172.20.10.3 bytes=43093 sid=6
+[CLI] [PQI_METRIC] ts=164449810764 verified=1 rtt=2.26ms loss=0.018% bw=0.496Mbps grade=0 score=1000
+[CLI] [PQI_METRIC] ts=164449810778 verified=1 rtt=2.43ms loss=0.001% bw=0.496Mbps grade=0 score=1000
+[CLI] [PQI] WLAN grade=1 score=550 rtt=2.56ms loss=0.018% bw=0.419Mbps
+[CLI] [PQI] USB  grade=1 score=450 rtt=2.62ms loss=0.001% bw=0.449Mbps
+[CLI] [EXP_SEND] ts=164449810758 path_idx=1 local_ip=172.20.10.3 bytes=42690 sid=6
+[CLI] [PQI_METRIC] ts=164449842713 verified=1 rtt=3.33ms loss=0.018% bw=0.120Mbps grade=0 score=1000
+[CLI] [PQI_METRIC] ts=164449842728 verified=1 rtt=3.19ms loss=0.001% bw=0.120Mbps grade=0 score=1000
+[CLI] [PQI] WLAN grade=1 score=1000 rtt=2.91ms loss=0.018% bw=0.359Mbps
+[CLI] [PQI] USB  grade=0 score=0 rtt=2.88ms loss=0.001% bw=0.383Mbps
+[CLI] [EXP_SEND] ts=164449842708 path_idx=1 local_ip=172.20.10.3 bytes=42734 sid=6
+[CLI] [PQI_METRIC] ts=164449878643 verified=1 rtt=2.11ms loss=0.018% bw=0.496Mbps grade=0 score=1000
+[CLI] [PQI_METRIC] ts=164449878659 verified=1 rtt=2.35ms loss=0.001% bw=0.497Mbps grade=0 score=1000
+[CLI] [PQI] WLAN grade=1 score=550 rtt=2.55ms loss=0.018% bw=0.387Mbps
+[CLI] [PQI] USB  grade=1 score=450 rtt=2.64ms loss=0.001% bw=0.406Mbps
+[CLI] [EXP_SEND] ts=164449878637 path_idx=1 local_ip=172.20.10.3 bytes=42354 sid=6
+[CLI] [PQI_METRIC] ts=164449910536 verified=1 rtt=2.44ms loss=0.018% bw=0.630Mbps grade=0 score=1000
+[CLI] [PQI_METRIC] ts=164449910553 verified=1 rtt=2.40ms loss=0.001% bw=0.630Mbps grade=0 score=1000
+[CLI] [PQI] WLAN grade=1 score=550 rtt=2.50ms loss=0.018% bw=0.435Mbps
+[CLI] [PQI] USB  grade=1 score=450 rtt=2.53ms loss=0.001% bw=0.451Mbps
+[CLI] [EXP_SEND] ts=164449910531 path_idx=1 local_ip=172.20.10.3 bytes=41123 sid=6
+[CLI] [PQI_METRIC] ts=164449946525 verified=1 rtt=2.08ms loss=0.018% bw=0.369Mbps grade=0 score=1000
+[CLI] [PQI_METRIC] ts=164449946540 verified=1 rtt=2.10ms loss=0.001% bw=0.369Mbps grade=0 score=1000
+[CLI] [PQI] WLAN grade=1 score=550 rtt=2.31ms loss=0.018% bw=0.422Mbps
+[CLI] [PQI] USB  grade=1 score=450 rtt=2.34ms loss=0.001% bw=0.435Mbps
+[CLI] [EXP_SEND] ts=164449946519 path_idx=1 local_ip=172.20.10.3 bytes=41185 sid=6
+[CLI] [PQI_METRIC] ts=164449979525 verified=1 rtt=2.12ms loss=0.017% bw=0.506Mbps grade=0 score=1000
+[CLI] [PQI_METRIC] ts=164449979542 verified=1 rtt=2.31ms loss=0.001% bw=0.506Mbps grade=0 score=1000
+[CLI] [PQI] WLAN grade=1 score=550 rtt=2.22ms loss=0.018% bw=0.439Mbps
+[CLI] [PQI] USB  grade=1 score=450 rtt=2.33ms loss=0.001% bw=0.449Mbps
+[CLI] [EXP_SEND] ts=164449979519 path_idx=1 local_ip=172.20.10.3 bytes=41457 sid=6
+[CLI] [PQI_METRIC] ts=164450011510 verified=1 rtt=2.91ms loss=0.017% bw=0.249Mbps grade=0 score=1000
+[CLI] [PQI_METRIC] ts=164450011527 verified=1 rtt=2.39ms loss=0.001% bw=0.249Mbps grade=0 score=1000
+[CLI] [PQI] WLAN grade=1 score=1000 rtt=2.53ms loss=0.018% bw=0.401Mbps
+[CLI] [PQI] USB  grade=0 score=0 rtt=2.36ms loss=0.001% bw=0.409Mbps
+[CLI] [EXP_SEND] ts=164450011504 path_idx=1 local_ip=172.20.10.3 bytes=41621 sid=6
+[CLI] [PQI_METRIC] ts=164450047536 verified=1 rtt=2.08ms loss=0.045% bw=0.504Mbps grade=0 score=1000
+[CLI] [PQI_METRIC] ts=164450047553 verified=1 rtt=2.31ms loss=0.001% bw=0.504Mbps grade=0 score=1000
+[CLI] [PQI] WLAN grade=1 score=550 rtt=2.33ms loss=0.027% bw=0.421Mbps
+[CLI] [PQI] USB  grade=1 score=450 rtt=2.34ms loss=0.001% bw=0.428Mbps
+[CLI] [EXP_SEND] ts=164450047530 path_idx=1 local_ip=172.20.10.3 bytes=41436 sid=6
+[CLI] [PQI_METRIC] ts=164450079735 verified=1 rtt=3.57ms loss=0.018% bw=0.861Mbps grade=0 score=1000
+[CLI] [PQI_METRIC] ts=164450079752 verified=1 rtt=2.85ms loss=0.001% bw=0.862Mbps grade=0 score=1000
+[CLI] [PQI] WLAN grade=1 score=1000 rtt=2.89ms loss=0.024% bw=0.509Mbps
+[CLI] [PQI] USB  grade=0 score=0 rtt=2.57ms loss=0.001% bw=0.515Mbps
+[CLI] [EXP_SEND] ts=164450079730 path_idx=1 local_ip=172.20.10.3 bytes=41470 sid=6
+[CLI] [PQI_METRIC] ts=164450111493 verified=1 rtt=3.19ms loss=0.018% bw=0.138Mbps grade=0 score=1000
+[CLI] [PQI_METRIC] ts=164450111512 verified=1 rtt=3.15ms loss=0.001% bw=0.138Mbps grade=0 score=1000
+[CLI] [PQI] WLAN grade=1 score=1000 rtt=3.02ms loss=0.022% bw=0.435Mbps
+[CLI] [PQI] USB  grade=0 score=0 rtt=2.83ms loss=0.001% bw=0.439Mbps
+[CLI] [EXP_SEND] ts=164450111487 path_idx=1 local_ip=172.20.10.3 bytes=41382 sid=6
+[CLI] [PQI_METRIC] ts=164450147392 verified=1 rtt=2.19ms loss=0.018% bw=0.380Mbps grade=0 score=1000
+[CLI] [PQI_METRIC] ts=164450147409 verified=1 rtt=2.27ms loss=0.000% bw=0.380Mbps grade=0 score=1000
+[CLI] [PQI] WLAN grade=1 score=1000 rtt=2.65ms loss=0.020% bw=0.424Mbps
+[CLI] [PQI] USB  grade=0 score=0 rtt=2.58ms loss=0.001% bw=0.428Mbps
+[CLI] [EXP_SEND] ts=164450147386 path_idx=1 local_ip=172.20.10.3 bytes=41571 sid=6
+[CLI] [PQI_METRIC] ts=164450179709 verified=1 rtt=2.33ms loss=0.018% bw=0.489Mbps grade=0 score=1000
+[CLI] [PQI_METRIC] ts=164450179725 verified=1 rtt=2.40ms loss=0.000% bw=0.489Mbps grade=0 score=1000
+[CLI] [PQI] WLAN grade=1 score=1000 rtt=2.50ms loss=0.019% bw=0.437Mbps
+[CLI] [PQI] USB  grade=0 score=0 rtt=2.50ms loss=0.001% bw=0.440Mbps
+[CLI] [EXP_SEND] ts=164450179704 path_idx=1 local_ip=172.20.10.3 bytes=41662 sid=6
+[CLI] [PQI_METRIC] ts=164450211558 verified=1 rtt=2.41ms loss=0.018% bw=0.544Mbps grade=0 score=1000
+[CLI] [PQI_METRIC] ts=164450211575 verified=1 rtt=2.40ms loss=0.000% bw=0.545Mbps grade=0 score=1000
+[CLI] [PQI] WLAN grade=1 score=1000 rtt=2.46ms loss=0.019% bw=0.458Mbps
+[CLI] [PQI] USB  grade=0 score=0 rtt=2.45ms loss=0.000% bw=0.461Mbps
+[CLI] [EXP_SEND] ts=164450211552 path_idx=1 local_ip=172.20.10.3 bytes=41583 sid=6
+[CLI] [PQI_METRIC] ts=164450247365 verified=1 rtt=2.13ms loss=0.018% bw=0.378Mbps grade=0 score=1000
+[CLI] [PQI_METRIC] ts=164450247382 verified=1 rtt=2.36ms loss=0.000% bw=0.378Mbps grade=0 score=1000
+[CLI] [PQI] WLAN grade=1 score=550 rtt=2.31ms loss=0.018% bw=0.442Mbps
+[CLI] [PQI] USB  grade=1 score=450 rtt=2.41ms loss=0.000% bw=0.444Mbps
+[CLI] [EXP_SEND] ts=164450247359 path_idx=1 local_ip=172.20.10.3 bytes=41664 sid=6
+[CLI] [PQI_METRIC] ts=164450279529 verified=1 rtt=2.16ms loss=0.018% bw=0.372Mbps grade=0 score=1000
+[CLI] [PQI_METRIC] ts=164450279545 verified=1 rtt=2.25ms loss=0.000% bw=0.372Mbps grade=0 score=1000
+[CLI] [PQI] WLAN grade=1 score=550 rtt=2.25ms loss=0.018% bw=0.428Mbps
+[CLI] [PQI] USB  grade=1 score=450 rtt=2.34ms loss=0.000% bw=0.430Mbps
+[CLI] [EXP_SEND] ts=164450279524 path_idx=1 local_ip=172.20.10.3 bytes=41733 sid=6
+[CLI] [PQI_METRIC] ts=164450315391 verified=1 rtt=2.02ms loss=0.017% bw=0.490Mbps grade=0 score=1000
+[CLI] [PQI_METRIC] ts=164450315404 verified=1 rtt=2.08ms loss=0.000% bw=0.490Mbps grade=0 score=1000
+[CLI] [PQI] WLAN grade=1 score=550 rtt=2.14ms loss=0.018% bw=0.441Mbps
+[CLI] [PQI] USB  grade=1 score=450 rtt=2.22ms loss=0.000% bw=0.442Mbps
+[CLI] [EXP_SEND] ts=164450315385 path_idx=1 local_ip=172.20.10.3 bytes=41700 sid=6
+[CLI] [PQI_METRIC] ts=164450347515 verified=1 rtt=2.94ms loss=0.017% bw=0.495Mbps grade=0 score=1000
+[CLI] [PQI_METRIC] ts=164450347532 verified=1 rtt=2.32ms loss=0.000% bw=0.494Mbps grade=0 score=1000
+[CLI] [PQI] WLAN grade=1 score=1000 rtt=2.50ms loss=0.018% bw=0.452Mbps
+[CLI] [PQI] USB  grade=0 score=0 rtt=2.27ms loss=0.000% bw=0.452Mbps
+[CLI] [EXP_SEND] ts=164450347510 path_idx=1 local_ip=172.20.10.3 bytes=41693 sid=6
+[CLI] [TRACE] loop_cb mode=2 state=14 nb_paths=2 hs_done=1
+[CLI] [PQI_METRIC] ts=164450379625 verified=1 rtt=2.46ms loss=0.017% bw=0.371Mbps grade=0 score=1000
+[CLI] [PQI_METRIC] ts=164450379637 verified=1 rtt=2.61ms loss=0.000% bw=3.123Mbps grade=0 score=1000
+[CLI] [PQI] WLAN grade=1 score=1000 rtt=2.49ms loss=0.018% bw=0.435Mbps
+[CLI] [PQI] USB  grade=0 score=0 rtt=2.42ms loss=0.000% bw=0.986Mbps
+[CLI] [EXP_SEND] ts=164450379620 path_idx=1 local_ip=172.20.10.3 bytes=41607 sid=6
+[CLI] [EXP_PATH_STATE] ts=164450415549 idx=0 local_ip=192.168.0.13 verified=1 smoothed_rtt_us=2419 recv_rate_Bps=66211 lost_bytes=1396
+[CLI] [EXP_PATH_STATE] ts=164450415549 idx=1 local_ip=172.20.10.3 verified=1 smoothed_rtt_us=2262 recv_rate_Bps=66128 lost_bytes=40
+[CLI] [PQI_METRIC] ts=164450415572 verified=1 rtt=2.42ms loss=0.017% bw=0.505Mbps grade=0 score=1000
+[CLI] [PQI_METRIC] ts=164450415578 verified=1 rtt=2.26ms loss=0.000% bw=0.505Mbps grade=0 score=1000
+[CLI] [PQI] WLAN grade=1 score=1000 rtt=2.46ms loss=0.017% bw=0.449Mbps
+[CLI] [PQI] USB  grade=0 score=0 rtt=2.35ms loss=0.000% bw=0.890Mbps
+[CLI] [EXP_SEND] ts=164450415549 path_idx=1 local_ip=172.20.10.3 bytes=41688 sid=6
+[CLI] [PQI_METRIC] ts=164450447538 verified=1 rtt=2.15ms loss=0.017% bw=0.511Mbps grade=0 score=1000
+[CLI] [PQI_METRIC] ts=164450447559 verified=1 rtt=2.44ms loss=0.000% bw=0.511Mbps grade=0 score=1000
+[CLI] [PQI] WLAN grade=1 score=550 rtt=2.32ms loss=0.017% bw=0.462Mbps
+[CLI] [PQI] USB  grade=1 score=450 rtt=2.39ms loss=0.000% bw=0.814Mbps
+[CLI] [EXP_SEND] ts=164450447532 path_idx=1 local_ip=172.20.10.3 bytes=41772 sid=6
+[CLI] [PQI_METRIC] ts=164450479589 verified=1 rtt=2.53ms loss=0.018% bw=0.371Mbps grade=0 score=1000
+[CLI] [PQI_METRIC] ts=164450479610 verified=1 rtt=2.50ms loss=0.000% bw=0.371Mbps grade=0 score=1000
+[CLI] [PQI] WLAN grade=1 score=550 rtt=2.41ms loss=0.018% bw=0.444Mbps
+[CLI] [PQI] USB  grade=1 score=450 rtt=2.44ms loss=0.000% bw=0.726Mbps
+[CLI] [EXP_SEND] ts=164450479583 path_idx=1 local_ip=172.20.10.3 bytes=41783 sid=6
+[CLI] [PQI_METRIC] ts=164450515536 verified=1 rtt=3.29ms loss=0.018% bw=0.249Mbps grade=0 score=1000
+[CLI] [PQI_METRIC] ts=164450515556 verified=1 rtt=3.13ms loss=0.000% bw=0.249Mbps grade=0 score=1000
+[CLI] [PQI] WLAN grade=1 score=1000 rtt=2.80ms loss=0.018% bw=0.405Mbps
+[CLI] [PQI] USB  grade=0 score=0 rtt=2.75ms loss=0.000% bw=0.630Mbps
+[CLI] [EXP_SEND] ts=164450515530 path_idx=1 local_ip=172.20.10.3 bytes=41773 sid=6
+[CLI] [PQI_METRIC] ts=164450547610 verified=1 rtt=2.29ms loss=0.018% bw=0.506Mbps grade=0 score=1000
+[CLI] [PQI_METRIC] ts=164450547627 verified=1 rtt=2.30ms loss=0.000% bw=0.506Mbps grade=0 score=1000
+[CLI] [PQI] WLAN grade=1 score=1000 rtt=2.57ms loss=0.018% bw=0.425Mbps
+[CLI] [PQI] USB  grade=0 score=0 rtt=2.55ms loss=0.000% bw=0.606Mbps
+[CLI] [EXP_SEND] ts=164450547605 path_idx=1 local_ip=172.20.10.3 bytes=41576 sid=6
+[CLI] [PQI_METRIC] ts=164450579567 verified=1 rtt=2.73ms loss=0.018% bw=0.360Mbps grade=0 score=1000
+[CLI] [PQI_METRIC] ts=164450579584 verified=1 rtt=2.57ms loss=0.000% bw=0.360Mbps grade=0 score=1000
+[CLI] [PQI] WLAN grade=1 score=1000 rtt=2.64ms loss=0.018% bw=0.412Mbps
+[CLI] [PQI] USB  grade=0 score=0 rtt=2.56ms loss=0.000% bw=0.557Mbps
+[CLI] [EXP_SEND] ts=164450579561 path_idx=1 local_ip=172.20.10.3 bytes=41616 sid=6
+[CLI] [PQI_METRIC] ts=164450615414 verified=1 rtt=2.42ms loss=0.018% bw=0.501Mbps grade=0 score=1000
+[CLI] [PQI_METRIC] ts=164450615429 verified=1 rtt=2.55ms loss=0.000% bw=0.501Mbps grade=0 score=1000
+[CLI] [PQI] WLAN grade=1 score=550 rtt=2.55ms loss=0.018% bw=0.430Mbps
+[CLI] [PQI] USB  grade=1 score=450 rtt=2.55ms loss=0.000% bw=0.545Mbps
+[CLI] [EXP_SEND] ts=164450615408 path_idx=1 local_ip=172.20.10.3 bytes=41740 sid=6
+[CLI] [PQI_METRIC] ts=164450647583 verified=1 rtt=2.27ms loss=0.018% bw=0.496Mbps grade=0 score=1000
+[CLI] [PQI_METRIC] ts=164450647604 verified=1 rtt=2.44ms loss=0.000% bw=0.496Mbps grade=0 score=1000
+[CLI] [PQI] WLAN grade=1 score=550 rtt=2.42ms loss=0.018% bw=0.443Mbps
+[CLI] [PQI] USB  grade=1 score=450 rtt=2.50ms loss=0.000% bw=0.536Mbps
+[CLI] [EXP_SEND] ts=164450647578 path_idx=1 local_ip=172.20.10.3 bytes=41719 sid=6
+[CLI] [PQI_METRIC] ts=164450683783 verified=1 rtt=2.42ms loss=0.018% bw=0.497Mbps grade=0 score=1000
+[CLI] [PQI_METRIC] ts=164450683801 verified=1 rtt=2.56ms loss=0.000% bw=0.497Mbps grade=0 score=1000
+[CLI] [PQI] WLAN grade=1 score=550 rtt=2.42ms loss=0.018% bw=0.454Mbps
+[CLI] [PQI] USB  grade=1 score=450 rtt=2.53ms loss=0.000% bw=0.528Mbps
+[CLI] [EXP_SEND] ts=164450683778 path_idx=1 local_ip=172.20.10.3 bytes=41803 sid=6
+[CLI] [PQI_METRIC] ts=164450715579 verified=1 rtt=2.23ms loss=0.018% bw=0.504Mbps grade=0 score=1000
+[CLI] [PQI_METRIC] ts=164450715596 verified=1 rtt=2.43ms loss=0.000% bw=0.504Mbps grade=0 score=1000
+[CLI] [PQI] WLAN grade=1 score=550 rtt=2.34ms loss=0.018% bw=0.464Mbps
+[CLI] [PQI] USB  grade=1 score=450 rtt=2.48ms loss=0.000% bw=0.523Mbps
+[CLI] [EXP_SEND] ts=164450715574 path_idx=1 local_ip=172.20.10.3 bytes=41789 sid=6
+[CLI] [PQI_METRIC] ts=164450747556 verified=1 rtt=2.40ms loss=0.018% bw=0.379Mbps grade=0 score=1000
+[CLI] [PQI_METRIC] ts=164450747570 verified=1 rtt=2.45ms loss=0.000% bw=0.379Mbps grade=0 score=1000
+[CLI] [PQI] WLAN grade=1 score=550 rtt=2.37ms loss=0.018% bw=0.447Mbps
+[CLI] [PQI] USB  grade=1 score=450 rtt=2.47ms loss=0.000% bw=0.494Mbps
+[CLI] [EXP_SEND] ts=164450747551 path_idx=1 local_ip=172.20.10.3 bytes=41842 sid=6
+[CLI] [PQI_METRIC] ts=164450783540 verified=1 rtt=2.96ms loss=0.018% bw=0.373Mbps grade=0 score=1000
+[CLI] [PQI_METRIC] ts=164450783556 verified=1 rtt=2.74ms loss=0.000% bw=0.493Mbps grade=0 score=1000
+[CLI] [PQI] WLAN grade=1 score=1000 rtt=2.63ms loss=0.018% bw=0.432Mbps
+[CLI] [PQI] USB  grade=0 score=0 rtt=2.59ms loss=0.000% bw=0.494Mbps
+[CLI] [EXP_SEND] ts=164450783535 path_idx=1 local_ip=172.20.10.3 bytes=41762 sid=6
+[CLI] [PQI_METRIC] ts=164450815576 verified=1 rtt=2.65ms loss=0.018% bw=0.379Mbps grade=0 score=1000
+[CLI] [PQI_METRIC] ts=164450815594 verified=1 rtt=2.10ms loss=0.000% bw=0.379Mbps grade=0 score=1000
+[CLI] [PQI] WLAN grade=1 score=1000 rtt=2.64ms loss=0.018% bw=0.421Mbps
+[CLI] [PQI] USB  grade=0 score=0 rtt=2.37ms loss=0.000% bw=0.471Mbps
+[CLI] [EXP_SEND] ts=164450815570 path_idx=1 local_ip=172.20.10.3 bytes=41863 sid=6
+[CLI] [PQI_METRIC] ts=164450847581 verified=1 rtt=2.21ms loss=0.018% bw=0.377Mbps grade=0 score=1000
+[CLI] [PQI_METRIC] ts=164450847597 verified=1 rtt=2.27ms loss=0.000% bw=0.377Mbps grade=0 score=1000
+[CLI] [PQI] WLAN grade=1 score=1000 rtt=2.45ms loss=0.018% bw=0.413Mbps
+[CLI] [PQI] USB  grade=0 score=0 rtt=2.32ms loss=0.000% bw=0.452Mbps
+[CLI] [EXP_SEND] ts=164450847575 path_idx=1 local_ip=172.20.10.3 bytes=41810 sid=6
+[CLI] [PQI_METRIC] ts=164450883071 verified=1 rtt=2.60ms loss=0.018% bw=0.501Mbps grade=0 score=1000
+[CLI] [PQI_METRIC] ts=164450883090 verified=1 rtt=2.49ms loss=0.000% bw=0.505Mbps grade=0 score=1000
+[CLI] [PQI] WLAN grade=1 score=1000 rtt=2.52ms loss=0.018% bw=0.430Mbps
+[CLI] [PQI] USB  grade=0 score=0 rtt=2.40ms loss=0.000% bw=0.463Mbps
+[CLI] [EXP_SEND] ts=164450883065 path_idx=1 local_ip=172.20.10.3 bytes=41812 sid=6
+[CLI] [PQI_METRIC] ts=164450915585 verified=1 rtt=2.26ms loss=0.018% bw=0.379Mbps grade=0 score=1000
+[CLI] [PQI_METRIC] ts=164450915602 verified=1 rtt=2.08ms loss=0.000% bw=0.379Mbps grade=0 score=1000
+[CLI] [PQI] WLAN grade=1 score=1000 rtt=2.40ms loss=0.018% bw=0.420Mbps
+[CLI] [PQI] USB  grade=0 score=0 rtt=2.26ms loss=0.000% bw=0.446Mbps
+[CLI] [EXP_SEND] ts=164450915579 path_idx=1 local_ip=172.20.10.3 bytes=41793 sid=6
+[CLI] [PQI_METRIC] ts=164450947607 verified=1 rtt=2.24ms loss=0.017% bw=0.495Mbps grade=0 score=1000
+[CLI] [PQI_METRIC] ts=164450947623 verified=1 rtt=2.42ms loss=0.000% bw=0.495Mbps grade=0 score=1000
+[CLI] [PQI] WLAN grade=1 score=1000 rtt=2.33ms loss=0.018% bw=0.435Mbps
+[CLI] [PQI] USB  grade=0 score=0 rtt=2.33ms loss=0.000% bw=0.456Mbps
+[CLI] [EXP_SEND] ts=164450947601 path_idx=1 local_ip=172.20.10.3 bytes=41841 sid=6
+[CLI] [PQI_METRIC] ts=164450983267 verified=1 rtt=3.06ms loss=0.017% bw=0.503Mbps grade=0 score=1000
+[CLI] [PQI_METRIC] ts=164450983286 verified=1 rtt=2.70ms loss=0.000% bw=0.503Mbps grade=0 score=1000
+[CLI] [PQI] WLAN grade=1 score=1000 rtt=2.66ms loss=0.018% bw=0.449Mbps
+[CLI] [PQI] USB  grade=0 score=0 rtt=2.49ms loss=0.000% bw=0.465Mbps
+[CLI] [EXP_SEND] ts=164450983262 path_idx=1 local_ip=172.20.10.3 bytes=41770 sid=6
+[CLI] [PQI_METRIC] ts=164451015572 verified=1 rtt=2.73ms loss=0.017% bw=0.499Mbps grade=0 score=1000
+[CLI] [PQI_METRIC] ts=164451015589 verified=1 rtt=2.44ms loss=0.000% bw=0.499Mbps grade=0 score=1000
+[CLI] [PQI] WLAN grade=1 score=1000 rtt=2.69ms loss=0.017% bw=0.459Mbps
+[CLI] [PQI] USB  grade=0 score=0 rtt=2.47ms loss=0.000% bw=0.472Mbps
+[CLI] [EXP_SEND] ts=164451015566 path_idx=1 local_ip=172.20.10.3 bytes=41879 sid=6
+[CLI] [PQI_METRIC] ts=164451051489 verified=1 rtt=4.05ms loss=0.017% bw=0.126Mbps grade=0 score=1000
+[CLI] [PQI_METRIC] ts=164451051507 verified=1 rtt=3.13ms loss=0.000% bw=0.126Mbps grade=0 score=1000
+[CLI] [PQI] WLAN grade=1 score=1000 rtt=3.30ms loss=0.017% bw=0.392Mbps
+[CLI] [PQI] USB  grade=0 score=0 rtt=2.77ms loss=0.000% bw=0.403Mbps
+[CLI] [EXP_SEND] ts=164451051483 path_idx=1 local_ip=172.20.10.3 bytes=41794 sid=6
+[CLI] [PQI_METRIC] ts=164451083609 verified=1 rtt=3.29ms loss=0.017% bw=0.786Mbps grade=0 score=1000
+[CLI] [PQI_METRIC] ts=164451083627 verified=1 rtt=2.72ms loss=0.000% bw=0.368Mbps grade=0 score=1000
+[CLI] [PQI] WLAN grade=1 score=800 rtt=3.30ms loss=0.017% bw=0.471Mbps
+[CLI] [PQI] USB  grade=0 score=200 rtt=2.75ms loss=0.000% bw=0.396Mbps
+[CLI] [EXP_SEND] ts=164451083604 path_idx=1 local_ip=172.20.10.3 bytes=41649 sid=6
+[CLI] [PQI_METRIC] ts=164451115889 verified=1 rtt=3.84ms loss=0.017% bw=0.118Mbps grade=0 score=1000
+[CLI] [PQI_METRIC] ts=164451115908 verified=1 rtt=3.24ms loss=0.000% bw=0.118Mbps grade=0 score=1000
+[CLI] [PQI] WLAN grade=1 score=800 rtt=3.54ms loss=0.017% bw=0.401Mbps
+[CLI] [PQI] USB  grade=0 score=200 rtt=2.97ms loss=0.000% bw=0.340Mbps
+[CLI] [EXP_SEND] ts=164451115883 path_idx=1 local_ip=172.20.10.3 bytes=41714 sid=6
+[CLI] [PQI_METRIC] ts=164451151586 verified=1 rtt=2.47ms loss=0.017% bw=0.499Mbps grade=0 score=1000
+[CLI] [PQI_METRIC] ts=164451151604 verified=1 rtt=2.42ms loss=0.000% bw=0.499Mbps grade=0 score=1000
+[CLI] [PQI] WLAN grade=1 score=800 rtt=3.06ms loss=0.017% bw=0.420Mbps
+[CLI] [PQI] USB  grade=0 score=200 rtt=2.72ms loss=0.000% bw=0.372Mbps
+[CLI] [EXP_SEND] ts=164451151580 path_idx=1 local_ip=172.20.10.3 bytes=41737 sid=6
+[CLI] [PQI_METRIC] ts=164451183577 verified=1 rtt=3.06ms loss=0.017% bw=1.135Mbps grade=0 score=1000
+[CLI] [PQI_METRIC] ts=164451183594 verified=1 rtt=2.87ms loss=0.000% bw=1.136Mbps grade=0 score=1000
+[CLI] [PQI] WLAN grade=1 score=800 rtt=3.06ms loss=0.017% bw=0.563Mbps
+[CLI] [PQI] USB  grade=0 score=200 rtt=2.79ms loss=0.000% bw=0.525Mbps
+[CLI] [EXP_SEND] ts=164451183571 path_idx=1 local_ip=172.20.10.3 bytes=41653 sid=6
+[CLI] [PQI_METRIC] ts=164451215853 verified=1 rtt=2.97ms loss=0.017% bw=0.481Mbps grade=0 score=1000
+[CLI] [PQI_METRIC] ts=164451215873 verified=1 rtt=2.78ms loss=0.000% bw=0.481Mbps grade=0 score=1000
+[CLI] [PQI] WLAN grade=1 score=800 rtt=3.02ms loss=0.017% bw=0.547Mbps
+[CLI] [PQI] USB  grade=0 score=200 rtt=2.79ms loss=0.000% bw=0.516Mbps
+[CLI] [EXP_SEND] ts=164451215847 path_idx=1 local_ip=172.20.10.3 bytes=41823 sid=6
+[CLI] [PQI_METRIC] ts=164451251673 verified=1 rtt=2.21ms loss=0.017% bw=0.505Mbps grade=0 score=1000
+[CLI] [PQI_METRIC] ts=164451251692 verified=1 rtt=2.28ms loss=0.000% bw=0.505Mbps grade=0 score=1000
+[CLI] [PQI] WLAN grade=1 score=800 rtt=2.66ms loss=0.017% bw=0.539Mbps
+[CLI] [PQI] USB  grade=0 score=200 rtt=2.56ms loss=0.000% bw=0.514Mbps
+[CLI] [EXP_SEND] ts=164451251667 path_idx=1 local_ip=172.20.10.3 bytes=41805 sid=6
+[CLI] [PQI_METRIC] ts=164451283635 verified=1 rtt=3.27ms loss=0.017% bw=0.985Mbps grade=0 score=1000
+[CLI] [PQI_METRIC] ts=164451283654 verified=1 rtt=2.84ms loss=0.000% bw=0.985Mbps grade=0 score=1000
+[CLI] [PQI] WLAN grade=1 score=800 rtt=2.93ms loss=0.017% bw=0.628Mbps
+[CLI] [PQI] USB  grade=0 score=200 rtt=2.68ms loss=0.000% bw=0.608Mbps
+[CLI] [EXP_SEND] ts=164451283629 path_idx=1 local_ip=172.20.10.3 bytes=41747 sid=6
+[CLI] [PQI_METRIC] ts=164451315601 verified=1 rtt=2.29ms loss=0.017% bw=0.383Mbps grade=0 score=1000
+[CLI] [PQI_METRIC] ts=164451315618 verified=1 rtt=2.32ms loss=0.000% bw=0.383Mbps grade=0 score=1000
+[CLI] [PQI] WLAN grade=1 score=800 rtt=2.64ms loss=0.017% bw=0.579Mbps
+[CLI] [PQI] USB  grade=0 score=200 rtt=2.52ms loss=0.000% bw=0.563Mbps
+[CLI] [EXP_SEND] ts=164451315595 path_idx=1 local_ip=172.20.10.3 bytes=41648 sid=6
+[CLI] [PQI_METRIC] ts=164451351664 verified=1 rtt=2.25ms loss=0.017% bw=0.516Mbps grade=0 score=1000
+[CLI] [PQI_METRIC] ts=164451351696 verified=1 rtt=2.27ms loss=0.000% bw=0.516Mbps grade=0 score=1000
+[CLI] [PQI] WLAN grade=1 score=800 rtt=2.47ms loss=0.017% bw=0.566Mbps
+[CLI] [PQI] USB  grade=0 score=200 rtt=2.41ms loss=0.000% bw=0.554Mbps
+[CLI] [EXP_SEND] ts=164451351658 path_idx=1 local_ip=172.20.10.3 bytes=41653 sid=6
+[CLI] [TRACE] loop_cb mode=2 state=14 nb_paths=2 hs_done=1
+[CLI] [PQI_METRIC] ts=164451383863 verified=1 rtt=3.25ms loss=0.017% bw=0.133Mbps grade=0 score=1000
+[CLI] [PQI_METRIC] ts=164451383880 verified=1 rtt=3.02ms loss=0.000% bw=0.132Mbps grade=0 score=1000
+[CLI] [PQI] WLAN grade=1 score=800 rtt=2.82ms loss=0.017% bw=0.480Mbps
+[CLI] [PQI] USB  grade=0 score=200 rtt=2.68ms loss=0.000% bw=0.470Mbps
+[CLI] [EXP_SEND] ts=164451383857 path_idx=1 local_ip=172.20.10.3 bytes=41690 sid=6
+[CLI] [EXP_PATH_STATE] ts=164451419591 idx=0 local_ip=192.168.0.13 verified=1 smoothed_rtt_us=2919 recv_rate_Bps=33358 lost_bytes=1516
+[CLI] [EXP_PATH_STATE] ts=164451419591 idx=1 local_ip=172.20.10.3 verified=1 smoothed_rtt_us=2503 recv_rate_Bps=33392 lost_bytes=40
+[CLI] [PQI_METRIC] ts=164451419613 verified=1 rtt=2.92ms loss=0.017% bw=0.255Mbps grade=0 score=1000
+[CLI] [PQI_METRIC] ts=164451419622 verified=1 rtt=2.50ms loss=0.000% bw=0.255Mbps grade=0 score=1000
+[CLI] [PQI] WLAN grade=1 score=800 rtt=2.86ms loss=0.017% bw=0.435Mbps
+[CLI] [PQI] USB  grade=0 score=200 rtt=2.60ms loss=0.000% bw=0.427Mbps
+[CLI] [EXP_SEND] ts=164451419591 path_idx=1 local_ip=172.20.10.3 bytes=41668 sid=6
+[CLI] [PQI_METRIC] ts=164451451628 verified=1 rtt=2.28ms loss=0.017% bw=0.498Mbps grade=0 score=1000
+[CLI] [PQI_METRIC] ts=164451451646 verified=1 rtt=2.38ms loss=0.000% bw=0.498Mbps grade=0 score=1000
+[CLI] [PQI] WLAN grade=1 score=800 rtt=2.60ms loss=0.017% bw=0.447Mbps
+[CLI] [PQI] USB  grade=0 score=200 rtt=2.50ms loss=0.000% bw=0.441Mbps
+[CLI] [EXP_SEND] ts=164451451623 path_idx=1 local_ip=172.20.10.3 bytes=41766 sid=6
+[CLI] [PQI_METRIC] ts=164451483721 verified=1 rtt=2.56ms loss=0.017% bw=0.360Mbps grade=0 score=1000
+[CLI] [PQI_METRIC] ts=164451483748 verified=1 rtt=2.68ms loss=0.000% bw=0.360Mbps grade=0 score=1000
+[CLI] [PQI] WLAN grade=0 score=350 rtt=2.58ms loss=0.017% bw=0.430Mbps
+[CLI] [PQI] USB  grade=1 score=650 rtt=2.58ms loss=0.000% bw=0.425Mbps
+[CLI] [PQI_SWITCH] ts=164451483715 from=1 to=0 cause=stable_failback wifi_score=350 usb_score=650
+[CLI] [BENCH_SWITCH] ts=164451483715 from_path=1 to_path=0
+[CLI] [EXP_SEND] ts=164451483715 path_idx=0 local_ip=192.168.0.13 bytes=41775 sid=2
+[CLI] [PQI_METRIC] ts=164451519628 verified=1 rtt=3.16ms loss=0.017% bw=0.377Mbps grade=0 score=1000
+[CLI] [PQI_METRIC] ts=164451519647 verified=1 rtt=3.10ms loss=0.000% bw=0.377Mbps grade=0 score=1000
+[CLI] [PQI] WLAN grade=1 score=800 rtt=2.84ms loss=0.017% bw=0.419Mbps
+[CLI] [PQI] USB  grade=0 score=200 rtt=2.81ms loss=0.000% bw=0.415Mbps
+[CLI] [EXP_SEND] ts=164451519622 path_idx=0 local_ip=192.168.0.13 bytes=41705 sid=2
+[CLI] [PQI_METRIC] ts=164451551670 verified=1 rtt=2.34ms loss=0.017% bw=0.502Mbps grade=0 score=1000
+[CLI] [PQI_METRIC] ts=164451551690 verified=1 rtt=2.28ms loss=0.000% bw=0.498Mbps grade=0 score=1000
+[CLI] [PQI] WLAN grade=1 score=800 rtt=2.62ms loss=0.017% bw=0.436Mbps
+[CLI] [PQI] USB  grade=0 score=200 rtt=2.57ms loss=0.000% bw=0.432Mbps
+[CLI] [EXP_SEND] ts=164451551664 path_idx=0 local_ip=192.168.0.13 bytes=41936 sid=2
+[CLI] [PQI_METRIC] ts=164451583600 verified=1 rtt=2.81ms loss=0.017% bw=0.384Mbps grade=0 score=1000
+[CLI] [PQI_METRIC] ts=164451583618 verified=1 rtt=2.79ms loss=0.000% bw=0.384Mbps grade=0 score=1000
+[CLI] [PQI] WLAN grade=1 score=800 rtt=2.70ms loss=0.017% bw=0.425Mbps
+[CLI] [PQI] USB  grade=0 score=200 rtt=2.67ms loss=0.000% bw=0.422Mbps
+[CLI] [EXP_SEND] ts=164451583594 path_idx=0 local_ip=192.168.0.13 bytes=41890 sid=2
+[CLI] [PQI_METRIC] ts=164451619496 verified=1 rtt=2.51ms loss=0.017% bw=0.377Mbps grade=0 score=1000
+[CLI] [PQI_METRIC] ts=164451619515 verified=1 rtt=2.49ms loss=0.000% bw=0.377Mbps grade=0 score=1000
+[CLI] [PQI] WLAN grade=1 score=800 rtt=2.62ms loss=0.017% bw=0.416Mbps
+[CLI] [PQI] USB  grade=0 score=200 rtt=2.59ms loss=0.000% bw=0.413Mbps
+[CLI] [EXP_SEND] ts=164451619491 path_idx=0 local_ip=192.168.0.13 bytes=41744 sid=2
+[CLI] [PQI_METRIC] ts=164451651660 verified=1 rtt=2.75ms loss=0.017% bw=0.384Mbps grade=0 score=1000
+[CLI] [PQI_METRIC] ts=164451651676 verified=1 rtt=2.72ms loss=0.000% bw=0.384Mbps grade=0 score=1000
+[CLI] [PQI] WLAN grade=1 score=800 rtt=2.67ms loss=0.017% bw=0.409Mbps
+[CLI] [PQI] USB  grade=0 score=200 rtt=2.65ms loss=0.000% bw=0.407Mbps
+[CLI] [EXP_SEND] ts=164451651655 path_idx=0 local_ip=192.168.0.13 bytes=41771 sid=2
+[CLI] [PQI_METRIC] ts=164451682665 verified=1 rtt=2.57ms loss=0.016% bw=0.383Mbps grade=0 score=1000
+[CLI] [PQI_METRIC] ts=164451682683 verified=1 rtt=2.56ms loss=0.000% bw=0.383Mbps grade=0 score=1000
+[CLI] [PQI] WLAN grade=1 score=800 rtt=2.63ms loss=0.017% bw=0.404Mbps
+[CLI] [PQI] USB  grade=0 score=200 rtt=2.61ms loss=0.000% bw=0.402Mbps
+[CLI] [EXP_SEND] ts=164451682659 path_idx=0 local_ip=192.168.0.13 bytes=41745 sid=2
+[CLI] [PQI_METRIC] ts=164451718944 verified=1 rtt=3.05ms loss=0.016% bw=0.370Mbps grade=0 score=1000
+[CLI] [PQI_METRIC] ts=164451718962 verified=1 rtt=3.03ms loss=0.000% bw=0.370Mbps grade=0 score=1000
+[CLI] [PQI] WLAN grade=1 score=800 rtt=2.82ms loss=0.017% bw=0.397Mbps
+[CLI] [PQI] USB  grade=0 score=200 rtt=2.80ms loss=0.000% bw=0.396Mbps
+[CLI] [EXP_SEND] ts=164451718938 path_idx=0 local_ip=192.168.0.13 bytes=41774 sid=2
+[CLI] [PQI_METRIC] ts=164451751593 verified=1 rtt=2.95ms loss=0.016% bw=0.399Mbps grade=0 score=1000
+[CLI] [PQI_METRIC] ts=164451751610 verified=1 rtt=2.96ms loss=0.000% bw=0.398Mbps grade=0 score=1000
+[CLI] [PQI] WLAN grade=1 score=800 rtt=2.88ms loss=0.016% bw=0.398Mbps
+[CLI] [PQI] USB  grade=0 score=200 rtt=2.87ms loss=0.000% bw=0.396Mbps
+[CLI] [EXP_SEND] ts=164451751588 path_idx=0 local_ip=192.168.0.13 bytes=41765 sid=2
+[CLI] [PQI_METRIC] ts=164451787657 verified=1 rtt=2.77ms loss=0.016% bw=0.369Mbps grade=0 score=1000
+[CLI] [PQI_METRIC] ts=164451787674 verified=1 rtt=2.77ms loss=0.000% bw=0.367Mbps grade=0 score=1000
+[CLI] [PQI] WLAN grade=1 score=800 rtt=2.83ms loss=0.016% bw=0.392Mbps
+[CLI] [PQI] USB  grade=0 score=200 rtt=2.83ms loss=0.000% bw=0.391Mbps
+[CLI] [EXP_SEND] ts=164451787652 path_idx=0 local_ip=192.168.0.13 bytes=41836 sid=2
+[CLI] [PQI_METRIC] ts=164451819595 verified=1 rtt=2.80ms loss=0.016% bw=0.375Mbps grade=0 score=1000
+[CLI] [PQI_METRIC] ts=164451819614 verified=1 rtt=2.77ms loss=0.000% bw=0.375Mbps grade=0 score=1000
+[CLI] [PQI] WLAN grade=1 score=800 rtt=2.82ms loss=0.016% bw=0.389Mbps
+[CLI] [PQI] USB  grade=0 score=200 rtt=2.80ms loss=0.000% bw=0.387Mbps
+[CLI] [EXP_SEND] ts=164451819589 path_idx=0 local_ip=192.168.0.13 bytes=41712 sid=2
+[CLI] [PQI_METRIC] ts=164451851609 verified=1 rtt=2.77ms loss=0.016% bw=0.254Mbps grade=0 score=1000
+[CLI] [PQI_METRIC] ts=164451851628 verified=1 rtt=2.68ms loss=0.000% bw=0.254Mbps grade=0 score=1000
+[CLI] [PQI] WLAN grade=1 score=800 rtt=2.80ms loss=0.016% bw=0.362Mbps
+[CLI] [PQI] USB  grade=0 score=200 rtt=2.75ms loss=0.000% bw=0.361Mbps
+[CLI] [EXP_SEND] ts=164451851603 path_idx=0 local_ip=192.168.0.13 bytes=41747 sid=2
+[CLI] [PQI_METRIC] ts=164451887698 verified=1 rtt=3.04ms loss=0.016% bw=0.375Mbps grade=0 score=1000
+[CLI] [PQI_METRIC] ts=164451887717 verified=1 rtt=3.02ms loss=0.000% bw=0.375Mbps grade=0 score=1000
+[CLI] [PQI] WLAN grade=1 score=800 rtt=2.91ms loss=0.016% bw=0.364Mbps
+[CLI] [PQI] USB  grade=0 score=200 rtt=2.87ms loss=0.000% bw=0.364Mbps
+[CLI] [EXP_SEND] ts=164451887692 path_idx=0 local_ip=192.168.0.13 bytes=41699 sid=2
+[CLI] [PQI_METRIC] ts=164451919612 verified=1 rtt=3.40ms loss=0.016% bw=0.126Mbps grade=0 score=1000
+[CLI] [PQI_METRIC] ts=164451919630 verified=1 rtt=3.35ms loss=0.000% bw=0.126Mbps grade=0 score=1000
+[CLI] [PQI] WLAN grade=1 score=800 rtt=3.13ms loss=0.016% bw=0.317Mbps
+[CLI] [PQI] USB  grade=0 score=200 rtt=3.09ms loss=0.000% bw=0.316Mbps
+[CLI] [EXP_SEND] ts=164451919607 path_idx=0 local_ip=192.168.0.13 bytes=41751 sid=2
+[CLI] [PQI_METRIC] ts=164451951564 verified=1 rtt=3.16ms loss=0.015% bw=0.369Mbps grade=0 score=1000
+[CLI] [PQI_METRIC] ts=164451951581 verified=1 rtt=3.31ms loss=0.000% bw=0.369Mbps grade=0 score=1000
+[CLI] [PQI] WLAN grade=0 score=350 rtt=3.14ms loss=0.016% bw=0.327Mbps
+[CLI] [PQI] USB  grade=1 score=650 rtt=3.19ms loss=0.000% bw=0.327Mbps
+[CLI] [EXP_SEND] ts=164451951558 path_idx=0 local_ip=192.168.0.13 bytes=41774 sid=2
+[CLI] [PQI_METRIC] ts=164451987855 verified=1 rtt=2.83ms loss=0.015% bw=0.376Mbps grade=0 score=1000
+[CLI] [PQI_METRIC] ts=164451987872 verified=1 rtt=2.82ms loss=0.000% bw=0.376Mbps grade=0 score=1000
+[CLI] [PQI] WLAN grade=0 score=350 rtt=3.00ms loss=0.016% bw=0.337Mbps
+[CLI] [PQI] USB  grade=1 score=650 rtt=3.02ms loss=0.000% bw=0.336Mbps
+[CLI] [EXP_SEND] ts=164451987849 path_idx=0 local_ip=192.168.0.13 bytes=41747 sid=2
+[CLI] [PQI_METRIC] ts=164452019682 verified=1 rtt=2.57ms loss=0.015% bw=0.503Mbps grade=0 score=1000
+[CLI] [PQI_METRIC] ts=164452019699 verified=1 rtt=2.57ms loss=0.000% bw=0.503Mbps grade=0 score=1000
+[CLI] [PQI] WLAN grade=0 score=350 rtt=2.81ms loss=0.015% bw=0.370Mbps
+[CLI] [PQI] USB  grade=1 score=650 rtt=2.82ms loss=0.000% bw=0.370Mbps
+[CLI] [EXP_SEND] ts=164452019676 path_idx=0 local_ip=192.168.0.13 bytes=41774 sid=2
+[CLI] [PQI_METRIC] ts=164452051541 verified=1 rtt=2.49ms loss=0.015% bw=0.511Mbps grade=0 score=1000
+[CLI] [PQI_METRIC] ts=164452051557 verified=1 rtt=2.46ms loss=0.000% bw=0.510Mbps grade=0 score=1000
+[CLI] [PQI] WLAN grade=1 score=800 rtt=2.67ms loss=0.015% bw=0.398Mbps
+[CLI] [PQI] USB  grade=0 score=200 rtt=2.65ms loss=0.000% bw=0.398Mbps
+[CLI] [EXP_SEND] ts=164452051535 path_idx=0 local_ip=192.168.0.13 bytes=41830 sid=2
+[CLI] [PQI_METRIC] ts=164452087648 verified=1 rtt=2.84ms loss=0.015% bw=0.379Mbps grade=0 score=1000
+[CLI] [PQI_METRIC] ts=164452087664 verified=1 rtt=2.83ms loss=0.000% bw=0.382Mbps grade=0 score=1000
+[CLI] [PQI] WLAN grade=1 score=1000 rtt=2.74ms loss=0.015% bw=0.394Mbps
+[CLI] [PQI] USB  grade=0 score=0 rtt=2.73ms loss=0.000% bw=0.395Mbps
+[CLI] [EXP_SEND] ts=164452087642 path_idx=0 local_ip=192.168.0.13 bytes=41826 sid=2
+[CLI] [PQI_METRIC] ts=164452119741 verified=1 rtt=3.62ms loss=0.015% bw=0.127Mbps grade=0 score=1000
+[CLI] [PQI_METRIC] ts=164452119758 verified=1 rtt=3.63ms loss=0.000% bw=0.127Mbps grade=0 score=1000
+[CLI] [PQI] WLAN grade=1 score=1000 rtt=3.14ms loss=0.015% bw=0.341Mbps
+[CLI] [PQI] USB  grade=0 score=0 rtt=3.14ms loss=0.000% bw=0.341Mbps
+[CLI] [EXP_SEND] ts=164452119735 path_idx=0 local_ip=192.168.0.13 bytes=41700 sid=2
+[CLI] [PQI_METRIC] ts=164452155880 verified=1 rtt=2.87ms loss=0.015% bw=0.490Mbps grade=0 score=1000
+[CLI] [PQI_METRIC] ts=164452155900 verified=1 rtt=2.84ms loss=0.000% bw=0.490Mbps grade=0 score=1000
+[CLI] [PQI] WLAN grade=1 score=1000 rtt=3.02ms loss=0.015% bw=0.371Mbps
+[CLI] [PQI] USB  grade=0 score=0 rtt=3.00ms loss=0.000% bw=0.371Mbps
+[CLI] [EXP_SEND] ts=164452155874 path_idx=0 local_ip=192.168.0.13 bytes=41780 sid=2
+[CLI] [PQI_METRIC] ts=164452187625 verified=1 rtt=2.93ms loss=0.015% bw=0.511Mbps grade=0 score=1000
+[CLI] [PQI_METRIC] ts=164452187641 verified=1 rtt=2.94ms loss=0.000% bw=0.511Mbps grade=0 score=1000
+[CLI] [PQI] WLAN grade=1 score=1000 rtt=2.98ms loss=0.015% bw=0.399Mbps
+[CLI] [PQI] USB  grade=0 score=0 rtt=2.97ms loss=0.000% bw=0.399Mbps
+[CLI] [EXP_SEND] ts=164452187619 path_idx=0 local_ip=192.168.0.13 bytes=41707 sid=2
+[CLI] [PQI_METRIC] ts=164452219567 verified=1 rtt=2.98ms loss=0.015% bw=0.377Mbps grade=0 score=1000
+[CLI] [PQI_METRIC] ts=164452219582 verified=1 rtt=3.03ms loss=0.000% bw=0.377Mbps grade=0 score=1000
+[CLI] [PQI] WLAN grade=1 score=550 rtt=2.98ms loss=0.015% bw=0.394Mbps
+[CLI] [PQI] USB  grade=1 score=450 rtt=3.00ms loss=0.000% bw=0.395Mbps
+[CLI] [EXP_SEND] ts=164452219561 path_idx=0 local_ip=192.168.0.13 bytes=41749 sid=2
+[CLI] [PQI_METRIC] ts=164452255642 verified=1 rtt=2.87ms loss=0.014% bw=0.503Mbps grade=0 score=1000
+[CLI] [PQI_METRIC] ts=164452255658 verified=1 rtt=2.86ms loss=0.000% bw=0.504Mbps grade=0 score=1000
+[CLI] [PQI] WLAN grade=1 score=550 rtt=2.93ms loss=0.015% bw=0.416Mbps
+[CLI] [PQI] USB  grade=1 score=450 rtt=2.94ms loss=0.000% bw=0.416Mbps
+[CLI] [EXP_SEND] ts=164452255637 path_idx=0 local_ip=192.168.0.13 bytes=41871 sid=2
+[CLI] [PQI_METRIC] ts=164452287537 verified=1 rtt=3.33ms loss=0.014% bw=0.376Mbps grade=0 score=1000
+[CLI] [PQI_METRIC] ts=164452287554 verified=1 rtt=3.33ms loss=0.000% bw=0.376Mbps grade=0 score=1000
+[CLI] [PQI] WLAN grade=1 score=550 rtt=3.11ms loss=0.015% bw=0.408Mbps
+[CLI] [PQI] USB  grade=1 score=450 rtt=3.11ms loss=0.000% bw=0.408Mbps
+[CLI] [EXP_SEND] ts=164452287531 path_idx=0 local_ip=192.168.0.13 bytes=41842 sid=2
+[CLI] [PQI_METRIC] ts=164452319673 verified=1 rtt=2.92ms loss=0.014% bw=0.506Mbps grade=0 score=1000
+[CLI] [PQI_METRIC] ts=164452319689 verified=1 rtt=2.92ms loss=0.000% bw=0.506Mbps grade=0 score=1000
+[CLI] [PQI] WLAN grade=1 score=550 rtt=3.03ms loss=0.014% bw=0.428Mbps
+[CLI] [PQI] USB  grade=1 score=450 rtt=3.03ms loss=0.000% bw=0.428Mbps
+[CLI] [EXP_SEND] ts=164452319667 path_idx=0 local_ip=192.168.0.13 bytes=41690 sid=2
+[CLI] [PQI_METRIC] ts=164452355654 verified=1 rtt=2.79ms loss=0.014% bw=0.379Mbps grade=0 score=1000
+[CLI] [PQI_METRIC] ts=164452355670 verified=1 rtt=2.80ms loss=0.000% bw=0.379Mbps grade=0 score=1000
+[CLI] [PQI] WLAN grade=1 score=550 rtt=2.92ms loss=0.014% bw=0.418Mbps
+[CLI] [PQI] USB  grade=1 score=450 rtt=2.92ms loss=0.000% bw=0.418Mbps
+[CLI] [EXP_SEND] ts=164452355648 path_idx=0 local_ip=192.168.0.13 bytes=41771 sid=2
+[CLI] [TRACE] loop_cb mode=2 state=14 nb_paths=2 hs_done=1
+[CLI] [PQI_METRIC] ts=164452387899 verified=1 rtt=2.69ms loss=0.014% bw=0.379Mbps grade=0 score=1000
+[CLI] [PQI_METRIC] ts=164452387913 verified=1 rtt=2.62ms loss=0.000% bw=0.381Mbps grade=0 score=1000
+[CLI] [PQI] WLAN grade=1 score=1000 rtt=2.82ms loss=0.014% bw=0.410Mbps
+[CLI] [PQI] USB  grade=0 score=0 rtt=2.79ms loss=0.000% bw=0.411Mbps
+[CLI] [EXP_SEND] ts=164452387894 path_idx=0 local_ip=192.168.0.13 bytes=41864 sid=2
+[CLI] [EXP_PATH_STATE] ts=164452419678 idx=0 local_ip=192.168.0.13 verified=1 smoothed_rtt_us=3062 recv_rate_Bps=49748 lost_bytes=1516
+[CLI] [EXP_PATH_STATE] ts=164452419678 idx=1 local_ip=172.20.10.3 verified=1 smoothed_rtt_us=3036 recv_rate_Bps=49761 lost_bytes=40
+[CLI] [PQI_METRIC] ts=164452419698 verified=1 rtt=3.06ms loss=0.014% bw=0.380Mbps grade=0 score=1000
+[CLI] [PQI_METRIC] ts=164452419704 verified=1 rtt=3.04ms loss=0.000% bw=0.380Mbps grade=0 score=1000
+[CLI] [PQI] WLAN grade=1 score=1000 rtt=2.93ms loss=0.014% bw=0.404Mbps
+[CLI] [PQI] USB  grade=0 score=0 rtt=2.90ms loss=0.000% bw=0.404Mbps
+[CLI] [EXP_SEND] ts=164452419678 path_idx=0 local_ip=192.168.0.13 bytes=41597 sid=2
+[CLI] [PQI_METRIC] ts=164452455678 verified=1 rtt=2.76ms loss=0.014% bw=0.388Mbps grade=0 score=1000
+[CLI] [PQI_METRIC] ts=164452455695 verified=1 rtt=2.77ms loss=0.000% bw=0.388Mbps grade=0 score=1000
+[CLI] [PQI] WLAN grade=1 score=1000 rtt=2.85ms loss=0.014% bw=0.401Mbps
+[CLI] [PQI] USB  grade=0 score=0 rtt=2.84ms loss=0.000% bw=0.401Mbps
+[CLI] [EXP_SEND] ts=164452455672 path_idx=0 local_ip=192.168.0.13 bytes=41367 sid=2
+[CLI] [PQI_METRIC] ts=164452487631 verified=1 rtt=2.67ms loss=0.014% bw=0.495Mbps grade=0 score=1000
+[CLI] [PQI_METRIC] ts=164452487650 verified=1 rtt=2.66ms loss=0.000% bw=0.498Mbps grade=0 score=1000
+[CLI] [PQI] WLAN grade=1 score=1000 rtt=2.77ms loss=0.014% bw=0.420Mbps
+[CLI] [PQI] USB  grade=0 score=0 rtt=2.76ms loss=0.000% bw=0.420Mbps
+[CLI] [EXP_SEND] ts=164452487624 path_idx=0 local_ip=192.168.0.13 bytes=41549 sid=2
+[CLI] [PQI_METRIC] ts=164452523732 verified=1 rtt=2.79ms loss=0.014% bw=0.503Mbps grade=0 score=1000
+[CLI] [PQI_METRIC] ts=164452523754 verified=1 rtt=2.76ms loss=0.000% bw=0.503Mbps grade=0 score=1000
+[CLI] [PQI] WLAN grade=1 score=1000 rtt=2.78ms loss=0.014% bw=0.436Mbps
+[CLI] [PQI] USB  grade=0 score=0 rtt=2.76ms loss=0.000% bw=0.437Mbps
+[CLI] [EXP_SEND] ts=164452523726 path_idx=0 local_ip=192.168.0.13 bytes=41727 sid=2
+[CLI] [PQI_METRIC] ts=164452555702 verified=1 rtt=2.91ms loss=0.014% bw=0.381Mbps grade=0 score=1000
+[CLI] [PQI_METRIC] ts=164452555720 verified=1 rtt=2.90ms loss=0.000% bw=0.381Mbps grade=0 score=1000
+[CLI] [PQI] WLAN grade=1 score=1000 rtt=2.84ms loss=0.014% bw=0.425Mbps
+[CLI] [PQI] USB  grade=0 score=0 rtt=2.82ms loss=0.000% bw=0.426Mbps
+[CLI] [EXP_SEND] ts=164452555696 path_idx=0 local_ip=192.168.0.13 bytes=41684 sid=2
+[CLI] [PQI_METRIC] ts=164452587671 verified=1 rtt=2.61ms loss=0.014% bw=0.506Mbps grade=0 score=1000
+[CLI] [PQI_METRIC] ts=164452587686 verified=1 rtt=2.61ms loss=0.000% bw=0.506Mbps grade=0 score=1000
+[CLI] [PQI] WLAN grade=1 score=1000 rtt=2.74ms loss=0.014% bw=0.441Mbps
+[CLI] [PQI] USB  grade=0 score=0 rtt=2.73ms loss=0.000% bw=0.442Mbps
+[CLI] [EXP_SEND] ts=164452587665 path_idx=0 local_ip=192.168.0.13 bytes=41734 sid=2
+[CLI] [PQI_METRIC] ts=164452623707 verified=1 rtt=3.44ms loss=0.013% bw=0.380Mbps grade=0 score=1000
+[CLI] [PQI_METRIC] ts=164452623724 verified=1 rtt=3.44ms loss=0.000% bw=0.380Mbps grade=0 score=1000
+[CLI] [PQI] WLAN grade=1 score=1000 rtt=3.06ms loss=0.014% bw=0.429Mbps
+[CLI] [PQI] USB  grade=0 score=0 rtt=3.05ms loss=0.000% bw=0.429Mbps
+[CLI] [EXP_SEND] ts=164452623702 path_idx=0 local_ip=192.168.0.13 bytes=41692 sid=2
+[CLI] [PQI_METRIC] ts=164452655652 verified=1 rtt=2.96ms loss=0.013% bw=0.371Mbps grade=0 score=1000
+[CLI] [PQI_METRIC] ts=164452655670 verified=1 rtt=2.90ms loss=0.000% bw=0.371Mbps grade=0 score=1000
+[CLI] [PQI] WLAN grade=1 score=1000 rtt=3.01ms loss=0.014% bw=0.418Mbps
+[CLI] [PQI] USB  grade=0 score=0 rtt=2.98ms loss=0.000% bw=0.418Mbps
+[CLI] [EXP_SEND] ts=164452655646 path_idx=0 local_ip=192.168.0.13 bytes=41763 sid=2
+[CLI] [PQI_METRIC] ts=164452687698 verified=1 rtt=2.97ms loss=0.013% bw=0.505Mbps grade=0 score=1000
+[CLI] [PQI_METRIC] ts=164452687716 verified=1 rtt=2.80ms loss=0.000% bw=0.506Mbps grade=0 score=1000
+[CLI] [PQI] WLAN grade=1 score=1000 rtt=2.99ms loss=0.013% bw=0.435Mbps
+[CLI] [PQI] USB  grade=0 score=0 rtt=2.90ms loss=0.000% bw=0.435Mbps
+[CLI] [EXP_SEND] ts=164452687693 path_idx=0 local_ip=192.168.0.13 bytes=41771 sid=2
+[CLI] [PQI_METRIC] ts=164452723678 verified=1 rtt=2.58ms loss=0.013% bw=0.379Mbps grade=0 score=1000
+[CLI] [PQI_METRIC] ts=164452723695 verified=1 rtt=2.58ms loss=0.000% bw=0.378Mbps grade=0 score=1000
+[CLI] [PQI] WLAN grade=1 score=1000 rtt=2.81ms loss=0.013% bw=0.424Mbps
+[CLI] [PQI] USB  grade=0 score=0 rtt=2.76ms loss=0.000% bw=0.424Mbps
+[CLI] [EXP_SEND] ts=164452723672 path_idx=0 local_ip=192.168.0.13 bytes=41675 sid=2
+[CLI] [PQI_METRIC] ts=164452755709 verified=1 rtt=3.04ms loss=0.013% bw=0.498Mbps grade=0 score=1000
+[CLI] [PQI_METRIC] ts=164452755726 verified=1 rtt=3.04ms loss=0.000% bw=0.498Mbps grade=0 score=1000
+[CLI] [PQI] WLAN grade=1 score=1000 rtt=2.91ms loss=0.013% bw=0.439Mbps
+[CLI] [PQI] USB  grade=0 score=0 rtt=2.89ms loss=0.000% bw=0.439Mbps
+[CLI] [EXP_SEND] ts=164452755703 path_idx=0 local_ip=192.168.0.13 bytes=41709 sid=2
+[CLI] [PQI_METRIC] ts=164452787769 verified=1 rtt=2.93ms loss=0.013% bw=0.377Mbps grade=0 score=1000
+[CLI] [PQI_METRIC] ts=164452787783 verified=1 rtt=2.92ms loss=0.000% bw=0.378Mbps grade=0 score=1000
+[CLI] [PQI] WLAN grade=1 score=1000 rtt=2.92ms loss=0.013% bw=0.426Mbps
+[CLI] [PQI] USB  grade=0 score=0 rtt=2.90ms loss=0.000% bw=0.426Mbps
+[CLI] [EXP_SEND] ts=164452787763 path_idx=0 local_ip=192.168.0.13 bytes=41656 sid=2
+[CLI] [PQI_METRIC] ts=164452822735 verified=1 rtt=3.44ms loss=0.013% bw=0.257Mbps grade=0 score=1000
+[CLI] [PQI_METRIC] ts=164452822754 verified=1 rtt=3.44ms loss=0.000% bw=0.256Mbps grade=0 score=1000
+[CLI] [PQI] WLAN grade=1 score=1000 rtt=3.15ms loss=0.013% bw=0.392Mbps
+[CLI] [PQI] USB  grade=0 score=0 rtt=3.15ms loss=0.000% bw=0.392Mbps
+[CLI] [EXP_SEND] ts=164452822730 path_idx=0 local_ip=192.168.0.13 bytes=41686 sid=2
+[CLI] [PQI_METRIC] ts=164452855689 verified=1 rtt=3.27ms loss=0.013% bw=0.383Mbps grade=0 score=1000
+[CLI] [PQI_METRIC] ts=164452855707 verified=1 rtt=3.27ms loss=0.000% bw=0.381Mbps grade=0 score=1000
+[CLI] [PQI] WLAN grade=1 score=800 rtt=3.21ms loss=0.013% bw=0.391Mbps
+[CLI] [PQI] USB  grade=0 score=200 rtt=3.20ms loss=0.000% bw=0.390Mbps
+[CLI] [EXP_SEND] ts=164452855683 path_idx=0 local_ip=192.168.0.13 bytes=41673 sid=2
+[CLI] [PQI_METRIC] ts=164452891697 verified=1 rtt=2.68ms loss=0.013% bw=0.388Mbps grade=0 score=1000
+[CLI] [PQI_METRIC] ts=164452891714 verified=1 rtt=2.68ms loss=0.000% bw=0.388Mbps grade=0 score=1000
+[CLI] [PQI] WLAN grade=1 score=800 rtt=2.97ms loss=0.013% bw=0.390Mbps
+[CLI] [PQI] USB  grade=0 score=200 rtt=2.97ms loss=0.000% bw=0.390Mbps
+[CLI] [EXP_SEND] ts=164452891692 path_idx=0 local_ip=192.168.0.13 bytes=41648 sid=2
+[CLI] [PQI_METRIC] ts=164452923700 verified=1 rtt=3.25ms loss=0.013% bw=0.766Mbps grade=0 score=1000
+[CLI] [PQI_METRIC] ts=164452923716 verified=1 rtt=3.25ms loss=0.000% bw=0.766Mbps grade=0 score=1000
+[CLI] [PQI] WLAN grade=1 score=800 rtt=3.10ms loss=0.013% bw=0.465Mbps
+[CLI] [PQI] USB  grade=0 score=200 rtt=3.09ms loss=0.000% bw=0.465Mbps
+[CLI] [EXP_SEND] ts=164452923693 path_idx=0 local_ip=192.168.0.13 bytes=41699 sid=2
+[CLI] [PQI_METRIC] ts=164452955708 verified=1 rtt=2.90ms loss=0.013% bw=0.381Mbps grade=0 score=1000
+[CLI] [PQI_METRIC] ts=164452955723 verified=1 rtt=2.90ms loss=0.000% bw=0.381Mbps grade=0 score=1000
+[CLI] [PQI] WLAN grade=1 score=800 rtt=3.01ms loss=0.013% bw=0.448Mbps
+[CLI] [PQI] USB  grade=0 score=200 rtt=3.01ms loss=0.000% bw=0.448Mbps
+[CLI] [EXP_SEND] ts=164452955702 path_idx=0 local_ip=192.168.0.13 bytes=41595 sid=2
+[CLI] [PQI_METRIC] ts=164452991712 verified=1 rtt=3.02ms loss=0.013% bw=0.379Mbps grade=0 score=1000
+[CLI] [PQI_METRIC] ts=164452991729 verified=1 rtt=3.02ms loss=0.000% bw=0.378Mbps grade=0 score=1000
+[CLI] [PQI] WLAN grade=0 score=350 rtt=3.01ms loss=0.013% bw=0.434Mbps
+[CLI] [PQI] USB  grade=1 score=650 rtt=3.01ms loss=0.000% bw=0.434Mbps
+[CLI] [EXP_SEND] ts=164452991706 path_idx=0 local_ip=192.168.0.13 bytes=41810 sid=2
+[CLI] [PQI_METRIC] ts=164453023742 verified=1 rtt=2.94ms loss=0.012% bw=0.396Mbps grade=0 score=1000
+[CLI] [PQI_METRIC] ts=164453023758 verified=1 rtt=2.94ms loss=0.000% bw=0.396Mbps grade=0 score=1000
+[CLI] [PQI] WLAN grade=1 score=800 rtt=2.98ms loss=0.013% bw=0.427Mbps
+[CLI] [PQI] USB  grade=0 score=200 rtt=2.98ms loss=0.000% bw=0.427Mbps
+[CLI] [EXP_SEND] ts=164453023736 path_idx=0 local_ip=192.168.0.13 bytes=41711 sid=2
+[CLI] [PQI_METRIC] ts=164453055658 verified=1 rtt=2.64ms loss=0.012% bw=0.382Mbps grade=0 score=1000
+[CLI] [PQI_METRIC] ts=164453055674 verified=1 rtt=2.65ms loss=0.000% bw=0.382Mbps grade=0 score=1000
+[CLI] [PQI] WLAN grade=0 score=350 rtt=2.83ms loss=0.013% bw=0.418Mbps
+[CLI] [PQI] USB  grade=1 score=650 rtt=2.83ms loss=0.000% bw=0.418Mbps
+[CLI] [EXP_SEND] ts=164453055652 path_idx=0 local_ip=192.168.0.13 bytes=41701 sid=2
+[CLI] [PQI_METRIC] ts=164453091340 verified=1 rtt=2.90ms loss=0.012% bw=0.378Mbps grade=0 score=1000
+[CLI] [PQI_METRIC] ts=164453091356 verified=1 rtt=2.90ms loss=0.000% bw=0.378Mbps grade=0 score=1000
+[CLI] [PQI] WLAN grade=0 score=350 rtt=2.86ms loss=0.012% bw=0.410Mbps
+[CLI] [PQI] USB  grade=1 score=650 rtt=2.86ms loss=0.000% bw=0.410Mbps
+[CLI] [EXP_SEND] ts=164453091334 path_idx=0 local_ip=192.168.0.13 bytes=41602 sid=2
+[CLI] [PQI_METRIC] ts=164453123704 verified=1 rtt=3.64ms loss=0.012% bw=0.252Mbps grade=0 score=1000
+[CLI] [PQI_METRIC] ts=164453123720 verified=1 rtt=3.65ms loss=0.000% bw=0.253Mbps grade=0 score=1000
+[CLI] [PQI] WLAN grade=0 score=350 rtt=3.21ms loss=0.012% bw=0.378Mbps
+[CLI] [PQI] USB  grade=1 score=650 rtt=3.21ms loss=0.000% bw=0.378Mbps
+[CLI] [EXP_SEND] ts=164453123698 path_idx=0 local_ip=192.168.0.13 bytes=41711 sid=2
+[CLI] [PQI_METRIC] ts=164453155736 verified=1 rtt=2.95ms loss=0.012% bw=0.501Mbps grade=0 score=1000
+[CLI] [PQI_METRIC] ts=164453155753 verified=1 rtt=2.95ms loss=0.000% bw=0.501Mbps grade=0 score=1000
+[CLI] [PQI] WLAN grade=1 score=550 rtt=3.09ms loss=0.012% bw=0.403Mbps
+[CLI] [PQI] USB  grade=1 score=450 rtt=3.10ms loss=0.000% bw=0.403Mbps
+[CLI] [EXP_SEND] ts=164453155730 path_idx=0 local_ip=192.168.0.13 bytes=41760 sid=2
+[CLI] [PQI_METRIC] ts=164453191705 verified=1 rtt=3.12ms loss=0.012% bw=0.380Mbps grade=0 score=1000
+[CLI] [PQI_METRIC] ts=164453191735 verified=1 rtt=3.10ms loss=0.000% bw=0.380Mbps grade=0 score=1000
+[CLI] [PQI] WLAN grade=1 score=1000 rtt=3.10ms loss=0.012% bw=0.398Mbps
+[CLI] [PQI] USB  grade=0 score=0 rtt=3.10ms loss=0.000% bw=0.398Mbps
+[CLI] [EXP_SEND] ts=164453191699 path_idx=0 local_ip=192.168.0.13 bytes=41656 sid=2
+[CLI] [PQI_METRIC] ts=164453223741 verified=1 rtt=3.02ms loss=0.012% bw=0.366Mbps grade=0 score=1000
+[CLI] [PQI_METRIC] ts=164453223779 verified=1 rtt=3.03ms loss=0.000% bw=0.366Mbps grade=0 score=1000
+[CLI] [PQI] WLAN grade=1 score=1000 rtt=3.07ms loss=0.012% bw=0.392Mbps
+[CLI] [PQI] USB  grade=0 score=0 rtt=3.07ms loss=0.000% bw=0.392Mbps
+[CLI] [EXP_SEND] ts=164453223734 path_idx=0 local_ip=192.168.0.13 bytes=41629 sid=2
+[CLI] [PQI_METRIC] ts=164453259792 verified=1 rtt=2.31ms loss=0.012% bw=0.497Mbps grade=0 score=1000
+[CLI] [PQI_METRIC] ts=164453259820 verified=1 rtt=2.31ms loss=0.000% bw=0.496Mbps grade=0 score=1000
+[CLI] [PQI] WLAN grade=0 score=350 rtt=2.73ms loss=0.012% bw=0.413Mbps
+[CLI] [PQI] USB  grade=1 score=650 rtt=2.73ms loss=0.000% bw=0.413Mbps
+[CLI] [EXP_SEND] ts=164453259785 path_idx=0 local_ip=192.168.0.13 bytes=41663 sid=2
+[CLI] [PQI_METRIC] ts=164453289929 verified=1 rtt=2.70ms loss=0.012% bw=0.258Mbps grade=0 score=1000
+[CLI] [PQI_METRIC] ts=164453289944 verified=1 rtt=2.71ms loss=0.000% bw=0.258Mbps grade=0 score=1000
+[CLI] [PQI] WLAN grade=0 score=350 rtt=2.72ms loss=0.012% bw=0.382Mbps
+[CLI] [PQI] USB  grade=1 score=650 rtt=2.72ms loss=0.000% bw=0.382Mbps
+[CLI] [EXP_SEND] ts=164453289923 path_idx=0 local_ip=192.168.0.13 bytes=41684 sid=2
+[CLI] [PQI_METRIC] ts=164453322476 verified=1 rtt=2.52ms loss=0.012% bw=0.493Mbps grade=0 score=1000
+[CLI] [PQI_METRIC] ts=164453322491 verified=1 rtt=2.53ms loss=0.000% bw=0.493Mbps grade=0 score=1000
+[CLI] [PQI] WLAN grade=0 score=350 rtt=2.63ms loss=0.012% bw=0.404Mbps
+[CLI] [PQI] USB  grade=1 score=650 rtt=2.63ms loss=0.000% bw=0.404Mbps
+[CLI] [EXP_SEND] ts=164453322471 path_idx=0 local_ip=192.168.0.13 bytes=41745 sid=2
+[CLI] [PQI_METRIC] ts=164453358788 verified=1 rtt=2.79ms loss=0.012% bw=0.366Mbps grade=0 score=1000
+[CLI] [PQI_METRIC] ts=164453358807 verified=1 rtt=2.79ms loss=0.000% bw=0.366Mbps grade=0 score=1000
+[CLI] [PQI] WLAN grade=0 score=350 rtt=2.70ms loss=0.012% bw=0.396Mbps
+[CLI] [PQI] USB  grade=1 score=650 rtt=2.70ms loss=0.000% bw=0.396Mbps
+[CLI] [EXP_SEND] ts=164453358782 path_idx=0 local_ip=192.168.0.13 bytes=41673 sid=2
+[CLI] [TRACE] loop_cb mode=2 state=14 nb_paths=2 hs_done=1
+[CLI] [PQI_METRIC] ts=164453389995 verified=1 rtt=2.51ms loss=0.012% bw=0.370Mbps grade=0 score=1000
+[CLI] [PQI_METRIC] ts=164453390016 verified=1 rtt=2.54ms loss=0.000% bw=0.370Mbps grade=0 score=1000
+[CLI] [PQI] WLAN grade=0 score=350 rtt=2.61ms loss=0.012% bw=0.391Mbps
+[CLI] [PQI] USB  grade=1 score=650 rtt=2.63ms loss=0.000% bw=0.391Mbps
+[CLI] [EXP_SEND] ts=164453389988 path_idx=0 local_ip=192.168.0.13 bytes=41684 sid=2
+[CLI] [PQI_METRIC] ts=164453418641 verified=1 rtt=2.44ms loss=0.012% bw=0.375Mbps grade=0 score=1000
+[CLI] [PQI_METRIC] ts=164453418664 verified=1 rtt=2.46ms loss=0.000% bw=0.376Mbps grade=0 score=1000
+[CLI] [PQI] WLAN grade=0 score=350 rtt=2.54ms loss=0.012% bw=0.388Mbps
+[CLI] [PQI] USB  grade=1 score=650 rtt=2.55ms loss=0.000% bw=0.388Mbps
+[CLI] [EXP_SEND] ts=164453418635 path_idx=0 local_ip=192.168.0.13 bytes=41636 sid=2
+[CLI] [EXP_PATH_STATE] ts=164453454892 idx=0 local_ip=192.168.0.13 verified=1 smoothed_rtt_us=2787 recv_rate_Bps=48658 lost_bytes=1516
+[CLI] [EXP_PATH_STATE] ts=164453454892 idx=1 local_ip=172.20.10.3 verified=1 smoothed_rtt_us=2784 recv_rate_Bps=48597 lost_bytes=40
+[CLI] [PQI_METRIC] ts=164453454922 verified=1 rtt=2.79ms loss=0.011% bw=0.371Mbps grade=0 score=1000
+[CLI] [PQI_METRIC] ts=164453454933 verified=1 rtt=2.78ms loss=0.000% bw=0.371Mbps grade=0 score=1000
+[CLI] [PQI] WLAN grade=0 score=350 rtt=2.65ms loss=0.012% bw=0.385Mbps
+[CLI] [PQI] USB  grade=1 score=650 rtt=2.66ms loss=0.000% bw=0.385Mbps
+[CLI] [EXP_SEND] ts=164453454892 path_idx=0 local_ip=192.168.0.13 bytes=41692 sid=2
+[CLI] [PQI_METRIC] ts=164453488605 verified=1 rtt=3.09ms loss=0.011% bw=0.386Mbps grade=0 score=1000
+[CLI] [PQI_METRIC] ts=164453488633 verified=1 rtt=3.10ms loss=0.000% bw=0.386Mbps grade=0 score=1000
+[CLI] [PQI] WLAN grade=0 score=350 rtt=2.85ms loss=0.012% bw=0.385Mbps
+[CLI] [PQI] USB  grade=1 score=650 rtt=2.86ms loss=0.000% bw=0.385Mbps
+[CLI] [EXP_SEND] ts=164453488598 path_idx=0 local_ip=192.168.0.13 bytes=41720 sid=2
+[CLI] [PQI_METRIC] ts=164453519549 verified=1 rtt=2.82ms loss=0.011% bw=0.378Mbps grade=0 score=1000
+[CLI] [PQI_METRIC] ts=164453519572 verified=1 rtt=2.81ms loss=0.000% bw=0.378Mbps grade=0 score=1000
+[CLI] [PQI] WLAN grade=0 score=350 rtt=2.83ms loss=0.011% bw=0.384Mbps
+[CLI] [PQI] USB  grade=1 score=650 rtt=2.84ms loss=0.000% bw=0.383Mbps
+[CLI] [EXP_SEND] ts=164453519542 path_idx=0 local_ip=192.168.0.13 bytes=41695 sid=2
+[CLI] [PQI_METRIC] ts=164453554139 verified=1 rtt=3.40ms loss=0.011% bw=0.454Mbps grade=0 score=1000
+[CLI] [PQI_METRIC] ts=164453554171 verified=1 rtt=3.39ms loss=0.248% bw=0.453Mbps grade=0 score=1000
+[CLI] [PQI] WLAN grade=0 score=0 rtt=3.09ms loss=0.011% bw=0.398Mbps
+[CLI] [PQI] USB  grade=1 score=1000 rtt=3.09ms loss=0.087% bw=0.397Mbps
+[CLI] [EXP_SEND] ts=164453554133 path_idx=0 local_ip=192.168.0.13 bytes=41827 sid=2
+[CLI] [PQI_METRIC] ts=164453585659 verified=1 rtt=3.40ms loss=0.274% bw=0.454Mbps grade=0 score=1000
+[CLI] [PQI_METRIC] ts=164453585885 verified=1 rtt=3.39ms loss=0.247% bw=0.453Mbps grade=0 score=1000
+[CLI] [PQI] WLAN grade=1 score=450 rtt=3.23ms loss=0.103% bw=0.409Mbps
+[CLI] [PQI] USB  grade=1 score=550 rtt=3.23ms loss=0.143% bw=0.409Mbps
+[CLI] [EXP_SEND] ts=164453585651 path_idx=0 local_ip=192.168.0.13 bytes=41746 sid=2
+[CLI] ==========================================================
+[CLI] [DIAG] Wi-Fi Down. Checking existing paths...
+[CLI] [DIAG] Wi-Fi path exists (ID:0). Re-probing...
+[CLI] ==========================================================
+[CLI] [PQI_METRIC] ts=164453621692 verified=0 rtt=200.00ms loss=0.808% bw=0.454Mbps grade=1 score=1000
+[CLI] [PQI_METRIC] ts=164453621737 verified=1 rtt=3.39ms loss=0.243% bw=0.453Mbps grade=0 score=1000
+[CLI] [PQI] WLAN grade=1 score=800 rtt=91.77ms loss=0.350% bw=0.418Mbps
+[CLI] [PQI] USB  grade=0 score=200 rtt=3.30ms loss=0.178% bw=0.417Mbps
+[CLI] [PQI_SWITCH] ts=164453621685 from=0 to=1 cause=degrade_failover wifi_score=800 usb_score=200
+[CLI] [BENCH_SWITCH] ts=164453621685 from_path=0 to_path=1
+[CLI] [EXP_SEND] ts=164453621685 path_idx=1 local_ip=172.20.10.3 bytes=41774 sid=6
+[CLI] [PQI_METRIC] ts=164453655018 verified=0 rtt=200.00ms loss=0.808% bw=0.454Mbps grade=1 score=1000
+[CLI] [PQI_METRIC] ts=164453655051 verified=1 rtt=3.39ms loss=0.240% bw=0.453Mbps grade=0 score=1000
+[CLI] [PQI] WLAN grade=1 score=800 rtt=140.48ms loss=0.510% bw=0.425Mbps
+[CLI] [PQI] USB  grade=0 score=200 rtt=3.34ms loss=0.200% bw=0.425Mbps
+[CLI] [EXP_SEND] ts=164453655011 path_idx=1 local_ip=172.20.10.3 bytes=41673 sid=6
+[CLI] [PQI_METRIC] ts=164453687161 verified=0 rtt=200.00ms loss=0.808% bw=0.454Mbps grade=1 score=1000
+[CLI] [PQI_METRIC] ts=164453687191 verified=1 rtt=3.39ms loss=0.237% bw=0.453Mbps grade=0 score=1000
+[CLI] [PQI] WLAN grade=1 score=800 rtt=167.26ms loss=0.615% bw=0.431Mbps
+[CLI] [PQI] USB  grade=0 score=200 rtt=3.37ms loss=0.213% bw=0.430Mbps
+[CLI] [EXP_SEND] ts=164453687153 path_idx=1 local_ip=172.20.10.3 bytes=41760 sid=6
+[CLI] [PQI_METRIC] ts=164453724688 verified=0 rtt=200.00ms loss=0.808% bw=0.454Mbps grade=1 score=1000
+[CLI] [PQI_METRIC] ts=164453724718 verified=1 rtt=3.39ms loss=0.233% bw=0.453Mbps grade=0 score=1000
+[CLI] [PQI] WLAN grade=1 score=800 rtt=181.99ms loss=0.682% bw=0.435Mbps
+[CLI] [PQI] USB  grade=0 score=200 rtt=3.38ms loss=0.220% bw=0.435Mbps
+[CLI] [EXP_SEND] ts=164453724681 path_idx=1 local_ip=172.20.10.3 bytes=41721 sid=6
+[CLI] [PQI_METRIC] ts=164453756434 verified=0 rtt=200.00ms loss=0.808% bw=0.454Mbps grade=1 score=1000
+[CLI] [PQI_METRIC] ts=164453756464 verified=1 rtt=3.39ms loss=0.230% bw=0.453Mbps grade=0 score=1000
+[CLI] [PQI] WLAN grade=1 score=800 rtt=190.10ms loss=0.726% bw=0.439Mbps
+[CLI] [PQI] USB  grade=0 score=200 rtt=3.38ms loss=0.224% bw=0.439Mbps
+[CLI] [EXP_SEND] ts=164453756427 path_idx=1 local_ip=172.20.10.3 bytes=41765 sid=6
+[CLI] ==========================================================
+[CLI] [BENCH_DONE] 10MB Transfer Complete at ts=164453756427
+[CLI] [BENCH_DONE] Total Delay: 8361128 us (8361.128 ms)
+[CLI] ==========================================================
+[CLI] [PQI_METRIC] ts=164453786970 verified=0 rtt=200.00ms loss=0.808% bw=0.454Mbps grade=1 score=1000
+[CLI] [PQI_METRIC] ts=164453786998 verified=1 rtt=3.39ms loss=0.228% bw=0.453Mbps grade=0 score=1000
+[CLI] [PQI] WLAN grade=1 score=800 rtt=194.55ms loss=0.755% bw=0.442Mbps
+[CLI] [PQI] USB  grade=0 score=200 rtt=3.39ms loss=0.225% bw=0.441Mbps
+[CLI] [EXP_SEND] ts=164453786964 path_idx=1 local_ip=172.20.10.3 bytes=41662 sid=6
+[CLI] [PQI_METRIC] ts=164453821953 verified=0 rtt=200.00ms loss=0.808% bw=0.454Mbps grade=1 score=1000
+[CLI] [PQI_METRIC] ts=164453821981 verified=1 rtt=3.39ms loss=0.225% bw=0.453Mbps grade=0 score=1000
+[CLI] [PQI] WLAN grade=1 score=800 rtt=197.00ms loss=0.774% bw=0.444Mbps
+[CLI] [PQI] USB  grade=0 score=200 rtt=3.39ms loss=0.225% bw=0.444Mbps
+[CLI] [EXP_SEND] ts=164453821947 path_idx=1 local_ip=172.20.10.3 bytes=41691 sid=6
+[CLI] [PQI_METRIC] ts=164453853773 verified=0 rtt=200.00ms loss=0.808% bw=0.454Mbps grade=1 score=1000
+[CLI] [PQI_METRIC] ts=164453853800 verified=1 rtt=3.39ms loss=0.222% bw=0.453Mbps grade=0 score=1000
+[CLI] [PQI] WLAN grade=1 score=800 rtt=198.35ms loss=0.786% bw=0.446Mbps
+[CLI] [PQI] USB  grade=0 score=200 rtt=3.39ms loss=0.224% bw=0.446Mbps
+[CLI] [EXP_SEND] ts=164453853767 path_idx=1 local_ip=172.20.10.3 bytes=41771 sid=6
+[CLI] [PQI_METRIC] ts=164453889751 verified=0 rtt=200.00ms loss=0.808% bw=0.454Mbps grade=1 score=1000
+[CLI] [PQI_METRIC] ts=164453889791 verified=1 rtt=3.39ms loss=0.219% bw=0.453Mbps grade=0 score=1000
+[CLI] [PQI] WLAN grade=1 score=800 rtt=199.09ms loss=0.794% bw=0.448Mbps
+[CLI] [PQI] USB  grade=0 score=200 rtt=3.39ms loss=0.222% bw=0.447Mbps
+[CLI] [EXP_SEND] ts=164453889744 path_idx=1 local_ip=172.20.10.3 bytes=41629 sid=6
+[CLI] [PQI_METRIC] ts=164453925620 verified=1 rtt=3.40ms loss=0.826% bw=0.454Mbps grade=0 score=1000
+[CLI] [PQI_METRIC] ts=164453925655 verified=1 rtt=3.39ms loss=0.216% bw=0.453Mbps grade=0 score=1000
+[CLI] [PQI] WLAN grade=1 score=800 rtt=111.03ms loss=0.805% bw=0.449Mbps
+[CLI] [PQI] USB  grade=0 score=200 rtt=3.39ms loss=0.220% bw=0.448Mbps
+[CLI] [EXP_SEND] ts=164453925614 path_idx=1 local_ip=172.20.10.3 bytes=41706 sid=6
+[CLI] [PQI_METRIC] ts=164453957654 verified=0 rtt=200.00ms loss=0.837% bw=0.454Mbps grade=1 score=1000
+[CLI] [PQI_METRIC] ts=164453957695 verified=1 rtt=3.39ms loss=0.214% bw=0.453Mbps grade=0 score=1000
+[CLI] [PQI] WLAN grade=1 score=800 rtt=151.07ms loss=0.816% bw=0.450Mbps
+[CLI] [PQI] USB  grade=0 score=200 rtt=3.39ms loss=0.218% bw=0.449Mbps
+[CLI] [EXP_SEND] ts=164453957647 path_idx=1 local_ip=172.20.10.3 bytes=41660 sid=6
+[CLI] [PQI_METRIC] ts=164453995035 verified=0 rtt=200.00ms loss=0.855% bw=0.454Mbps grade=1 score=1000
+[CLI] [PQI_METRIC] ts=164453995077 verified=1 rtt=3.39ms loss=0.211% bw=0.453Mbps grade=0 score=1000
+[CLI] [PQI] WLAN grade=1 score=800 rtt=173.09ms loss=0.830% bw=0.451Mbps
+[CLI] [PQI] USB  grade=0 score=200 rtt=3.39ms loss=0.215% bw=0.450Mbps
+[CLI] [EXP_SEND] ts=164453995028 path_idx=1 local_ip=172.20.10.3 bytes=41739 sid=6
+[CLI] [PQI_METRIC] ts=164454026578 verified=0 rtt=200.00ms loss=0.855% bw=0.454Mbps grade=1 score=1000
+[CLI] [PQI_METRIC] ts=164454026622 verified=1 rtt=3.39ms loss=0.208% bw=0.453Mbps grade=0 score=1000
+[CLI] [PQI] WLAN grade=1 score=800 rtt=185.20ms loss=0.838% bw=0.451Mbps
+[CLI] [PQI] USB  grade=0 score=200 rtt=3.39ms loss=0.213% bw=0.451Mbps
+[CLI] [EXP_SEND] ts=164454026572 path_idx=1 local_ip=172.20.10.3 bytes=41808 sid=6
+[CLI] [PQI_METRIC] ts=164454058737 verified=0 rtt=200.00ms loss=0.855% bw=0.454Mbps grade=1 score=1000
+[CLI] [PQI_METRIC] ts=164454058778 verified=1 rtt=3.39ms loss=0.206% bw=0.453Mbps grade=0 score=1000
+[CLI] [PQI] WLAN grade=1 score=800 rtt=191.86ms loss=0.844% bw=0.452Mbps
+[CLI] [PQI] USB  grade=0 score=200 rtt=3.39ms loss=0.210% bw=0.451Mbps
+[CLI] [EXP_SEND] ts=164454058730 path_idx=1 local_ip=172.20.10.3 bytes=41660 sid=6
+[CLI] [PQI_METRIC] ts=164454095786 verified=0 rtt=200.00ms loss=0.855% bw=0.454Mbps grade=1 score=1000
+[CLI] [PQI_METRIC] ts=164454095825 verified=1 rtt=3.39ms loss=0.203% bw=0.453Mbps grade=0 score=1000
+[CLI] [PQI] WLAN grade=1 score=800 rtt=195.52ms loss=0.848% bw=0.452Mbps
+[CLI] [PQI] USB  grade=0 score=200 rtt=3.39ms loss=0.208% bw=0.452Mbps
+[CLI] [EXP_SEND] ts=164454095780 path_idx=1 local_ip=172.20.10.3 bytes=41713 sid=6
+[CLI] [PQI_METRIC] ts=164454127844 verified=0 rtt=200.00ms loss=0.855% bw=0.454Mbps grade=1 score=1000
+[CLI] [PQI_METRIC] ts=164454127878 verified=1 rtt=3.39ms loss=0.201% bw=0.453Mbps grade=0 score=1000
+[CLI] [PQI] WLAN grade=1 score=800 rtt=197.54ms loss=0.850% bw=0.452Mbps
+[CLI] [PQI] USB  grade=0 score=200 rtt=3.39ms loss=0.206% bw=0.452Mbps
+[CLI] [EXP_SEND] ts=164454127837 path_idx=1 local_ip=172.20.10.3 bytes=41798 sid=6
+[CLI] [PQI_METRIC] ts=164454159871 verified=0 rtt=200.00ms loss=0.855% bw=0.454Mbps grade=1 score=1000
+[CLI] [PQI_METRIC] ts=164454159910 verified=1 rtt=3.39ms loss=0.199% bw=0.453Mbps grade=0 score=1000
+[CLI] [PQI] WLAN grade=1 score=800 rtt=198.65ms loss=0.852% bw=0.453Mbps
+[CLI] [PQI] USB  grade=0 score=200 rtt=3.39ms loss=0.203% bw=0.452Mbps
+[CLI] [EXP_SEND] ts=164454159865 path_idx=1 local_ip=172.20.10.3 bytes=41803 sid=6
+[CLI] [PQI_METRIC] ts=164454195776 verified=0 rtt=200.00ms loss=0.855% bw=0.454Mbps grade=1 score=1000
+[CLI] [PQI_METRIC] ts=164454195818 verified=1 rtt=3.39ms loss=0.196% bw=0.453Mbps grade=0 score=1000
+[CLI] [PQI] WLAN grade=1 score=800 rtt=199.26ms loss=0.853% bw=0.453Mbps
+[CLI] [PQI] USB  grade=0 score=200 rtt=3.39ms loss=0.201% bw=0.452Mbps
+[CLI] [EXP_SEND] ts=164454195769 path_idx=1 local_ip=172.20.10.3 bytes=41834 sid=6
+[CLI] [PQI_METRIC] ts=164454227966 verified=0 rtt=200.00ms loss=0.855% bw=0.454Mbps grade=1 score=1000
+[CLI] [PQI_METRIC] ts=164454228014 verified=1 rtt=3.39ms loss=0.194% bw=0.453Mbps grade=0 score=1000
+[CLI] [PQI] WLAN grade=1 score=800 rtt=199.59ms loss=0.853% bw=0.453Mbps
+[CLI] [PQI] USB  grade=0 score=200 rtt=3.39ms loss=0.199% bw=0.453Mbps
+[CLI] [EXP_SEND] ts=164454227959 path_idx=1 local_ip=172.20.10.3 bytes=41679 sid=6
+[CLI] [PQI_METRIC] ts=164454259763 verified=1 rtt=3.39ms loss=0.192% bw=0.453Mbps grade=0 score=1000
+[CLI] [PQI] WLAN grade=2 score=1000 rtt=0.00ms loss=0.000% bw=0.000Mbps
+[CLI] [PQI] USB  grade=0 score=0 rtt=3.39ms loss=0.196% bw=0.453Mbps
+[CLI] [BENCH_SWITCH] ts=164454259756 from_path=1 to_path=0
+[CLI] [EXP_SEND] ts=164454259756 path_idx=0 local_ip=172.20.10.3 bytes=41738 sid=2
+[CLI] [PQI_METRIC] ts=164454295862 verified=1 rtt=3.39ms loss=0.190% bw=0.453Mbps grade=0 score=1000
+[CLI] [PQI] WLAN grade=2 score=1000 rtt=0.00ms loss=0.000% bw=0.000Mbps
+[CLI] [PQI] USB  grade=0 score=0 rtt=3.39ms loss=0.194% bw=0.453Mbps
+[CLI] [EXP_SEND] ts=164454295855 path_idx=0 local_ip=172.20.10.3 bytes=41815 sid=2
+[CLI] [PQI_METRIC] ts=164454327778 verified=1 rtt=3.39ms loss=0.188% bw=0.453Mbps grade=0 score=1000
+[CLI] [PQI] WLAN grade=2 score=1000 rtt=0.00ms loss=0.000% bw=0.000Mbps
+[CLI] [PQI] USB  grade=0 score=0 rtt=3.39ms loss=0.192% bw=0.453Mbps
+[CLI] [EXP_SEND] ts=164454327771 path_idx=0 local_ip=172.20.10.3 bytes=41860 sid=2
+[CLI] [PQI_METRIC] ts=164454363979 verified=1 rtt=3.39ms loss=0.186% bw=0.453Mbps grade=0 score=1000
+[CLI] [PQI] WLAN grade=2 score=1000 rtt=0.00ms loss=0.000% bw=0.000Mbps
+[CLI] [PQI] USB  grade=0 score=0 rtt=3.39ms loss=0.190% bw=0.453Mbps
+[CLI] [EXP_SEND] ts=164454363973 path_idx=0 local_ip=172.20.10.3 bytes=41647 sid=2
+[CLI] [TRACE] loop_cb mode=2 state=14 nb_paths=1 hs_done=1
+[CLI] [PQI_METRIC] ts=164454395926 verified=0 rtt=200.00ms loss=0.184% bw=0.453Mbps grade=1 score=1000
+[CLI] [PQI] WLAN grade=2 score=1000 rtt=0.00ms loss=0.000% bw=0.000Mbps
+[CLI] [PQI] USB  grade=1 score=500 rtt=91.87ms loss=0.188% bw=0.453Mbps
+[CLI] [PQI_METRIC] ts=164454427866 verified=0 rtt=200.00ms loss=0.182% bw=0.453Mbps grade=1 score=1000
+[CLI] [PQI] WLAN grade=2 score=1000 rtt=0.00ms loss=0.000% bw=0.000Mbps
+[CLI] [PQI] USB  grade=1 score=500 rtt=140.53ms loss=0.186% bw=0.453Mbps
+[CLI] [EXP_PATH_STATE] ts=164454464096 idx=0 local_ip=172.20.10.3 verified=0 smoothed_rtt_us=3393 recv_rate_Bps=59398 lost_bytes=34633
+[CLI] [PQI_METRIC] ts=164454464133 verified=0 rtt=200.00ms loss=0.180% bw=0.453Mbps grade=1 score=1000
+[CLI] [PQI] WLAN grade=2 score=1000 rtt=0.00ms loss=0.000% bw=0.000Mbps
+[CLI] [PQI] USB  grade=1 score=500 rtt=167.29ms loss=0.183% bw=0.453Mbps
+[CLI] [PQI_METRIC] ts=164454496023 verified=0 rtt=200.00ms loss=0.178% bw=0.453Mbps grade=1 score=1000
+[CLI] [PQI] WLAN grade=2 score=1000 rtt=0.00ms loss=0.000% bw=0.000Mbps
+[CLI] [PQI] USB  grade=1 score=500 rtt=182.01ms loss=0.181% bw=0.453Mbps
+[CLI] [PQI_METRIC] ts=164454528127 verified=0 rtt=200.00ms loss=0.176% bw=0.453Mbps grade=1 score=1000
+[CLI] [PQI] WLAN grade=2 score=1000 rtt=0.00ms loss=0.000% bw=0.000Mbps
+[CLI] [PQI] USB  grade=1 score=500 rtt=190.11ms loss=0.180% bw=0.453Mbps
+[CLI] [PQI_METRIC] ts=164454563855 verified=0 rtt=200.00ms loss=0.174% bw=0.453Mbps grade=1 score=1000
+[CLI] [PQI] WLAN grade=2 score=1000 rtt=0.00ms loss=0.000% bw=0.000Mbps
+[CLI] [PQI] USB  grade=1 score=500 rtt=194.56ms loss=0.178% bw=0.453Mbps
+[CLI] [PQI_METRIC] ts=164454596039 verified=0 rtt=200.00ms loss=0.172% bw=0.453Mbps grade=1 score=1000
+[CLI] [PQI] WLAN grade=2 score=1000 rtt=0.00ms loss=0.000% bw=0.000Mbps
+[CLI] [PQI] USB  grade=1 score=500 rtt=197.01ms loss=0.176% bw=0.453Mbps
+[CLI] [PQI_METRIC] ts=164454627874 verified=0 rtt=200.00ms loss=0.170% bw=0.453Mbps grade=1 score=1000
+[CLI] [PQI] WLAN grade=2 score=1000 rtt=0.00ms loss=0.000% bw=0.000Mbps
+[CLI] [PQI] USB  grade=1 score=500 rtt=198.35ms loss=0.174% bw=0.453Mbps
+[CLI] [PQI_METRIC] ts=164454663797 verified=0 rtt=200.00ms loss=0.169% bw=0.453Mbps grade=1 score=1000
+[CLI] [PQI] WLAN grade=2 score=1000 rtt=0.00ms loss=0.000% bw=0.000Mbps
+[CLI] [PQI] USB  grade=1 score=500 rtt=199.09ms loss=0.172% bw=0.453Mbps
+[CLI] [PQI_METRIC] ts=164454695781 verified=0 rtt=200.00ms loss=0.167% bw=0.453Mbps grade=1 score=1000
+[CLI] [PQI] WLAN grade=2 score=1000 rtt=0.00ms loss=0.000% bw=0.000Mbps
+[CLI] [PQI] USB  grade=1 score=500 rtt=199.50ms loss=0.170% bw=0.453Mbps
+[CLI] [PQI_METRIC] ts=164454731857 verified=0 rtt=200.00ms loss=0.165% bw=0.453Mbps grade=1 score=1000
+[CLI] [PQI] WLAN grade=2 score=1000 rtt=0.00ms loss=0.000% bw=0.000Mbps
+[CLI] [PQI] USB  grade=1 score=500 rtt=199.73ms loss=0.168% bw=0.453Mbps
+[CLI] [PQI_METRIC] ts=164454765356 verified=0 rtt=200.00ms loss=0.164% bw=0.453Mbps grade=1 score=1000
+[CLI] [PQI] WLAN grade=2 score=1000 rtt=0.00ms loss=0.000% bw=0.000Mbps
+[CLI] [PQI] USB  grade=1 score=500 rtt=199.85ms loss=0.167% bw=0.453Mbps
+[CLI] [PQI_METRIC] ts=164454795954 verified=0 rtt=200.00ms loss=0.162% bw=0.453Mbps grade=1 score=1000
+[CLI] [PQI] WLAN grade=2 score=1000 rtt=0.00ms loss=0.000% bw=0.000Mbps
+[CLI] [PQI] USB  grade=1 score=500 rtt=199.92ms loss=0.165% bw=0.453Mbps
+[CLI] [PQI_METRIC] ts=164454831895 verified=0 rtt=200.00ms loss=0.160% bw=0.453Mbps grade=1 score=1000
+[CLI] [PQI] WLAN grade=2 score=1000 rtt=0.00ms loss=0.000% bw=0.000Mbps
+[CLI] [PQI] USB  grade=1 score=500 rtt=199.95ms loss=0.163% bw=0.453Mbps
+[CLI] [PQI_METRIC] ts=164454863822 verified=0 rtt=200.00ms loss=0.159% bw=0.453Mbps grade=1 score=1000
+[CLI] [PQI] WLAN grade=2 score=1000 rtt=0.00ms loss=0.000% bw=0.000Mbps
+[CLI] [PQI] USB  grade=1 score=500 rtt=199.97ms loss=0.162% bw=0.453Mbps
+[CLI] [PQI_METRIC] ts=164454896015 verified=0 rtt=200.00ms loss=0.157% bw=0.453Mbps grade=1 score=1000
+[CLI] [PQI] WLAN grade=2 score=1000 rtt=0.00ms loss=0.000% bw=0.000Mbps
+[CLI] [PQI] USB  grade=1 score=500 rtt=199.99ms loss=0.160% bw=0.453Mbps
+[CLI] [PQI_METRIC] ts=164454931953 verified=0 rtt=200.00ms loss=0.156% bw=0.453Mbps grade=1 score=1000
+[CLI] [PQI] WLAN grade=2 score=1000 rtt=0.00ms loss=0.000% bw=0.000Mbps
+[CLI] [PQI] USB  grade=1 score=500 rtt=199.99ms loss=0.159% bw=0.453Mbps
+[CLI] [PQI_METRIC] ts=164454963920 verified=0 rtt=200.00ms loss=0.154% bw=0.453Mbps grade=1 score=1000
+[CLI] [PQI] WLAN grade=2 score=1000 rtt=0.00ms loss=0.000% bw=0.000Mbps
+[CLI] [PQI] USB  grade=1 score=500 rtt=200.00ms loss=0.157% bw=0.453Mbps
+[CLI] [PQI_METRIC] ts=164454995821 verified=0 rtt=200.00ms loss=0.153% bw=0.453Mbps grade=1 score=1000
+[CLI] [PQI] WLAN grade=2 score=1000 rtt=0.00ms loss=0.000% bw=0.000Mbps
+[CLI] [PQI] USB  grade=1 score=500 rtt=200.00ms loss=0.156% bw=0.453Mbps
+[CLI] [PQI_METRIC] ts=164455031850 verified=0 rtt=200.00ms loss=0.152% bw=0.453Mbps grade=1 score=1000
+[CLI] [PQI] WLAN grade=2 score=1000 rtt=0.00ms loss=0.000% bw=0.000Mbps
+[CLI] [PQI] USB  grade=1 score=500 rtt=200.00ms loss=0.154% bw=0.453Mbps
+[CLI] [PQI_METRIC] ts=164455063777 verified=0 rtt=200.00ms loss=0.150% bw=0.453Mbps grade=1 score=1000
+[CLI] [PQI] WLAN grade=2 score=1000 rtt=0.00ms loss=0.000% bw=0.000Mbps
+[CLI] [PQI] USB  grade=1 score=500 rtt=200.00ms loss=0.153% bw=0.453Mbps
+[CLI] [PQI_METRIC] ts=164455095811 verified=0 rtt=200.00ms loss=0.149% bw=0.453Mbps grade=1 score=1000
+[CLI] [PQI] WLAN grade=2 score=1000 rtt=0.00ms loss=0.000% bw=0.000Mbps
+[CLI] [PQI] USB  grade=1 score=500 rtt=200.00ms loss=0.151% bw=0.453Mbps
+[CLI] [PQI_METRIC] ts=164455132102 verified=0 rtt=200.00ms loss=0.147% bw=0.453Mbps grade=1 score=1000
+[CLI] [PQI] WLAN grade=2 score=1000 rtt=0.00ms loss=0.000% bw=0.000Mbps
+[CLI] [PQI] USB  grade=1 score=500 rtt=200.00ms loss=0.150% bw=0.453Mbps
+[CLI] [PQI_METRIC] ts=164455162996 verified=0 rtt=200.00ms loss=0.146% bw=0.453Mbps grade=1 score=1000
+[CLI] [PQI] WLAN grade=2 score=1000 rtt=0.00ms loss=0.000% bw=0.000Mbps
+[CLI] [PQI] USB  grade=1 score=500 rtt=200.00ms loss=0.149% bw=0.453Mbps
+[CLI] [PQI_METRIC] ts=164455200170 verified=0 rtt=200.00ms loss=0.145% bw=0.453Mbps grade=1 score=1000
+[CLI] [PQI] WLAN grade=2 score=1000 rtt=0.00ms loss=0.000% bw=0.000Mbps
+[CLI] [PQI] USB  grade=1 score=500 rtt=200.00ms loss=0.147% bw=0.453Mbps
+[CLI] [PQI_METRIC] ts=164455231832 verified=0 rtt=200.00ms loss=0.144% bw=0.453Mbps grade=1 score=1000
+[CLI] [PQI] WLAN grade=2 score=1000 rtt=0.00ms loss=0.000% bw=0.000Mbps
+[CLI] [PQI] USB  grade=1 score=500 rtt=200.00ms loss=0.146% bw=0.453Mbps
+[CLI] [PQI_METRIC] ts=164455264547 verified=0 rtt=200.00ms loss=0.142% bw=0.453Mbps grade=1 score=1000
+[CLI] [PQI] WLAN grade=2 score=1000 rtt=0.00ms loss=0.000% bw=0.000Mbps
+[CLI] [PQI] USB  grade=1 score=500 rtt=200.00ms loss=0.145% bw=0.453Mbps
+[CLI] [PQI_METRIC] ts=164455299828 verified=0 rtt=200.00ms loss=0.141% bw=0.453Mbps grade=1 score=1000
+[CLI] [PQI] WLAN grade=2 score=1000 rtt=0.00ms loss=0.000% bw=0.000Mbps
+[CLI] [PQI] USB  grade=1 score=500 rtt=200.00ms loss=0.143% bw=0.453Mbps
+[CLI] [PQI_METRIC] ts=164455331837 verified=0 rtt=200.00ms loss=0.140% bw=0.453Mbps grade=1 score=1000
+[CLI] [PQI] WLAN grade=2 score=1000 rtt=0.00ms loss=0.000% bw=0.000Mbps
+[CLI] [PQI] USB  grade=1 score=500 rtt=200.00ms loss=0.142% bw=0.453Mbps
+[CLI] [PQI_METRIC] ts=164455363849 verified=0 rtt=200.00ms loss=0.139% bw=0.453Mbps grade=1 score=1000
+[CLI] [PQI] WLAN grade=2 score=1000 rtt=0.00ms loss=0.000% bw=0.000Mbps
+[CLI] [PQI] USB  grade=1 score=500 rtt=200.00ms loss=0.141% bw=0.453Mbps
+[CLI] [TRACE] loop_cb mode=2 state=14 nb_paths=1 hs_done=1
+[CLI] [PROBE] Hotspot exists(ID:0) but UNVERIFIED. Sending Challenge...
+[CLI] [PQI_METRIC] ts=164455399912 verified=0 rtt=200.00ms loss=0.138% bw=0.453Mbps grade=1 score=1000
+[CLI] [PQI] WLAN grade=2 score=1000 rtt=0.00ms loss=0.000% bw=0.000Mbps
+[CLI] [PQI] USB  grade=1 score=500 rtt=200.00ms loss=0.140% bw=0.453Mbps
+[CLI] [PQI_METRIC] ts=164455432067 verified=0 rtt=200.00ms loss=0.136% bw=0.453Mbps grade=1 score=1000
+[CLI] [PQI] WLAN grade=2 score=1000 rtt=0.00ms loss=0.000% bw=0.000Mbps
+[CLI] [PQI] USB  grade=1 score=500 rtt=200.00ms loss=0.139% bw=0.453Mbps
+[CLI] [PQI_METRIC] ts=164455463852 verified=0 rtt=200.00ms loss=0.135% bw=0.453Mbps grade=1 score=1000
+[CLI] [PQI] WLAN grade=2 score=1000 rtt=0.00ms loss=0.000% bw=0.000Mbps
+[CLI] [PQI] USB  grade=1 score=500 rtt=200.00ms loss=0.138% bw=0.453Mbps
+[CLI] [EXP_PATH_STATE] ts=164455499957 idx=0 local_ip=172.20.10.3 verified=0 smoothed_rtt_us=3393 recv_rate_Bps=59398 lost_bytes=34633
+[CLI] [PQI_METRIC] ts=164455500469 verified=0 rtt=200.00ms loss=0.134% bw=0.453Mbps grade=1 score=1000
+[CLI] [PQI] WLAN grade=2 score=1000 rtt=0.00ms loss=0.000% bw=0.000Mbps
+[CLI] [PQI] USB  grade=1 score=500 rtt=200.00ms loss=0.136% bw=0.453Mbps
+[CLI] [PQI_METRIC] ts=164455531819 verified=0 rtt=200.00ms loss=0.133% bw=0.453Mbps grade=1 score=1000
+[CLI] [PQI] WLAN grade=2 score=1000 rtt=0.00ms loss=0.000% bw=0.000Mbps
+[CLI] [PQI] USB  grade=1 score=500 rtt=200.00ms loss=0.135% bw=0.453Mbps
+[CLI] [PQI_METRIC] ts=164455568519 verified=0 rtt=200.00ms loss=0.132% bw=0.453Mbps grade=1 score=1000
+[CLI] [PQI] WLAN grade=2 score=1000 rtt=0.00ms loss=0.000% bw=0.000Mbps
+[CLI] [PQI] USB  grade=1 score=500 rtt=200.00ms loss=0.134% bw=0.453Mbps
+[CLI] ==========================================================
+[CLI] [DIAG] Wi-Fi Down. Checking existing paths...
+[CLI] [DIAG] Wi-Fi path missing. Creating new probe...
+[CLI] ==========================================================
+[CLI] [PQI_METRIC] ts=164455600419 verified=0 rtt=250.00ms loss=0.000% bw=0.000Mbps grade=1 score=1000
+[CLI] [PQI_METRIC] ts=164455600458 verified=0 rtt=200.00ms loss=0.131% bw=0.453Mbps grade=1 score=1000
+[CLI] [PQI] WLAN grade=1 score=1000 rtt=222.27ms loss=0.555% bw=0.362Mbps
+[CLI] [PQI] USB  grade=1 score=0 rtt=200.00ms loss=0.133% bw=0.453Mbps
+[CLI] [BENCH_SWITCH] ts=164455600412 from_path=0 to_path=1
+[CLI] [PQI_METRIC] ts=164455631908 verified=0 rtt=250.00ms loss=0.000% bw=0.000Mbps grade=1 score=1000
+[CLI] [PQI] WLAN grade=1 score=500 rtt=234.75ms loss=0.361% bw=0.290Mbps
+[CLI] [PQI] USB  grade=2 score=1000 rtt=0.00ms loss=0.000% bw=0.000Mbps
+[CLI] [PQI_SWITCH] ts=164455631899 from=1 to=0 cause=wlan_only
+[CLI] [BENCH_SWITCH] ts=164455631899 from_path=1 to_path=0
+[CLI] [PQI_METRIC] ts=164455668090 verified=0 rtt=250.00ms loss=0.000% bw=0.000Mbps grade=1 score=1000
+[CLI] [PQI] WLAN grade=1 score=500 rtt=241.61ms loss=0.234% bw=0.232Mbps
+[CLI] [PQI] USB  grade=2 score=1000 rtt=0.00ms loss=0.000% bw=0.000Mbps
+[CLI] [PQI_METRIC] ts=164455699824 verified=0 rtt=250.00ms loss=0.000% bw=0.000Mbps grade=1 score=1000
+[CLI] [PQI] WLAN grade=1 score=500 rtt=245.39ms loss=0.152% bw=0.186Mbps
+[CLI] [PQI] USB  grade=2 score=1000 rtt=0.00ms loss=0.000% bw=0.000Mbps
+[CLI] [PQI_METRIC] ts=164455732208 verified=0 rtt=250.00ms loss=0.000% bw=0.000Mbps grade=1 score=1000
+[CLI] [PQI] WLAN grade=1 score=500 rtt=247.46ms loss=0.099% bw=0.148Mbps
+[CLI] [PQI] USB  grade=2 score=1000 rtt=0.00ms loss=0.000% bw=0.000Mbps
+[CLI] [PQI_METRIC] ts=164455767835 verified=0 rtt=250.00ms loss=0.000% bw=0.000Mbps grade=1 score=1000
+[CLI] [PQI] WLAN grade=1 score=500 rtt=248.60ms loss=0.064% bw=0.119Mbps
+[CLI] [PQI] USB  grade=2 score=1000 rtt=0.00ms loss=0.000% bw=0.000Mbps
+[CLI] [PQI_METRIC] ts=164455799985 verified=0 rtt=250.00ms loss=0.000% bw=0.000Mbps grade=1 score=1000
+[CLI] [PQI] WLAN grade=1 score=500 rtt=249.23ms loss=0.042% bw=0.095Mbps
+[CLI] [PQI] USB  grade=2 score=1000 rtt=0.00ms loss=0.000% bw=0.000Mbps
+[CLI] [PQI_METRIC] ts=164455831964 verified=0 rtt=250.00ms loss=0.000% bw=0.000Mbps grade=1 score=1000
+[CLI] [PQI] WLAN grade=1 score=500 rtt=249.58ms loss=0.027% bw=0.076Mbps
+[CLI] [PQI] USB  grade=2 score=1000 rtt=0.00ms loss=0.000% bw=0.000Mbps
+[CLI] [PQI_METRIC] ts=164455867984 verified=0 rtt=250.00ms loss=0.000% bw=0.000Mbps grade=1 score=1000
+[CLI] [PQI] WLAN grade=1 score=500 rtt=249.77ms loss=0.018% bw=0.061Mbps
+[CLI] [PQI] USB  grade=2 score=1000 rtt=0.00ms loss=0.000% bw=0.000Mbps
+[CLI] [PQI_METRIC] ts=164455899857 verified=0 rtt=250.00ms loss=0.000% bw=0.000Mbps grade=1 score=1000
+[CLI] [PQI] WLAN grade=1 score=500 rtt=249.87ms loss=0.011% bw=0.049Mbps
+[CLI] [PQI] USB  grade=2 score=1000 rtt=0.00ms loss=0.000% bw=0.000Mbps
+[CLI] [PQI_METRIC] ts=164455935833 verified=0 rtt=250.00ms loss=0.000% bw=0.000Mbps grade=1 score=1000
+[CLI] [PQI] WLAN grade=1 score=500 rtt=249.93ms loss=0.007% bw=0.039Mbps
+[CLI] [PQI] USB  grade=2 score=1000 rtt=0.00ms loss=0.000% bw=0.000Mbps
+[CLI] [PQI_METRIC] ts=164455967938 verified=0 rtt=250.00ms loss=0.000% bw=0.000Mbps grade=1 score=1000
+[CLI] [PQI] WLAN grade=1 score=500 rtt=249.96ms loss=0.005% bw=0.031Mbps
+[CLI] [PQI] USB  grade=2 score=1000 rtt=0.00ms loss=0.000% bw=0.000Mbps
+[CLI] [PQI_METRIC] ts=164455999941 verified=0 rtt=250.00ms loss=0.000% bw=0.000Mbps grade=1 score=1000
+[CLI] [PQI] WLAN grade=1 score=500 rtt=249.98ms loss=0.003% bw=0.025Mbps
+[CLI] [PQI] USB  grade=2 score=1000 rtt=0.00ms loss=0.000% bw=0.000Mbps
+[CLI] [PQI_METRIC] ts=164456036140 verified=0 rtt=250.00ms loss=0.000% bw=0.000Mbps grade=1 score=1000
+[CLI] [PQI] WLAN grade=1 score=500 rtt=249.99ms loss=0.002% bw=0.020Mbps
+[CLI] [PQI] USB  grade=2 score=1000 rtt=0.00ms loss=0.000% bw=0.000Mbps
+[CLI] [PQI_METRIC] ts=164456067949 verified=0 rtt=250.00ms loss=0.000% bw=0.000Mbps grade=1 score=1000
+[CLI] [PQI] WLAN grade=1 score=500 rtt=249.99ms loss=0.001% bw=0.016Mbps
+[CLI] [PQI] USB  grade=2 score=1000 rtt=0.00ms loss=0.000% bw=0.000Mbps
+[CLI] [PQI_METRIC] ts=164456099844 verified=0 rtt=250.00ms loss=0.000% bw=0.000Mbps grade=1 score=1000
+[CLI] [PQI] WLAN grade=1 score=500 rtt=250.00ms loss=0.001% bw=0.013Mbps
+[CLI] [PQI] USB  grade=2 score=1000 rtt=0.00ms loss=0.000% bw=0.000Mbps
+[CLI] [PQI_METRIC] ts=164456135868 verified=0 rtt=250.00ms loss=0.000% bw=0.000Mbps grade=1 score=1000
+[CLI] [PQI] WLAN grade=1 score=500 rtt=250.00ms loss=0.001% bw=0.010Mbps
+[CLI] [PQI] USB  grade=2 score=1000 rtt=0.00ms loss=0.000% bw=0.000Mbps
+[CLI] [PQI_METRIC] ts=164456168049 verified=0 rtt=250.00ms loss=0.000% bw=0.000Mbps grade=1 score=1000
+[CLI] [PQI] WLAN grade=1 score=500 rtt=250.00ms loss=0.000% bw=0.008Mbps
+[CLI] [PQI] USB  grade=2 score=1000 rtt=0.00ms loss=0.000% bw=0.000Mbps
+[CLI] [PQI_METRIC] ts=164456199937 verified=0 rtt=250.00ms loss=0.000% bw=0.000Mbps grade=1 score=1000
+[CLI] [PQI] WLAN grade=1 score=500 rtt=250.00ms loss=0.000% bw=0.007Mbps
+[CLI] [PQI] USB  grade=2 score=1000 rtt=0.00ms loss=0.000% bw=0.000Mbps
+[CLI] [PQI_METRIC] ts=164456236476 verified=0 rtt=250.00ms loss=0.000% bw=0.000Mbps grade=1 score=1000
+[CLI] [PQI] WLAN grade=1 score=500 rtt=250.00ms loss=0.000% bw=0.005Mbps
+[CLI] [PQI] USB  grade=2 score=1000 rtt=0.00ms loss=0.000% bw=0.000Mbps
+[CLI] [PQI_METRIC] ts=164456267994 verified=0 rtt=250.00ms loss=0.000% bw=0.000Mbps grade=1 score=1000
+[CLI] [PQI] WLAN grade=1 score=500 rtt=250.00ms loss=0.000% bw=0.004Mbps
+[CLI] [PQI] USB  grade=2 score=1000 rtt=0.00ms loss=0.000% bw=0.000Mbps
+[CLI] [PQI_METRIC] ts=164456303874 verified=0 rtt=250.00ms loss=0.000% bw=0.000Mbps grade=1 score=1000
+[CLI] [PQI] WLAN grade=1 score=500 rtt=250.00ms loss=0.000% bw=0.003Mbps
+[CLI] [PQI] USB  grade=2 score=1000 rtt=0.00ms loss=0.000% bw=0.000Mbps
+[CLI] [PQI_METRIC] ts=164456335964 verified=0 rtt=250.00ms loss=0.000% bw=0.000Mbps grade=1 score=1000
+[CLI] [PQI] WLAN grade=1 score=500 rtt=250.00ms loss=0.000% bw=0.003Mbps
+[CLI] [PQI] USB  grade=2 score=1000 rtt=0.00ms loss=0.000% bw=0.000Mbps
+[CLI] [TRACE] loop_cb mode=2 state=14 nb_paths=1 hs_done=1
+[CLI] [PQI_METRIC] ts=164456367893 verified=0 rtt=250.00ms loss=0.000% bw=0.000Mbps grade=1 score=1000
+[CLI] [PQI] WLAN grade=1 score=500 rtt=250.00ms loss=0.000% bw=0.002Mbps
+[CLI] [PQI] USB  grade=2 score=1000 rtt=0.00ms loss=0.000% bw=0.000Mbps
+[CLI] [PROBE] Hotspot path missing. Creating NEW path...
+[CLI] [PQI_METRIC] ts=164456403954 verified=0 rtt=250.00ms loss=0.000% bw=0.000Mbps grade=1 score=1000
+[CLI] [PQI_METRIC] ts=164456403990 verified=0 rtt=250.00ms loss=0.000% bw=0.000Mbps grade=1 score=1000
+[CLI] [PQI] WLAN grade=1 score=650 rtt=250.00ms loss=0.000% bw=0.002Mbps
+[CLI] [PQI] USB  grade=1 score=350 rtt=222.50ms loss=0.087% bw=0.363Mbps
+[CLI] [PQI_METRIC] ts=164456435916 verified=0 rtt=250.00ms loss=0.000% bw=0.000Mbps grade=1 score=1000
+[CLI] [PQI_METRIC] ts=164456435950 verified=0 rtt=250.00ms loss=0.000% bw=0.000Mbps grade=1 score=1000
+[CLI] [PQI] WLAN grade=1 score=650 rtt=250.00ms loss=0.000% bw=0.001Mbps
+[CLI] [PQI] USB  grade=1 score=350 rtt=234.87ms loss=0.056% bw=0.290Mbps
+[CLI] [PQI_METRIC] ts=164456468212 verified=0 rtt=250.00ms loss=0.000% bw=0.000Mbps grade=1 score=1000
+[CLI] [PQI_METRIC] ts=164456468245 verified=0 rtt=250.00ms loss=0.000% bw=0.000Mbps grade=1 score=1000
+[CLI] [PQI] WLAN grade=1 score=650 rtt=250.00ms loss=0.000% bw=0.001Mbps
+[CLI] [PQI] USB  grade=1 score=350 rtt=241.68ms loss=0.037% bw=0.232Mbps
+[CLI] [EXP_PATH_STATE] ts=164456503901 idx=0 local_ip=192.168.0.13 verified=0 smoothed_rtt_us=250000 recv_rate_Bps=0 lost_bytes=0
+[CLI] [EXP_PATH_STATE] ts=164456503901 idx=1 local_ip=172.20.10.3 verified=0 smoothed_rtt_us=250000 recv_rate_Bps=0 lost_bytes=0
+[CLI] [PQI_METRIC] ts=164456503944 verified=0 rtt=250.00ms loss=0.000% bw=0.000Mbps grade=1 score=1000
+[CLI] [PQI_METRIC] ts=164456503954 verified=0 rtt=250.00ms loss=0.000% bw=0.000Mbps grade=1 score=1000
+[CLI] [PQI] WLAN grade=1 score=650 rtt=250.00ms loss=0.000% bw=0.001Mbps
+[CLI] [PQI] USB  grade=1 score=350 rtt=245.42ms loss=0.024% bw=0.186Mbps
+[CLI] [PQI_METRIC] ts=164456535986 verified=0 rtt=250.00ms loss=0.000% bw=0.000Mbps grade=1 score=1000
+[CLI] [PQI_METRIC] ts=164456536032 verified=0 rtt=250.00ms loss=0.000% bw=0.000Mbps grade=1 score=1000
+[CLI] [PQI] WLAN grade=1 score=650 rtt=250.00ms loss=0.000% bw=0.001Mbps
+[CLI] [PQI] USB  grade=1 score=350 rtt=247.48ms loss=0.015% bw=0.148Mbps
+[CLI] [PQI_METRIC] ts=164456568125 verified=0 rtt=250.00ms loss=0.000% bw=0.000Mbps grade=1 score=1000
+[CLI] [PQI_METRIC] ts=164456568158 verified=0 rtt=250.00ms loss=0.000% bw=0.000Mbps grade=1 score=1000
+[CLI] [PQI] WLAN grade=1 score=650 rtt=250.00ms loss=0.000% bw=0.001Mbps
+[CLI] [PQI] USB  grade=1 score=350 rtt=248.62ms loss=0.010% bw=0.119Mbps
+[CLI] [PQI_METRIC] ts=164456604110 verified=0 rtt=250.00ms loss=0.000% bw=0.000Mbps grade=1 score=1000
+[CLI] [PQI_METRIC] ts=164456604142 verified=0 rtt=250.00ms loss=0.000% bw=0.000Mbps grade=1 score=1000
+[CLI] [PQI] WLAN grade=1 score=650 rtt=250.00ms loss=0.000% bw=0.000Mbps
+[CLI] [PQI] USB  grade=1 score=350 rtt=249.24ms loss=0.007% bw=0.095Mbps
+[CLI] [PQI_METRIC] ts=164456637733 verified=0 rtt=250.00ms loss=0.000% bw=0.000Mbps grade=1 score=1000
+[CLI] [PQI_METRIC] ts=164456637765 verified=0 rtt=250.00ms loss=0.000% bw=0.000Mbps grade=1 score=1000
+[CLI] [PQI] WLAN grade=1 score=650 rtt=250.00ms loss=0.000% bw=0.000Mbps
+[CLI] [PQI] USB  grade=1 score=350 rtt=249.58ms loss=0.004% bw=0.076Mbps
+[CLI] [PQI_METRIC] ts=164456672051 verified=0 rtt=250.00ms loss=0.000% bw=0.000Mbps grade=1 score=1000
+[CLI] [PQI_METRIC] ts=164456672087 verified=0 rtt=250.00ms loss=0.000% bw=0.000Mbps grade=1 score=1000
+[CLI] [PQI] WLAN grade=1 score=650 rtt=250.00ms loss=0.000% bw=0.000Mbps
+[CLI] [PQI] USB  grade=1 score=350 rtt=249.77ms loss=0.003% bw=0.061Mbps
+[CLI] [PQI_METRIC] ts=164456704254 verified=0 rtt=250.00ms loss=0.000% bw=0.000Mbps grade=1 score=1000
+[CLI] [PQI_METRIC] ts=164456704286 verified=0 rtt=250.00ms loss=0.000% bw=0.000Mbps grade=1 score=1000
+[CLI] [PQI] WLAN grade=1 score=650 rtt=250.00ms loss=0.000% bw=0.000Mbps
+[CLI] [PQI] USB  grade=1 score=350 rtt=249.87ms loss=0.002% bw=0.049Mbps
+[CLI] [PQI_METRIC] ts=164456736042 verified=0 rtt=250.00ms loss=0.000% bw=0.000Mbps grade=1 score=1000
+[CLI] [PQI_METRIC] ts=164456736073 verified=0 rtt=250.00ms loss=0.000% bw=0.000Mbps grade=1 score=1000
+[CLI] [PQI] WLAN grade=1 score=650 rtt=250.00ms loss=0.000% bw=0.000Mbps
+[CLI] [PQI] USB  grade=1 score=350 rtt=249.93ms loss=0.001% bw=0.039Mbps
+[CLI] [PQI_METRIC] ts=164456771979 verified=0 rtt=250.00ms loss=0.000% bw=0.000Mbps grade=1 score=1000
+[CLI] [PQI_METRIC] ts=164456772014 verified=0 rtt=250.00ms loss=0.000% bw=0.000Mbps grade=1 score=1000
+[CLI] [PQI] WLAN grade=1 score=650 rtt=250.00ms loss=0.000% bw=0.000Mbps
+[CLI] [PQI] USB  grade=1 score=350 rtt=249.96ms loss=0.001% bw=0.031Mbps
+[CLI] [PQI_METRIC] ts=164456803962 verified=0 rtt=250.00ms loss=0.000% bw=0.000Mbps grade=1 score=1000
+[CLI] [PQI_METRIC] ts=164456803996 verified=0 rtt=250.00ms loss=0.000% bw=0.000Mbps grade=1 score=1000
+[CLI] [PQI] WLAN grade=1 score=650 rtt=250.00ms loss=0.000% bw=0.000Mbps
+[CLI] [PQI] USB  grade=1 score=350 rtt=249.98ms loss=0.000% bw=0.025Mbps
+[CLI] [PQI_METRIC] ts=164456835954 verified=0 rtt=250.00ms loss=0.000% bw=0.000Mbps grade=1 score=1000
+[CLI] [PQI_METRIC] ts=164456835981 verified=0 rtt=250.00ms loss=0.000% bw=0.000Mbps grade=1 score=1000
+[CLI] [PQI] WLAN grade=1 score=650 rtt=250.00ms loss=0.000% bw=0.000Mbps
+[CLI] [PQI] USB  grade=1 score=350 rtt=249.99ms loss=0.000% bw=0.020Mbps
+[CLI] [PQI_METRIC] ts=164456872087 verified=0 rtt=250.00ms loss=0.000% bw=0.000Mbps grade=1 score=1000
+[CLI] [PQI_METRIC] ts=164456872118 verified=0 rtt=250.00ms loss=0.000% bw=0.000Mbps grade=1 score=1000
+[CLI] [PQI] WLAN grade=1 score=650 rtt=250.00ms loss=0.000% bw=0.000Mbps
+[CLI] [PQI] USB  grade=1 score=350 rtt=249.99ms loss=0.000% bw=0.016Mbps
+[CLI] [PQI_METRIC] ts=164456904198 verified=0 rtt=250.00ms loss=0.000% bw=0.000Mbps grade=1 score=1000
+[CLI] [PQI_METRIC] ts=164456904228 verified=0 rtt=250.00ms loss=0.000% bw=0.000Mbps grade=1 score=1000
+[CLI] [PQI] WLAN grade=1 score=650 rtt=250.00ms loss=0.000% bw=0.000Mbps
+[CLI] [PQI] USB  grade=1 score=350 rtt=250.00ms loss=0.000% bw=0.013Mbps
+[CLI] [PQI_METRIC] ts=164456936087 verified=0 rtt=250.00ms loss=0.000% bw=0.000Mbps grade=1 score=1000
+[CLI] [PQI_METRIC] ts=164456936119 verified=0 rtt=250.00ms loss=0.000% bw=0.000Mbps grade=1 score=1000
+[CLI] [PQI] WLAN grade=1 score=650 rtt=250.00ms loss=0.000% bw=0.000Mbps
+[CLI] [PQI] USB  grade=1 score=350 rtt=250.00ms loss=0.000% bw=0.010Mbps
+[CLI] [PQI_METRIC] ts=164456971916 verified=0 rtt=250.00ms loss=0.000% bw=0.000Mbps grade=1 score=1000
+[CLI] [PQI_METRIC] ts=164456971946 verified=0 rtt=250.00ms loss=0.000% bw=0.000Mbps grade=1 score=1000
+[CLI] [PQI] WLAN grade=1 score=650 rtt=250.00ms loss=0.000% bw=0.000Mbps
+[CLI] [PQI] USB  grade=1 score=350 rtt=250.00ms loss=0.000% bw=0.008Mbps
+[CLI] [PQI_METRIC] ts=164457003991 verified=0 rtt=250.00ms loss=0.000% bw=0.000Mbps grade=1 score=1000
+[CLI] [PQI_METRIC] ts=164457004035 verified=0 rtt=250.00ms loss=0.000% bw=0.000Mbps grade=1 score=1000
+[CLI] [PQI] WLAN grade=1 score=650 rtt=250.00ms loss=0.000% bw=0.000Mbps
+[CLI] [PQI] USB  grade=1 score=350 rtt=250.00ms loss=0.000% bw=0.007Mbps
+[CLI] [PQI_METRIC] ts=164457039869 verified=0 rtt=250.00ms loss=0.000% bw=0.000Mbps grade=1 score=1000
+[CLI] [PQI_METRIC] ts=164457039899 verified=0 rtt=250.00ms loss=0.000% bw=0.000Mbps grade=1 score=1000
+[CLI] [PQI] WLAN grade=1 score=650 rtt=250.00ms loss=0.000% bw=0.000Mbps
+[CLI] [PQI] USB  grade=1 score=350 rtt=250.00ms loss=0.000% bw=0.005Mbps
+[CLI] [PQI_METRIC] ts=164457072147 verified=0 rtt=250.00ms loss=0.000% bw=0.000Mbps grade=1 score=1000
+[CLI] [PQI_METRIC] ts=164457072176 verified=0 rtt=250.00ms loss=0.000% bw=0.000Mbps grade=1 score=1000
+[CLI] [PQI] WLAN grade=1 score=650 rtt=250.00ms loss=0.000% bw=0.000Mbps
+[CLI] [PQI] USB  grade=1 score=350 rtt=250.00ms loss=0.000% bw=0.004Mbps
+[CLI] [PQI_METRIC] ts=164457103894 verified=0 rtt=250.00ms loss=0.000% bw=0.000Mbps grade=1 score=1000
+[CLI] [PQI_METRIC] ts=164457103923 verified=0 rtt=250.00ms loss=0.000% bw=0.000Mbps grade=1 score=1000
+[CLI] [PQI] WLAN grade=1 score=650 rtt=250.00ms loss=0.000% bw=0.000Mbps
+[CLI] [PQI] USB  grade=1 score=350 rtt=250.00ms loss=0.000% bw=0.003Mbps
+[CLI] [PQI_METRIC] ts=164457140121 verified=0 rtt=250.00ms loss=0.000% bw=0.000Mbps grade=1 score=1000
+[CLI] [PQI_METRIC] ts=164457140151 verified=0 rtt=250.00ms loss=0.000% bw=0.000Mbps grade=1 score=1000
+[CLI] [PQI] WLAN grade=1 score=650 rtt=250.00ms loss=0.000% bw=0.000Mbps
+[CLI] [PQI] USB  grade=1 score=350 rtt=250.00ms loss=0.000% bw=0.003Mbps
+[CLI] [PQI_METRIC] ts=164457172039 verified=0 rtt=250.00ms loss=0.000% bw=0.000Mbps grade=1 score=1000
+[CLI] [PQI_METRIC] ts=164457172072 verified=0 rtt=250.00ms loss=0.000% bw=0.000Mbps grade=1 score=1000
+[CLI] [PQI] WLAN grade=1 score=650 rtt=250.00ms loss=0.000% bw=0.000Mbps
+[CLI] [PQI] USB  grade=1 score=350 rtt=250.00ms loss=0.000% bw=0.002Mbps
+[CLI] [PQI_METRIC] ts=164457203956 verified=0 rtt=250.00ms loss=0.000% bw=0.000Mbps grade=1 score=1000
+[CLI] [PQI_METRIC] ts=164457203986 verified=0 rtt=250.00ms loss=0.000% bw=0.000Mbps grade=1 score=1000
+[CLI] [PQI] WLAN grade=1 score=650 rtt=250.00ms loss=0.000% bw=0.000Mbps
+[CLI] [PQI] USB  grade=1 score=350 rtt=250.00ms loss=0.000% bw=0.002Mbps
+[CLI] [PQI_METRIC] ts=164457240459 verified=0 rtt=250.00ms loss=0.000% bw=0.000Mbps grade=1 score=1000
+[CLI] [PQI_METRIC] ts=164457240496 verified=0 rtt=250.00ms loss=0.000% bw=0.000Mbps grade=1 score=1000
+[CLI] [PQI] WLAN grade=1 score=650 rtt=250.00ms loss=0.000% bw=0.000Mbps
+[CLI] [PQI] USB  grade=1 score=350 rtt=250.00ms loss=0.000% bw=0.001Mbps
+[CLI] [PQI_METRIC] ts=164457272949 verified=0 rtt=250.00ms loss=0.000% bw=0.000Mbps grade=1 score=1000
+[CLI] [PQI_METRIC] ts=164457272980 verified=0 rtt=250.00ms loss=0.000% bw=0.000Mbps grade=1 score=1000
+[CLI] [PQI] WLAN grade=1 score=650 rtt=250.00ms loss=0.000% bw=0.000Mbps
+[CLI] [PQI] USB  grade=1 score=350 rtt=250.00ms loss=0.000% bw=0.001Mbps
+[CLI] [PQI_METRIC] ts=164457304341 verified=0 rtt=250.00ms loss=0.000% bw=0.000Mbps grade=1 score=1000
+[CLI] [PQI_METRIC] ts=164457304372 verified=0 rtt=250.00ms loss=0.000% bw=0.000Mbps grade=1 score=1000
+[CLI] [PQI] WLAN grade=1 score=650 rtt=250.00ms loss=0.000% bw=0.000Mbps
+[CLI] [PQI] USB  grade=1 score=350 rtt=250.00ms loss=0.000% bw=0.001Mbps
+[CLI] [PQI_METRIC] ts=164457340103 verified=0 rtt=250.00ms loss=0.000% bw=0.000Mbps grade=1 score=1000
+[CLI] [PQI_METRIC] ts=164457340135 verified=0 rtt=250.00ms loss=0.000% bw=0.000Mbps grade=1 score=1000
+[CLI] [PQI] WLAN grade=1 score=650 rtt=250.00ms loss=0.000% bw=0.000Mbps
+[CLI] [PQI] USB  grade=1 score=350 rtt=250.00ms loss=0.000% bw=0.001Mbps
+[CLI] [TRACE] loop_cb mode=2 state=14 nb_paths=2 hs_done=1
+[CLI] [PROBE] Hotspot exists(ID:1) but UNVERIFIED. Sending Challenge...
+[CLI] [PQI_METRIC] ts=164457372306 verified=0 rtt=250.00ms loss=0.000% bw=0.000Mbps grade=1 score=1000
+[CLI] [PQI_METRIC] ts=164457372328 verified=0 rtt=250.00ms loss=0.000% bw=0.000Mbps grade=1 score=1000
+[CLI] [PQI] WLAN grade=1 score=650 rtt=250.00ms loss=0.000% bw=0.000Mbps
+[CLI] [PQI] USB  grade=1 score=350 rtt=250.00ms loss=0.000% bw=0.001Mbps
+[CLI] [PQI_METRIC] ts=164457407972 verified=0 rtt=250.00ms loss=0.000% bw=0.000Mbps grade=1 score=1000
+[CLI] [PQI_METRIC] ts=164457408021 verified=0 rtt=250.00ms loss=0.000% bw=0.000Mbps grade=1 score=1000
+[CLI] [PQI] WLAN grade=1 score=650 rtt=250.00ms loss=0.000% bw=0.000Mbps
+[CLI] [PQI] USB  grade=1 score=350 rtt=250.00ms loss=0.000% bw=0.000Mbps
+[CLI] [PQI_METRIC] ts=164457440061 verified=0 rtt=250.00ms loss=0.000% bw=0.000Mbps grade=1 score=1000
+[CLI] [PQI_METRIC] ts=164457440097 verified=0 rtt=250.00ms loss=0.000% bw=0.000Mbps grade=1 score=1000
+[CLI] [PQI] WLAN grade=1 score=650 rtt=250.00ms loss=0.000% bw=0.000Mbps
+[CLI] [PQI] USB  grade=1 score=350 rtt=250.00ms loss=0.000% bw=0.000Mbps
+[CLI] [PQI_METRIC] ts=164457472093 verified=0 rtt=250.00ms loss=0.000% bw=0.000Mbps grade=1 score=1000
+[CLI] [PQI_METRIC] ts=164457472127 verified=0 rtt=250.00ms loss=0.000% bw=0.000Mbps grade=1 score=1000
+[CLI] [PQI] WLAN grade=1 score=650 rtt=250.00ms loss=0.000% bw=0.000Mbps
+[CLI] [PQI] USB  grade=1 score=350 rtt=250.00ms loss=0.000% bw=0.000Mbps
+[CLI] [EXP_PATH_STATE] ts=164457507946 idx=0 local_ip=192.168.0.13 verified=0 smoothed_rtt_us=250000 recv_rate_Bps=0 lost_bytes=0
+[CLI] [EXP_PATH_STATE] ts=164457507946 idx=1 local_ip=172.20.10.3 verified=0 smoothed_rtt_us=250000 recv_rate_Bps=0 lost_bytes=0
+[CLI] [PQI_METRIC] ts=164457507989 verified=0 rtt=250.00ms loss=0.000% bw=0.000Mbps grade=1 score=1000
+[CLI] [PQI_METRIC] ts=164457507999 verified=0 rtt=250.00ms loss=0.000% bw=0.000Mbps grade=1 score=1000
+[CLI] [PQI] WLAN grade=1 score=650 rtt=250.00ms loss=0.000% bw=0.000Mbps
+[CLI] [PQI] USB  grade=1 score=350 rtt=250.00ms loss=0.000% bw=0.000Mbps
+[CLI] [PQI_METRIC] ts=164457540245 verified=0 rtt=250.00ms loss=0.000% bw=0.000Mbps grade=1 score=1000
+[CLI] [PQI_METRIC] ts=164457540280 verified=0 rtt=250.00ms loss=0.000% bw=0.000Mbps grade=1 score=1000
+[CLI] [PQI] WLAN grade=1 score=650 rtt=250.00ms loss=0.000% bw=0.000Mbps
+[CLI] [PQI] USB  grade=1 score=350 rtt=250.00ms loss=0.000% bw=0.000Mbps
+[CLI] [PQI_METRIC] ts=164457572338 verified=0 rtt=250.00ms loss=0.000% bw=0.000Mbps grade=1 score=1000
+[CLI] [PQI_METRIC] ts=164457572369 verified=0 rtt=250.00ms loss=0.000% bw=0.000Mbps grade=1 score=1000
+[CLI] [PQI] WLAN grade=1 score=650 rtt=250.00ms loss=0.000% bw=0.000Mbps
+[CLI] [PQI] USB  grade=1 score=350 rtt=250.00ms loss=0.000% bw=0.000Mbps
+[CLI] ==========================================================
+[CLI] [DIAG] Wi-Fi Down. Checking existing paths...
+[CLI] [DIAG] Wi-Fi path exists (ID:0). Re-probing...
+[CLI] ==========================================================
+[CLI] [PQI_METRIC] ts=164457608175 verified=0 rtt=250.00ms loss=0.000% bw=0.000Mbps grade=1 score=1000
+[CLI] [PQI_METRIC] ts=164457608204 verified=0 rtt=250.00ms loss=0.000% bw=0.000Mbps grade=1 score=1000
+[CLI] [PQI] WLAN grade=1 score=650 rtt=250.00ms loss=0.000% bw=0.000Mbps
+[CLI] [PQI] USB  grade=1 score=350 rtt=250.00ms loss=0.000% bw=0.000Mbps
+[CLI] [PQI_METRIC] ts=164457640240 verified=0 rtt=250.00ms loss=0.000% bw=0.000Mbps grade=1 score=1000
+[CLI] [PQI_METRIC] ts=164457640270 verified=0 rtt=250.00ms loss=0.000% bw=0.000Mbps grade=1 score=1000
+[CLI] [PQI] WLAN grade=1 score=650 rtt=250.00ms loss=0.000% bw=0.000Mbps
+[CLI] [PQI] USB  grade=1 score=350 rtt=250.00ms loss=0.000% bw=0.000Mbps
+[CLI] [PQI_SWITCH] ts=164457640233 from=0 to=1 cause=degrade_failover wifi_score=650 usb_score=350
+[CLI] [BENCH_SWITCH] ts=164457640233 from_path=0 to_path=1
+[CLI] [PQI_METRIC] ts=164457672761 verified=0 rtt=250.00ms loss=0.000% bw=0.000Mbps grade=1 score=1000
+[CLI] [PQI_METRIC] ts=164457672790 verified=0 rtt=250.00ms loss=0.000% bw=0.000Mbps grade=1 score=1000
+[CLI] [PQI] WLAN grade=1 score=650 rtt=250.00ms loss=0.000% bw=0.000Mbps
+[CLI] [PQI] USB  grade=1 score=350 rtt=250.00ms loss=0.000% bw=0.000Mbps
+[CLI] [PQI_METRIC] ts=164457707986 verified=0 rtt=250.00ms loss=0.000% bw=0.000Mbps grade=1 score=1000
+[CLI] [PQI_METRIC] ts=164457708029 verified=0 rtt=250.00ms loss=0.000% bw=0.000Mbps grade=1 score=1000
+[CLI] [PQI] WLAN grade=1 score=650 rtt=250.00ms loss=0.000% bw=0.000Mbps
+[CLI] [PQI] USB  grade=1 score=350 rtt=250.00ms loss=0.000% bw=0.000Mbps
+[CLI] [PQI_METRIC] ts=164457740085 verified=0 rtt=250.00ms loss=0.000% bw=0.000Mbps grade=1 score=1000
+[CLI] [PQI_METRIC] ts=164457740117 verified=0 rtt=250.00ms loss=0.000% bw=0.000Mbps grade=1 score=1000
+[CLI] [PQI] WLAN grade=1 score=650 rtt=250.00ms loss=0.000% bw=0.000Mbps
+[CLI] [PQI] USB  grade=1 score=350 rtt=250.00ms loss=0.000% bw=0.000Mbps
+[CLI] [PQI_METRIC] ts=164457776110 verified=0 rtt=250.00ms loss=0.000% bw=0.000Mbps grade=1 score=1000
+[CLI] [PQI_METRIC] ts=164457776136 verified=0 rtt=250.00ms loss=0.000% bw=0.000Mbps grade=1 score=1000
+[CLI] [PQI] WLAN grade=1 score=650 rtt=250.00ms loss=0.000% bw=0.000Mbps
+[CLI] [PQI] USB  grade=1 score=350 rtt=250.00ms loss=0.000% bw=0.000Mbps
+[CLI] [PQI_METRIC] ts=164457807956 verified=0 rtt=250.00ms loss=0.000% bw=0.000Mbps grade=1 score=1000
+[CLI] [PQI_METRIC] ts=164457807991 verified=0 rtt=250.00ms loss=0.000% bw=0.000Mbps grade=1 score=1000
+[CLI] [PQI] WLAN grade=1 score=650 rtt=250.00ms loss=0.000% bw=0.000Mbps
+[CLI] [PQI] USB  grade=1 score=350 rtt=250.00ms loss=0.000% bw=0.000Mbps
+[CLI] [PQI_METRIC] ts=164457839989 verified=0 rtt=250.00ms loss=0.000% bw=0.000Mbps grade=1 score=1000
+[CLI] [PQI_METRIC] ts=164457840032 verified=0 rtt=250.00ms loss=0.000% bw=0.000Mbps grade=1 score=1000
+[CLI] [PQI] WLAN grade=1 score=650 rtt=250.00ms loss=0.000% bw=0.000Mbps
+[CLI] [PQI] USB  grade=1 score=350 rtt=250.00ms loss=0.000% bw=0.000Mbps
+[CLI] [PQI_METRIC] ts=164457876187 verified=0 rtt=250.00ms loss=0.000% bw=0.000Mbps grade=1 score=1000
+[CLI] [PQI_METRIC] ts=164457876218 verified=0 rtt=250.00ms loss=0.000% bw=0.000Mbps grade=1 score=1000
+[CLI] [PQI] WLAN grade=1 score=650 rtt=250.00ms loss=0.000% bw=0.000Mbps
+[CLI] [PQI] USB  grade=1 score=350 rtt=250.00ms loss=0.000% bw=0.000Mbps
+[CLI] [PQI_METRIC] ts=164457907962 verified=0 rtt=250.00ms loss=0.000% bw=0.000Mbps grade=1 score=1000
+[CLI] [PQI_METRIC] ts=164457907992 verified=0 rtt=250.00ms loss=0.000% bw=0.000Mbps grade=1 score=1000
+[CLI] [PQI] WLAN grade=1 score=650 rtt=250.00ms loss=0.000% bw=0.000Mbps
+[CLI] [PQI] USB  grade=1 score=350 rtt=250.00ms loss=0.000% bw=0.000Mbps
+[CLI] [PQI_METRIC] ts=164457940132 verified=0 rtt=250.00ms loss=0.000% bw=0.000Mbps grade=1 score=1000
+[CLI] [PQI_METRIC] ts=164457940165 verified=0 rtt=250.00ms loss=0.000% bw=0.000Mbps grade=1 score=1000
+[CLI] [PQI] WLAN grade=1 score=650 rtt=250.00ms loss=0.000% bw=0.000Mbps
+[CLI] [PQI] USB  grade=1 score=350 rtt=250.00ms loss=0.000% bw=0.000Mbps
+[CLI] [PQI_METRIC] ts=164457975980 verified=0 rtt=250.00ms loss=0.000% bw=0.000Mbps grade=1 score=1000
+[CLI] [PQI_METRIC] ts=164457976023 verified=0 rtt=250.00ms loss=0.000% bw=0.000Mbps grade=1 score=1000
+[CLI] [PQI] WLAN grade=1 score=650 rtt=250.00ms loss=0.000% bw=0.000Mbps
+[CLI] [PQI] USB  grade=1 score=350 rtt=250.00ms loss=0.000% bw=0.000Mbps
+[CLI] [PQI_METRIC] ts=164458008050 verified=0 rtt=250.00ms loss=0.000% bw=0.000Mbps grade=1 score=1000
+[CLI] [PQI_METRIC] ts=164458008079 verified=0 rtt=250.00ms loss=0.000% bw=0.000Mbps grade=1 score=1000
+[CLI] [PQI] WLAN grade=1 score=650 rtt=250.00ms loss=0.000% bw=0.000Mbps
+[CLI] [PQI] USB  grade=1 score=350 rtt=250.00ms loss=0.000% bw=0.000Mbps
+[CLI] [PQI_METRIC] ts=164458039987 verified=0 rtt=250.00ms loss=0.000% bw=0.000Mbps grade=1 score=1000
+[CLI] [PQI_METRIC] ts=164458040029 verified=0 rtt=250.00ms loss=0.000% bw=0.000Mbps grade=1 score=1000
+[CLI] [PQI] WLAN grade=1 score=650 rtt=250.00ms loss=0.000% bw=0.000Mbps
+[CLI] [PQI] USB  grade=1 score=350 rtt=250.00ms loss=0.000% bw=0.000Mbps
+[CLI] [PQI_METRIC] ts=164458077530 verified=0 rtt=250.00ms loss=0.000% bw=0.000Mbps grade=1 score=1000
+[CLI] [PQI_METRIC] ts=164458077558 verified=0 rtt=250.00ms loss=0.000% bw=0.000Mbps grade=1 score=1000
+[CLI] [PQI] WLAN grade=1 score=650 rtt=250.00ms loss=0.000% bw=0.000Mbps
+[CLI] [PQI] USB  grade=1 score=350 rtt=250.00ms loss=0.000% bw=0.000Mbps
+[CLI] [PQI_METRIC] ts=164458109387 verified=0 rtt=250.00ms loss=0.000% bw=0.000Mbps grade=1 score=1000
+[CLI] [PQI_METRIC] ts=164458109417 verified=0 rtt=250.00ms loss=0.000% bw=0.000Mbps grade=1 score=1000
+[CLI] [PQI] WLAN grade=1 score=650 rtt=250.00ms loss=0.000% bw=0.000Mbps
+[CLI] [PQI] USB  grade=1 score=350 rtt=250.00ms loss=0.000% bw=0.000Mbps
+timeout: 감시 중인 명령에서 코어 덤프

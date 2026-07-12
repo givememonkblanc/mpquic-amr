@@ -1,0 +1,21 @@
+# vendored third-party code (has its own .git; not tracked here)
+third_party/
+
+# build outputs
+build/
+build*/
+logs/
+out/
+
+# experiment outputs / large data (kept on disk, not tracked)
+results/
+
+# secrets / generated
+certs/key.pem
+.env
+
+# large binary artifacts
+*.qlog
+*.pcap
+*.bin
+__pycache__/

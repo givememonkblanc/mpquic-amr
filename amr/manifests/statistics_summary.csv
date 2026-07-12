@@ -1,0 +1,5 @@
+claim_area,mode,run_count,mean_frames,mean_switches,mean_outage_us,summary_source,notes
+compare-schedulers,rssi,1,822,0,33354,qlogs_client/rssi_192.168.0.80_events.csv,main proposed method
+compare-schedulers,pqi,1,822,2,33341,qlogs_client/pqi_192.168.0.80_events.csv,ablation (RSSI 없음) — 스위치 2회 발생
+compare-schedulers,default,1,822,0,33355,qlogs_client/default_192.168.0.80_events.csv,picoquic native MP-QUIC baseline
+compare-schedulers,spquic,1,822,0,33340,qlogs_client/spquic_192.168.0.80_events.csv,single-path QUIC migration baseline

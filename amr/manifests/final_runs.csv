@@ -1,0 +1,3 @@
+scenario,run_id,source_dir,staged_dir,handshake_ready,camera_opened,frame_count,pqi_switch_count,has_preview,has_degradation_log,notes
+handover,20260617-record-handover-134544,/home/ryzen395/mpquic/experiment_runs/20260617-record-handover-134544,/home/ryzen395/mpquic/amr/final_runs/handover/20260617-record-handover-134544,yes,yes,0,6,yes,no,
+degradation,20260617-record-degrade-134426,/home/ryzen395/mpquic/experiment_runs/20260617-record-degrade-134426,/home/ryzen395/mpquic/amr/final_runs/degradation/20260617-record-degrade-134426,yes,yes,0,18,yes,yes,

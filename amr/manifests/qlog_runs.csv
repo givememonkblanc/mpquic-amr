@@ -1,0 +1,5 @@
+run_id,events_csv,snap_csv,frames,sent,bytes,switches,outage_events,outage_total_us,outage_avg_us
+compare-schedulers-20260619,qlogs_client/rssi_192.168.0.80_events.csv,qlogs_client/rssi_192.168.0.80_snap.csv,822,822,8699931,0,821,27383941,33354
+compare-schedulers-20260619,qlogs_client/pqi_192.168.0.80_events.csv,qlogs_client/pqi_192.168.0.80_snap.csv,822,822,7867175,2,821,27372723,33341
+compare-schedulers-20260619,qlogs_client/default_192.168.0.80_events.csv,qlogs_client/default_192.168.0.80_snap.csv,822,822,8411450,0,821,27384740,33355
+compare-schedulers-20260619,qlogs_client/spquic_192.168.0.80_events.csv,qlogs_client/spquic_192.168.0.80_snap.csv,822,822,5804475,0,821,27372212,33340
