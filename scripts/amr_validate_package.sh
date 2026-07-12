@@ -100,7 +100,7 @@ if validated_doc.exists():
     run_ids = re.findall(r'`(20\d{6,}[^`]*)`', text)
     for run_id in run_ids:
         found = False
-        if (root / 'experiment_runs' / run_id).exists():
+        if (root / 'results' / 'experiment_runs' / run_id).exists():
             found = True
         for scenario_dir in (amr / 'final_runs').glob('*'):
             if scenario_dir.is_dir() and (scenario_dir / run_id).exists():

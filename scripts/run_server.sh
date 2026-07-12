@@ -5,7 +5,7 @@ set -Eeuo pipefail
 # ========== Paths (safe defaults) ==========
 SCRIPT_DIR="$(cd "$(dirname "$0")" && pwd)"
 ROOT_DIR="${ROOT_DIR:-$(cd "${SCRIPT_DIR}/.." && pwd)}"
-BUILD_DIR="${BUILD_DIR:-${ROOT_DIR}/build}"
+BUILD_DIR="${BUILD_DIR:-${ROOT_DIR}/build_d20}"
 CERT_DIR="${CERT_DIR:-${ROOT_DIR}/certs}"
 
 BIN="${BIN:-${BUILD_DIR}/server_recv}"
@@ -14,7 +14,7 @@ CERT="${CERT:-${CERT_DIR}/cert.pem}"
 KEY="${KEY:-${CERT_DIR}/key.pem}"
 QLOG_DIR="${QLOG_DIR:-${BUILD_DIR}/qlogs_svr}"
 BINLOG_DIR="${BINLOG_DIR:-${BUILD_DIR}/binlog_svr}"
-OUT_DIR="${OUT_DIR:-${ROOT_DIR}/frames_out}"
+OUT_DIR="${OUT_DIR:-${ROOT_DIR}/results/frames_out}"
 SVR_PREVIEW="${SVR_PREVIEW:-0}"
 SVR_SAVE_FRAMES="${SVR_SAVE_FRAMES:-1}"
 SVR_PREVIEW_CMD="${SVR_PREVIEW_CMD:-}"

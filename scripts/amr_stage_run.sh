@@ -31,7 +31,7 @@ esac
 SCRIPT_DIR="$(cd "$(dirname "$0")" && pwd)"
 ROOT_DIR="${ROOT_DIR:-$(cd "${SCRIPT_DIR}/.." && pwd)}"
 AMR_DIR="${AMR_DIR:-${ROOT_DIR}/amr}"
-SRC_DIR="${3:-${ROOT_DIR}/experiment_runs/${RUN_ID}}"
+SRC_DIR="${3:-${ROOT_DIR}/results/experiment_runs/${RUN_ID}}"
 DEST_RUN_ID="${4:-${RUN_ID}}"
 NOTES="${5:-}"
 DEST_DIR="${AMR_DIR}/final_runs/${SCENARIO}/${DEST_RUN_ID}"

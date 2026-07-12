@@ -36,7 +36,7 @@ DEGRADATION_RUNTIME_SEC="${DEGRADATION_RUNTIME_SEC:-50}"
 PAUSE_BETWEEN_RUNS_SEC="${PAUSE_BETWEEN_RUNS_SEC:-8}"
 
 MATRIX_ID="${MATRIX_ID:-$(date +%Y%m%d-matrix-%H%M%S)}"
-MATRIX_DIR="${ROOT_DIR}/experiment_runs/${MATRIX_ID}"
+MATRIX_DIR="${ROOT_DIR}/results/experiment_runs/${MATRIX_ID}"
 mkdir -p "$MATRIX_DIR"
 SUMMARY="${MATRIX_DIR}/matrix_summary.tsv"
 echo -e "scenario\tmode\trep\tstatus\tframes_rx\tnotes" > "$SUMMARY"

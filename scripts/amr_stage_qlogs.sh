@@ -17,7 +17,7 @@ EOF
 SCRIPT_DIR="$(cd "$(dirname "$0")" && pwd)"
 ROOT_DIR="${ROOT_DIR:-$(cd "${SCRIPT_DIR}/.." && pwd)}"
 AMR_DIR="${AMR_DIR:-${ROOT_DIR}/amr}"
-QLOG_SRC_DIR="${QLOG_SRC_DIR:-${ROOT_DIR}/qlogs_client}"
+QLOG_SRC_DIR="${QLOG_SRC_DIR:-${ROOT_DIR}/results/qlogs_client}"
 DEST_DIR="${AMR_DIR}/statistics/raw_qlogs"
 MANIFEST="${AMR_DIR}/manifests/qlog_runs.csv"
 

@@ -75,9 +75,9 @@ set(LOG_LIB_SRCS
 
 # ---- 서버 ----
 add_executable(server_recv
-  server/server_recv.c
-  server/server_runtime.c
-  server/frame_assembler.c
+  src/server/server_recv.c
+  src/server/server_runtime.c
+  src/server/frame_assembler.c
 )
 target_compile_options(server_recv PRIVATE -Wall -Wextra)
 target_link_libraries(server_recv
@@ -97,15 +97,15 @@ target_link_libraries(server_recv
 # ---- 클라이언트 (C++ 링커 사용, OpenCV 사용) ----
 if(OpenCV_FOUND)
   add_executable(client_uploader
-    client/client_uploader.c
-    client/client_capture.c
-    client/client_loop.c
-    client/client_options.c
-    client/client_paths.c
-    client/client_session.c
-    client/client_qlogger.c
-    client/camera.cpp
-    client/depthai_wrapper.cpp
+    src/client/client_uploader.c
+    src/client/client_capture.c
+    src/client/client_loop.c
+    src/client/client_options.c
+    src/client/client_paths.c
+    src/client/client_session.c
+    src/client/client_qlogger.c
+    src/client/camera.cpp
+    src/client/depthai_wrapper.cpp
   )
   # C 파일이 포함되어도 최종 링크는 C++로
   set_target_properties(client_uploader PROPERTIES LINKER_LANGUAGE CXX)

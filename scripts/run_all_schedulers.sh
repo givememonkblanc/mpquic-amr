@@ -25,14 +25,14 @@ DURATION_US="${5:-30000000}"
 
 EDGE_PROJECT_DIR="${EDGE_PROJECT_DIR:-/home/jetson/client_multi_path_enhanced}"
 CLIENT_BIN_NAME="${CLIENT_BIN_NAME:-client_uploader}"
-CLIENT_BIN="${CLIENT_BIN:-${EDGE_PROJECT_DIR}/build/${CLIENT_BIN_NAME}}"
+CLIENT_BIN="${CLIENT_BIN:-${EDGE_PROJECT_DIR}/build_d20/${CLIENT_BIN_NAME}}"
 REMOTE_QLOG_DIR="${REMOTE_QLOG_DIR:-/home/jetson/qlogs_client}"
 
 RUN_ID="${RUN_ID:-$(date +%Y%m%d-scheduler-compare-%H%M%S)}"
-RUN_DIR="${RUN_DIR:-${ROOT_DIR}/experiment_runs/${RUN_ID}}"
+RUN_DIR="${RUN_DIR:-${ROOT_DIR}/results/experiment_runs/${RUN_ID}}"
 SERVER_LOG="${SERVER_LOG:-${RUN_DIR}/server.log}"
 CLIENT_LOG_DIR="${CLIENT_LOG_DIR:-${RUN_DIR}/scheduler_logs}"
-LOCAL_QLOG_DIR="${LOCAL_QLOG_DIR:-${ROOT_DIR}/qlogs_client}"
+LOCAL_QLOG_DIR="${LOCAL_QLOG_DIR:-${ROOT_DIR}/results/qlogs_client}"
 
 MODES=("pqi" "rssi" "default" "spquic")
 

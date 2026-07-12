@@ -6,7 +6,7 @@ SCRIPT_DIR="$(cd "$(dirname "$0")" && pwd)"
 ROOT_DIR="${ROOT_DIR:-$(cd "${SCRIPT_DIR}/.." && pwd)}"
 ENV_FILE="${ENV_FILE:-${ROOT_DIR}/.env}"
 RUN_ID="${RUN_ID:-$(date +%Y%m%d-%H%M%S)}"
-RUN_DIR="${RUN_DIR:-${ROOT_DIR}/experiment_runs/${RUN_ID}}"
+RUN_DIR="${RUN_DIR:-${ROOT_DIR}/results/experiment_runs/${RUN_ID}}"
 SERVER_LOG="${SERVER_LOG:-${RUN_DIR}/server.log}"
 CLIENT_LOG="${CLIENT_LOG:-${RUN_DIR}/edge_client.log}"
 
@@ -16,7 +16,7 @@ RUNTIME_SEC="${RUNTIME_SEC:-20}"
 
 EDGE_PROJECT_DIR="${EDGE_PROJECT_DIR:-/home/jetson/client_multi_path_enhanced}"
 CLIENT_BIN_NAME="${CLIENT_BIN_NAME:-client_uploader}"
-CLIENT_BIN="${CLIENT_BIN:-${EDGE_PROJECT_DIR}/build/${CLIENT_BIN_NAME}}"
+CLIENT_BIN="${CLIENT_BIN:-${EDGE_PROJECT_DIR}/build_d20/${CLIENT_BIN_NAME}}"
 EDGE_WIFI_IP="${EDGE_WIFI_IP:-192.168.0.13}"
 EDGE_HOTSPOT_IP="${EDGE_HOTSPOT_IP:-172.20.10.3}"
 

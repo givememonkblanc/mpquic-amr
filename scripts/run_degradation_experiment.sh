@@ -7,7 +7,7 @@ SCRIPT_DIR="$(cd "$(dirname "$0")" && pwd)"
 ROOT_DIR="${ROOT_DIR:-$(cd "${SCRIPT_DIR}/.." && pwd)}"
 ENV_FILE="${ENV_FILE:-${ROOT_DIR}/.env}"
 RUN_ID="${RUN_ID:-$(date +%Y%m%d-%H%M%S)}"
-RUN_DIR="${RUN_DIR:-${ROOT_DIR}/experiment_runs/${RUN_ID}}"
+RUN_DIR="${RUN_DIR:-${ROOT_DIR}/results/experiment_runs/${RUN_ID}}"
 FRAMES_DIR="${FRAMES_DIR:-${RUN_DIR}/frames}"
 SERVER_LOG="${SERVER_LOG:-${RUN_DIR}/server.log}"
 CLIENT_LOG="${CLIENT_LOG:-${RUN_DIR}/edge_client.log}"
@@ -26,7 +26,7 @@ DISABLE_EDGE_WIRED_IFACE="${DISABLE_EDGE_WIRED_IFACE:-0}"
 SKIP_EDGE_ROUTE_SETUP="${SKIP_EDGE_ROUTE_SETUP:-0}"
 
 CLIENT_BIN_NAME="${CLIENT_BIN_NAME:-client_uploader}"
-CLIENT_BIN="${CLIENT_BIN:-${EDGE_PROJECT_DIR}/build/${CLIENT_BIN_NAME}}"
+CLIENT_BIN="${CLIENT_BIN:-${EDGE_PROJECT_DIR}/build_d20/${CLIENT_BIN_NAME}}"
 SCHED_MODE="${MPQUIC_SCHED_MODE:-rssi}"
 case "$SCHED_MODE" in
   rssi)    MODE_LABEL="RSSI" ;;

@@ -24,7 +24,7 @@ args = parser.parse_args()
 FRAMES_DIR = Path(args.frames_dir).resolve()
 PORT = args.port
 REPO_ROOT = Path(__file__).resolve().parent.parent
-QLOG_DIR = REPO_ROOT / "qlogs_client"
+QLOG_DIR = REPO_ROOT / "results" / "qlogs_client"
 
 
 def _jet_colormap():

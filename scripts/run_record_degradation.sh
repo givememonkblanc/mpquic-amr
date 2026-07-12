@@ -5,7 +5,7 @@ set -Eeuo pipefail
 SCRIPT_DIR="$(cd "$(dirname "$0")" && pwd)"
 ROOT_DIR="${ROOT_DIR:-$(cd "${SCRIPT_DIR}/.." && pwd)}"
 RUN_ID="${RUN_ID:-$(date +%Y%m%d-record-degrade-%H%M%S)}"
-RUN_DIR="${RUN_DIR:-${ROOT_DIR}/experiment_runs/${RUN_ID}}"
+RUN_DIR="${RUN_DIR:-${ROOT_DIR}/results/experiment_runs/${RUN_ID}}"
 VIDEO_FILE="${VIDEO_FILE:-${RUN_DIR}/preview.mp4}"
 
 mkdir -p "$RUN_DIR"
