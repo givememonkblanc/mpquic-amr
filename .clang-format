@@ -1,0 +1,20 @@
+# Matches the de-facto style already in src/ (K&R attach braces, 4-space indent,
+# left-aligned pointers). Not bulk-applied — run `clang-format -i` per file when
+# you touch it, so diffs stay reviewable. C++ files (camera.cpp, depthai_wrapper)
+# intentionally use camelCase identifiers; formatting rules below still apply.
+---
+Language: Cpp
+BasedOnStyle: LLVM
+IndentWidth: 4
+TabWidth: 4
+UseTab: Never
+ColumnLimit: 100
+BreakBeforeBraces: Attach
+PointerAlignment: Left
+AllowShortFunctionsOnASingleLine: Inline
+AllowShortIfStatementsOnASingleLine: Never
+AllowShortLoopsOnASingleLine: false
+AlignAfterOpenBracket: Align
+SpaceAfterCStyleCast: false
+KeepEmptyLinesAtTheStartOfBlocks: false
+SortIncludes: false

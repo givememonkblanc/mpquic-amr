@@ -1,12 +1,12 @@
 
 // depthai_wrapper.cpp — depthai v3 C++ bridge for the OAK-D (OAK-D-PRO-W).
 //
-// Exposes a small C API (see depthai_wrapper.h) that the Go camera provider
-// calls via cgo. A background thread per stream continuously pulls the newest
-// frame from the device into a cached buffer, so the Go side never blocks and
-// always gets the latest frame.
+// Exposes a small C API (see depthai_wrapper.h) that the client capture layer
+// (client_capture.c / camera.cpp) calls directly. A background thread per stream
+// continuously pulls the newest frame from the device into a cached buffer, so
+// the caller never blocks and always gets the latest frame.
 //
-// RGB is JPEG-encoded here (so the Go client forwards it as-is); depth is kept
+// RGB is JPEG-encoded here (so the caller forwards it as-is); depth is kept
 // as raw 16-bit (millimetres) and resized to the requested depth resolution.
 
 #include "depthai_wrapper.h"

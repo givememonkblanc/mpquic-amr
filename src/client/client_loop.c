@@ -721,14 +721,14 @@ static void update_pqi_choice_state(tx_t* st, const pqi_choice_t* choice,
                     d *= 2;
                     if (d > PQI_DEBOUNCE_MAX_US) d = PQI_DEBOUNCE_MAX_US;
                     st->pqi_dyn_debounce_us = d;
-                    fprintf(stderr, "[PQI-STAB] ping-pong detected → debounce %.1fs\n", d / 1e6);
+                    LOGF("[PQI-STAB] ping-pong detected → debounce %.1fs", d / 1e6);
                 }
             }
             prev_switch_from = from;
             prev_switch_us = now;
             qlog_switch_event(st->qlog, now, from, to, choice->reason);
-            fprintf(stderr, "[PQI-STAB] switch #%d %d->%d reason=%s ping_pongs=%d\n",
-                    total_switches, from, to, choice->reason ? choice->reason : "", ping_pongs);
+            LOGF("[PQI-STAB] switch #%d %d->%d reason=%s ping_pongs=%d",
+                 total_switches, from, to, choice->reason ? choice->reason : "", ping_pongs);
         }
         st->pqi_last_choice = choice->choice_kind;
         st->pqi_last_switch_us = now;

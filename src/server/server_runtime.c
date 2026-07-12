@@ -82,8 +82,7 @@ static void maybe_log_benchmark(app_ctx_t* app) {
         if (duration > 0.1) {
             double mbps = (app->bytes_rx_total * 8.0) / (1024.0 * 1024.0 * duration);
             fprintf(stderr,
-                    "[01-05 %ld] [BENCH] Duration: %.2fs | Recv: %.2fMB | Current Rate: %.2fMbps\n",
-                    now,
+                    "[BENCH] Duration: %.2fs | Recv: %.2fMB | Current Rate: %.2fMbps\n",
                     duration,
                     (double)app->bytes_rx_total / 1024.0 / 1024.0,
                     mbps);

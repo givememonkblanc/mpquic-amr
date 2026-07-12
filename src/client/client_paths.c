@@ -18,7 +18,7 @@ static void on_cb_event(picoquic_call_back_event_t ev, tx_t* st) {
     case picoquic_callback_close:
     case picoquic_callback_application_close:
         st->peer_close_seen = 1;
-        LOGF("[CB] closing (IGNORED for test; keeping loop alive)");
+        LOGF("[CB] connection close → set peer_close_seen (loop exits for supervised reconnect)");
         break;
     default:
         break;

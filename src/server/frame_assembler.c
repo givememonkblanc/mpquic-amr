@@ -580,10 +580,11 @@ static int ensure_cap(rx_stream_t* rx, size_t need){
  * [6] Magic + fixed-width length framing
  * ============================================================
  *
- * Frame format:
+ * Frame format (9-byte header):
  *   [4 bytes: magic "MPQ1"]
+ *   [1 byte:  frame type — 'd' = depth (16-bit PNG), 'r' = RGB (JPEG)]
  *   [4 bytes: frame_len (big-endian uint32)]
- *   [frame_len bytes: JPEG data]
+ *   [frame_len bytes: payload]
  */
 
 static const uint8_t FRAME_MAGIC[4] = {FRAME_MAGIC_B0, FRAME_MAGIC_B1,
@@ -640,9 +641,9 @@ void fa_reset(app_ctx_t* app){
 }
 
 /**
- * @brief 수신된 바이트 열을 프레임으로 조립하는 메인 로직입니다.
+ * @brief Main byte-stream → frame reassembly logic.
  *
- * Frame format: [4B magic "MPQ1"] [4B big-endian length] [length B JPEG data]
+ * Frame format: [4B magic "MPQ1"] [1B type 'd'/'r'] [4B big-endian length] [payload]
  */
 int fa_on_bytes(picoquic_cnx_t* cnx, app_ctx_t* app, uint64_t sid,
                 const uint8_t* bytes, size_t length)
