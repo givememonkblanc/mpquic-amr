@@ -1601,7 +1601,7 @@ def main():
     print("[MONITOR] Experiment console started")
     print(f"    URL:      http://0.0.0.0:{PORT}/")
     print(f"    Frames:   {FRAMES_DIR}")
-    print(f"[MONITOR] Open in browser: http://192.168.0.80:{PORT}/")
+    print(f"[MONITOR] Open in browser: http://192.168.0.38:{PORT}/")
     try:
         server.serve_forever()
     except KeyboardInterrupt:

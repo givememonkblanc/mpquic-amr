@@ -6,6 +6,8 @@ set -Eeuo pipefail
 SCRIPT_DIR="$(cd "$(dirname "$0")" && pwd)"
 ROOT_DIR="${ROOT_DIR:-$(cd "${SCRIPT_DIR}/.." && pwd)}"
 ENV_FILE="${ENV_FILE:-${ROOT_DIR}/.env}"
+# Deployment truth: SERVER_IP=192.168.0.38, EDGE_PROJECT_DIR, Tailscale SSH_ADDRESS.
+source "${SCRIPT_DIR}/exp_env.sh"
 RUN_ID="${RUN_ID:-$(date +%Y%m%d-%H%M%S)}"
 RUN_DIR="${RUN_DIR:-${ROOT_DIR}/results/experiment_runs/${RUN_ID}}"
 FRAMES_DIR="${FRAMES_DIR:-${RUN_DIR}/frames}"
@@ -17,10 +19,10 @@ SVR_SAVE_FRAMES="${SVR_SAVE_FRAMES:-1}"
 SVR_PREVIEW_CMD="${SVR_PREVIEW_CMD:-}"
 
 # Single server IP; backup path goes through Tailscale subnet routing
-SERVER_IP="${SERVER_IP:-192.168.0.80}"
+SERVER_IP="${SERVER_IP:-192.168.0.38}"
 PORT="${PORT:-4433}"
 
-EDGE_PROJECT_DIR="${EDGE_PROJECT_DIR:-/home/jetson/client_multi_path_enhanced}"
+EDGE_PROJECT_DIR="${EDGE_PROJECT_DIR:-/home/jetson/mpquic}"
 EDGE_WIRED_IFACE="${EDGE_WIRED_IFACE:-eno1}"
 DISABLE_EDGE_WIRED_IFACE="${DISABLE_EDGE_WIRED_IFACE:-0}"
 SKIP_EDGE_ROUTE_SETUP="${SKIP_EDGE_ROUTE_SETUP:-0}"
@@ -46,6 +48,7 @@ esac
 EDGE_WIFI_IFACE="${EDGE_WIFI_IFACE:-wlP1p1s0}"
 EDGE_WIFI_IP="${EDGE_WIFI_IP:-192.168.0.13}"
 EDGE_HOTSPOT_IP="${EDGE_HOTSPOT_IP:-172.20.10.3}"
+EDGE_HOTSPOT_IFACE="${EDGE_HOTSPOT_IFACE:-enx924cc5c9a35f}"
 RUNTIME_SEC="${RUNTIME_SEC:-50}"          # 5s startup + 30s ramp + 15s recovery
 DEGRADE_START_SEC="${DEGRADE_START_SEC:-5}"
 
@@ -92,15 +95,15 @@ print(vals['ssh_password'])
 
 ssh_edge(){
   local cmd="$1"
-  sshpass -p "$SSH_PASSWORD" ssh -o StrictHostKeyChecking=no -o UserKnownHostsFile=/tmp/opencode/known_hosts "${SSH_ID}@${SSH_ADDRESS}" "$cmd"
+  sshpass -p "$SSH_PASSWORD" ssh -o StrictHostKeyChecking=no -o UserKnownHostsFile=$HOME/.ssh/known_hosts "${SSH_ID}@${SSH_ADDRESS}" "$cmd"
 }
 
 setup_policy_routing(){
   [ "$SKIP_EDGE_ROUTE_SETUP" = "1" ] && return 0
-  if ! sshpass -p "$SSH_PASSWORD" ssh -o StrictHostKeyChecking=no -o UserKnownHostsFile=/tmp/opencode/known_hosts "${SSH_ID}@${SSH_ADDRESS}" \
+  if ! sshpass -p "$SSH_PASSWORD" ssh -o StrictHostKeyChecking=no -o UserKnownHostsFile=$HOME/.ssh/known_hosts "${SSH_ID}@${SSH_ADDRESS}" \
     "echo '${SSH_PASSWORD}' | sudo -S sh -lc 'ip rule del from ${EDGE_WIFI_IP}/32 table 100 2>/dev/null || true; ip route flush table 100 2>/dev/null || true; ip route add ${SERVER_IP}/32 via 192.168.0.1 dev ${EDGE_WIFI_IFACE} table 100; ip rule add from ${EDGE_WIFI_IP}/32 table 100 priority 1000;'"; then
     echo "[*] policy routing unsupported; falling back to direct Wi‑Fi host route"
-    sshpass -p "$SSH_PASSWORD" ssh -o StrictHostKeyChecking=no -o UserKnownHostsFile=/tmp/opencode/known_hosts "${SSH_ID}@${SSH_ADDRESS}" \
+    sshpass -p "$SSH_PASSWORD" ssh -o StrictHostKeyChecking=no -o UserKnownHostsFile=$HOME/.ssh/known_hosts "${SSH_ID}@${SSH_ADDRESS}" \
       "echo '${SSH_PASSWORD}' | sudo -S sh -lc 'ip route del ${SERVER_IP}/32 via 165.229.169.1 dev ${EDGE_WIRED_IFACE} 2>/dev/null || true; ip route del ${SERVER_IP}/32 dev ${EDGE_WIRED_IFACE} 2>/dev/null || true; ip route replace ${SERVER_IP}/32 dev ${EDGE_WIFI_IFACE} src ${EDGE_WIFI_IP} metric 5'" \
       || die "failed to install fallback Wi-Fi host route"
   fi
@@ -108,7 +111,7 @@ setup_policy_routing(){
 
 cleanup_policy_routing(){
   [ "$SKIP_EDGE_ROUTE_SETUP" = "1" ] && return 0
-  sshpass -p "$SSH_PASSWORD" ssh -o StrictHostKeyChecking=no -o UserKnownHostsFile=/tmp/opencode/known_hosts "${SSH_ID}@${SSH_ADDRESS}" \
+  sshpass -p "$SSH_PASSWORD" ssh -o StrictHostKeyChecking=no -o UserKnownHostsFile=$HOME/.ssh/known_hosts "${SSH_ID}@${SSH_ADDRESS}" \
     "echo '${SSH_PASSWORD}' | sudo -S sh -lc 'ip rule del from ${EDGE_WIFI_IP}/32 table 100 2>/dev/null || true; ip route flush table 100 2>/dev/null || true'" 2>/dev/null || true
 }
 
@@ -119,13 +122,13 @@ require_edge_interface(){
 
 disable_edge_wired_iface(){
   [ "$DISABLE_EDGE_WIRED_IFACE" = "1" ] || return 0
-  sshpass -p "$SSH_PASSWORD" ssh -o StrictHostKeyChecking=no -o UserKnownHostsFile=/tmp/opencode/known_hosts "${SSH_ID}@${SSH_ADDRESS}" \
+  sshpass -p "$SSH_PASSWORD" ssh -o StrictHostKeyChecking=no -o UserKnownHostsFile=$HOME/.ssh/known_hosts "${SSH_ID}@${SSH_ADDRESS}" \
     "echo '${SSH_PASSWORD}' | sudo -S ip link set ${EDGE_WIRED_IFACE} down"
 }
 
 enable_edge_wired_iface(){
   [ "$DISABLE_EDGE_WIRED_IFACE" = "1" ] || return 0
-  sshpass -p "$SSH_PASSWORD" ssh -o StrictHostKeyChecking=no -o UserKnownHostsFile=/tmp/opencode/known_hosts "${SSH_ID}@${SSH_ADDRESS}" \
+  sshpass -p "$SSH_PASSWORD" ssh -o StrictHostKeyChecking=no -o UserKnownHostsFile=$HOME/.ssh/known_hosts "${SSH_ID}@${SSH_ADDRESS}" \
     "echo '${SSH_PASSWORD}' | sudo -S ip link set ${EDGE_WIRED_IFACE} up" 2>/dev/null || true
 }
 
@@ -154,7 +157,7 @@ echo "[*] picoquic server started (PID $SERVER_PID)"
 
 # ── 2.5. Install temporary source-policy routing on edge ──
 require_edge_interface "$EDGE_WIFI_IFACE"
-require_edge_interface "enx924cc5c9a35f"
+require_edge_interface "$EDGE_HOTSPOT_IFACE"
 disable_edge_wired_iface
 setup_policy_routing
 
@@ -164,8 +167,8 @@ ssh_edge "killall ${CLIENT_BIN_NAME} iperf3 2>/dev/null; true"
 sleep 0.5
 # client_uploader argv contract:
 #   <server_ip> <primary_local_ip> [port] [backup_local_ip]
-# Primary: WiFi (192.168.0.13 → 192.168.0.80 direct)
-# Backup:  Tailscale (100.109.159.8 → 192.168.0.80 via subnet route)
+# Primary: WiFi (192.168.0.13 → 192.168.0.38 direct)
+# Backup:  Tailscale (100.109.159.8 → 192.168.0.38 via subnet route)
 # NOTE: env requires VAR=value form (old form tried to exec "MPQUIC_SCHED_MODE"
 # as a command → mode never applied); duration pinned to RUNTIME_SEC (client
 # internal default is 30 s and would truncate the 50 s degradation ramp).

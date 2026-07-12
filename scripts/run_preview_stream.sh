@@ -5,16 +5,18 @@ set -Eeuo pipefail
 SCRIPT_DIR="$(cd "$(dirname "$0")" && pwd)"
 ROOT_DIR="${ROOT_DIR:-$(cd "${SCRIPT_DIR}/.." && pwd)}"
 ENV_FILE="${ENV_FILE:-${ROOT_DIR}/.env}"
+# Deployment truth: SERVER_IP=192.168.0.38, EDGE_PROJECT_DIR, Tailscale SSH_ADDRESS.
+source "${SCRIPT_DIR}/exp_env.sh"
 RUN_ID="${RUN_ID:-$(date +%Y%m%d-%H%M%S)}"
 RUN_DIR="${RUN_DIR:-${ROOT_DIR}/results/experiment_runs/${RUN_ID}}"
 SERVER_LOG="${SERVER_LOG:-${RUN_DIR}/server.log}"
 CLIENT_LOG="${CLIENT_LOG:-${RUN_DIR}/edge_client.log}"
 
-SERVER_IP="${SERVER_IP:-192.168.0.80}"
+SERVER_IP="${SERVER_IP:-192.168.0.38}"
 PORT="${PORT:-4433}"
 RUNTIME_SEC="${RUNTIME_SEC:-20}"
 
-EDGE_PROJECT_DIR="${EDGE_PROJECT_DIR:-/home/jetson/client_multi_path_enhanced}"
+EDGE_PROJECT_DIR="${EDGE_PROJECT_DIR:-/home/jetson/mpquic}"
 CLIENT_BIN_NAME="${CLIENT_BIN_NAME:-client_uploader}"
 CLIENT_BIN="${CLIENT_BIN:-${EDGE_PROJECT_DIR}/build_d20/${CLIENT_BIN_NAME}}"
 EDGE_WIFI_IP="${EDGE_WIFI_IP:-192.168.0.13}"
@@ -57,7 +59,7 @@ ssh_edge(){
       cmd="$cmd $arg"
     fi
   done
-  sshpass -p "$SSH_PASSWORD" ssh -o StrictHostKeyChecking=no -o UserKnownHostsFile=/tmp/opencode/known_hosts "${SSH_ID}@${SSH_ADDRESS}" "$cmd"
+  sshpass -p "$SSH_PASSWORD" ssh -o StrictHostKeyChecking=no -o UserKnownHostsFile=$HOME/.ssh/known_hosts "${SSH_ID}@${SSH_ADDRESS}" "$cmd"
 }
 
 printf '┌─────────────────────────────────────────────────┐\n'

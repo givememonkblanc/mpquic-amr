@@ -5,11 +5,11 @@ set -Eeuo pipefail
 # Backup path now uses Tailscale subnet routing and does not need policy rules.
 #
 # Usage:
-#   SERVER_IP=192.168.0.80 \
+#   SERVER_IP=192.168.0.38 \
 #   EDGE_WIFI_IFACE=wlP1p1s0 EDGE_WIFI_IP=192.168.0.13 \
 #   sudo ./scripts/route_setup.sh
 
-SERVER_IP="${SERVER_IP:-192.168.0.80}"
+SERVER_IP="${SERVER_IP:-192.168.0.38}"
 EDGE_WIFI_IFACE="${EDGE_WIFI_IFACE:-wlP1p1s0}"
 EDGE_WIFI_IP="${EDGE_WIFI_IP:-192.168.0.13}"
 EDGE_WIFI_GW="${EDGE_WIFI_GW:-192.168.0.1}"

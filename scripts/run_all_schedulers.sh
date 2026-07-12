@@ -16,14 +16,16 @@ set -Eeuo pipefail
 SCRIPT_DIR="$(cd "$(dirname "$0")" && pwd)"
 ROOT_DIR="${ROOT_DIR:-$(cd "${SCRIPT_DIR}/.." && pwd)}"
 ENV_FILE="${ENV_FILE:-${ROOT_DIR}/.env}"
+# Deployment truth: SERVER_IP=192.168.0.38, EDGE_PROJECT_DIR, Tailscale SSH_ADDRESS.
+source "${SCRIPT_DIR}/exp_env.sh"
 
-SERVER_IP="${1:-192.168.0.80}"
+SERVER_IP="${1:-${SERVER_IP:-192.168.0.38}}"
 PRIMARY_LOCAL="${2:-192.168.0.13}"
 PORT="${3:-4433}"
 BACKUP_LOCAL="${4:-172.20.10.3}"
 DURATION_US="${5:-30000000}"
 
-EDGE_PROJECT_DIR="${EDGE_PROJECT_DIR:-/home/jetson/client_multi_path_enhanced}"
+EDGE_PROJECT_DIR="${EDGE_PROJECT_DIR:-/home/jetson/mpquic}"
 CLIENT_BIN_NAME="${CLIENT_BIN_NAME:-client_uploader}"
 CLIENT_BIN="${CLIENT_BIN:-${EDGE_PROJECT_DIR}/build_d20/${CLIENT_BIN_NAME}}"
 REMOTE_QLOG_DIR="${REMOTE_QLOG_DIR:-/home/jetson/qlogs_client}"
@@ -69,7 +71,7 @@ ssh_edge() {
             cmd="$cmd $arg"
         fi
     done
-    sshpass -p "$SSH_PASSWORD" ssh -o StrictHostKeyChecking=no -o UserKnownHostsFile=/tmp/opencode/known_hosts "${SSH_ID}@${SSH_ADDRESS}" "$cmd"
+    sshpass -p "$SSH_PASSWORD" ssh -o StrictHostKeyChecking=no -o UserKnownHostsFile=$HOME/.ssh/known_hosts "${SSH_ID}@${SSH_ADDRESS}" "$cmd"
 }
 
 cleanup(){
@@ -109,7 +111,7 @@ for mode in "${MODES[@]}"; do
 
     ssh_edge rm -f "${REMOTE_QLOG_DIR}/${mode}_${SERVER_IP}_events.csv" "${REMOTE_QLOG_DIR}/${mode}_${SERVER_IP}_snap.csv" 2>/dev/null || true
 
-    if ! sshpass -p "$SSH_PASSWORD" ssh -o StrictHostKeyChecking=no -o UserKnownHostsFile=/tmp/opencode/known_hosts "${SSH_ID}@${SSH_ADDRESS}" \
+    if ! sshpass -p "$SSH_PASSWORD" ssh -o StrictHostKeyChecking=no -o UserKnownHostsFile=$HOME/.ssh/known_hosts "${SSH_ID}@${SSH_ADDRESS}" \
         "cd /home/jetson && MPQUIC_SCHED_MODE='${mode}' MPQUIC_EXP_DURATION_US='${DURATION_US}' timeout '$((DURATION_US / 1000000 + 5))s' '${CLIENT_BIN}' '${SERVER_IP}' '${PRIMARY_LOCAL}' '${PORT}' '${BACKUP_LOCAL}'" >"$MODE_CLIENT_LOG" 2>&1; then
         printf '  [WARN] client exited non-zero for mode=%s\n' "$mode"
     fi
@@ -118,8 +120,8 @@ for mode in "${MODES[@]}"; do
     ELAPSED_MS=$(( (END_WALL - START_WALL) / 1000 ))
     printf '  Elapsed: %sms\n\n' "$ELAPSED_MS"
 
-    sshpass -p "$SSH_PASSWORD" scp -o StrictHostKeyChecking=no -o UserKnownHostsFile=/tmp/opencode/known_hosts "${SSH_ID}@${SSH_ADDRESS}:${REMOTE_QLOG_DIR}/${mode}_${SERVER_IP}_events.csv" "$LOCAL_QLOG_DIR/" >/dev/null 2>&1 || true
-    sshpass -p "$SSH_PASSWORD" scp -o StrictHostKeyChecking=no -o UserKnownHostsFile=/tmp/opencode/known_hosts "${SSH_ID}@${SSH_ADDRESS}:${REMOTE_QLOG_DIR}/${mode}_${SERVER_IP}_snap.csv" "$LOCAL_QLOG_DIR/" >/dev/null 2>&1 || true
+    sshpass -p "$SSH_PASSWORD" scp -o StrictHostKeyChecking=no -o UserKnownHostsFile=$HOME/.ssh/known_hosts "${SSH_ID}@${SSH_ADDRESS}:${REMOTE_QLOG_DIR}/${mode}_${SERVER_IP}_events.csv" "$LOCAL_QLOG_DIR/" >/dev/null 2>&1 || true
+    sshpass -p "$SSH_PASSWORD" scp -o StrictHostKeyChecking=no -o UserKnownHostsFile=$HOME/.ssh/known_hosts "${SSH_ID}@${SSH_ADDRESS}:${REMOTE_QLOG_DIR}/${mode}_${SERVER_IP}_snap.csv" "$LOCAL_QLOG_DIR/" >/dev/null 2>&1 || true
 
     sleep 2
 done

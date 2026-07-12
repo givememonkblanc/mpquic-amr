@@ -6,7 +6,7 @@ SCRIPT_DIR="$(cd "$(dirname "$0")" && pwd)"
 
 SVR_PREVIEW="${SVR_PREVIEW:-1}"
 SVR_SAVE_FRAMES="${SVR_SAVE_FRAMES:-0}"
-SERVER_IP="${SERVER_IP:-192.168.0.80}"
+SERVER_IP="${SERVER_IP:-192.168.0.38}"
 # Preview handover still needs the same source-policy routing as the full experiment.
 # Override to 1 only when the edge already has the required policy rules installed.
 SKIP_EDGE_ROUTE_SETUP="${SKIP_EDGE_ROUTE_SETUP:-0}"
