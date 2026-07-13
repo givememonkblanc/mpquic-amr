@@ -25,6 +25,50 @@ FRAMES_DIR = Path(args.frames_dir).resolve()
 PORT = args.port
 REPO_ROOT = Path(__file__).resolve().parent.parent
 QLOG_DIR = REPO_ROOT / "results" / "qlogs_client"
+HLS_DIR = REPO_ROOT / "results" / "hls"          # live HLS output (run_hls.sh)
+ASSETS_DIR = REPO_ROOT / "scripts" / "assets"    # vendored hls.js
+
+
+def render_hls_page():
+    """Dual live-HLS player (depth colormap + RGB). Uses vendored hls.js, with
+    native-HLS fallback for Safari."""
+    return """<!doctype html><html lang="en"><head><meta charset="utf-8">
+<title>MP-QUIC Live (HLS)</title>
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<script src="/hls/hls.js"></script>
+<style>
+ :root{color-scheme:dark}
+ body{margin:0;background:#0e1117;color:#e6eaf1;font:15px/1.5 -apple-system,Segoe UI,Roboto,sans-serif}
+ header{padding:16px 22px;border-bottom:1px solid #29313f}
+ header h1{margin:0;font-size:18px} header .s{color:#9aa4b7;font-size:13px}
+ .grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(340px,1fr));gap:18px;padding:22px;max-width:1200px;margin:0 auto}
+ .card{background:#161b24;border:1px solid #29313f;border-radius:12px;overflow:hidden}
+ .card h2{margin:0;padding:10px 14px;font-size:14px;color:#2dd4bf;border-bottom:1px solid #29313f}
+ video{width:100%;display:block;background:#000;aspect-ratio:4/3}
+ .st{padding:8px 14px;font:12px ui-monospace,monospace;color:#6b7488}
+</style></head>
+<body>
+<header><h1>MP-QUIC Live Streams</h1>
+<span class="s">depth (colormap) + RGB, re-streamed as HLS from the MP-QUIC receiver</span></header>
+<div class="grid">
+ <div class="card"><h2>Depth (colormap)</h2><video id="vd" controls autoplay muted playsinline></video><div class="st" id="sd">connecting...</div></div>
+ <div class="card"><h2>RGB</h2><video id="vr" controls autoplay muted playsinline></video><div class="st" id="sr">connecting...</div></div>
+</div>
+<script>
+function attach(vid, sid, url){
+  var v=document.getElementById(vid), s=document.getElementById(sid);
+  if(window.Hls && Hls.isSupported()){
+    var h=new Hls({liveSyncDurationCount:2, lowLatencyMode:true, manifestLoadingMaxRetry:99});
+    h.loadSource(url); h.attachMedia(v);
+    h.on(Hls.Events.MANIFEST_PARSED,function(){s.textContent="live";v.play().catch(function(){});});
+    h.on(Hls.Events.ERROR,function(e,d){ s.textContent="reconnecting ("+d.details+")";
+      if(d.fatal){ setTimeout(function(){h.loadSource(url);},1500);} });
+  } else if (v.canPlayType('application/vnd.apple.mpegurl')) {
+    v.src=url; s.textContent="live (native HLS)";
+  } else { s.textContent="HLS unsupported — open in Safari or VLC"; }
+}
+attach('vd','sd','/hls/depth.m3u8'); attach('vr','sr','/hls/rgb.m3u8');
+</script></body></html>"""
 
 
 def _jet_colormap():
@@ -1453,6 +1497,38 @@ class MonitorHandler(http.server.SimpleHTTPRequestHandler):
             self.send_header("Cache-Control", "no-store")
             self.end_headers()
             self.wfile.write(render_page("live").encode("utf-8"))
+            return
+
+        if path_only in ["/hls", "/hls/"]:
+            self.send_response(200)
+            self.send_header("Content-Type", "text/html; charset=utf-8")
+            self.send_header("Cache-Control", "no-store")
+            self.end_headers()
+            self.wfile.write(render_hls_page().encode("utf-8"))
+            return
+
+        if path_only.startswith("/hls/"):
+            fname = path_only[len("/hls/"):]
+            if not fname or "/" in fname or ".." in fname:
+                self.send_response(404); self.end_headers(); return
+            if fname == "hls.js":
+                fpath, ctype = ASSETS_DIR / "hls.min.js", "application/javascript"
+            elif fname.endswith(".m3u8"):
+                fpath, ctype = HLS_DIR / fname, "application/vnd.apple.mpegurl"
+            elif fname.endswith(".ts"):
+                fpath, ctype = HLS_DIR / fname, "video/mp2t"
+            else:
+                self.send_response(404); self.end_headers(); return
+            if not fpath.is_file():
+                self.send_response(404); self.end_headers(); self.wfile.write(b"not found"); return
+            body = fpath.read_bytes()
+            self.send_response(200)
+            self.send_header("Content-Type", ctype)
+            self.send_header("Cache-Control", "no-store")
+            self.send_header("Access-Control-Allow-Origin", "*")
+            self.send_header("Content-Length", str(len(body)))
+            self.end_headers()
+            self.wfile.write(body)
             return
 
         if path_only == "/experiments":

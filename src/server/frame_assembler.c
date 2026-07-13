@@ -114,7 +114,8 @@ typedef struct {
 static saveq_t g_saveq;
 static pthread_once_t g_once = PTHREAD_ONCE_INIT;
 
-static FILE* g_preview_fp = NULL;
+static FILE* g_preview_fp = NULL;       /* depth sink (colormap JPEG) */
+static FILE* g_preview_fp_rgb = NULL;   /* separate RGB sink (raw JPEG) — for dual HLS */
 static int g_preview_enabled = 0;
 static int g_save_frames_enabled = 1;
 
@@ -162,7 +163,21 @@ static void saveq_init_once(void){
             g_preview_enabled = 0;
         } else {
             setvbuf(g_preview_fp, NULL, _IONBF, 0);
-            LOG_INF("[PREVIEW] enabled via command: %s", cmd);
+            LOG_INF("[PREVIEW] depth sink via command: %s", cmd);
+        }
+
+        /* Optional separate RGB sink. When set (e.g. a second ffmpeg→HLS encoder),
+         * RGB frames go here instead of sharing the depth pipe, so depth and RGB
+         * become two independent HLS streams. */
+        const char* cmd_rgb = getenv("SVR_PREVIEW_CMD_RGB");
+        if (cmd_rgb && *cmd_rgb) {
+            g_preview_fp_rgb = popen(cmd_rgb, "w");
+            if (!g_preview_fp_rgb) {
+                LOG_ERR("[PREVIEW] failed to start RGB sink command: %s", cmd_rgb);
+            } else {
+                setvbuf(g_preview_fp_rgb, NULL, _IONBF, 0);
+                LOG_INF("[PREVIEW] RGB sink via command: %s", cmd_rgb);
+            }
         }
     }
 
@@ -433,27 +448,38 @@ static void* save_worker(void* arg){
             int is_png = is_png_data(job.buf, job.len);
             char type_char = job.frame_type ? job.frame_type : (is_png ? 'd' : 'r');
 
-            if (g_preview_enabled && g_preview_fp) {
-                /* For PNG (depth) data, convert to colormap JPEG for preview */
-                size_t preview_len = 0;
-                uint8_t* preview_buf = NULL;
-                if (is_png) {
-                    preview_buf = depth_png_to_preview_jpeg(job.buf, job.len, &preview_len);
-                }
+            if (g_preview_enabled) {
+                /* Route by type: RGB → its own sink if present, else the depth
+                 * sink (backward compatible single-pipe preview). Depth PNG is
+                 * converted to a colormap JPEG; RGB is already JPEG. */
+                FILE* sink = (type_char == 'r' && g_preview_fp_rgb)
+                                 ? g_preview_fp_rgb : g_preview_fp;
+                if (sink) {
+                    size_t preview_len = 0;
+                    uint8_t* preview_buf = NULL;
+                    if (is_png) {
+                        preview_buf = depth_png_to_preview_jpeg(job.buf, job.len, &preview_len);
+                    }
 
-                const void* write_buf = preview_buf ? preview_buf : job.buf;
-                size_t write_len = preview_buf ? preview_len : job.len;
+                    const void* write_buf = preview_buf ? preview_buf : job.buf;
+                    size_t write_len = preview_buf ? preview_len : job.len;
 
-                size_t nw = fwrite(write_buf, 1, write_len, g_preview_fp);
-                if (preview_buf) free(preview_buf);
+                    size_t nw = fwrite(write_buf, 1, write_len, sink);
+                    if (preview_buf) free(preview_buf);
 
-                if (nw == write_len) {
-                    frame_completed = 1;
-                } else {
-                    LOG_WRN("[PREVIEW] preview sink write failed; disabling preview");
-                    pclose(g_preview_fp);
-                    g_preview_fp = NULL;
-                    g_preview_enabled = 0;
+                    if (nw == write_len) {
+                        frame_completed = 1;
+                    } else {
+                        LOG_WRN("[PREVIEW] sink write failed (type=%c); disabling it", type_char);
+                        pclose(sink);
+                        if (sink == g_preview_fp_rgb) {
+                            g_preview_fp_rgb = NULL;
+                        } else {
+                            g_preview_fp = NULL;
+                            /* depth sink gone; RGB-only preview may still run */
+                            if (!g_preview_fp_rgb) g_preview_enabled = 0;
+                        }
+                    }
                 }
             }
 
