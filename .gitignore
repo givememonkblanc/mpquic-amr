@@ -19,3 +19,8 @@ certs/key.pem
 *.pcap
 *.bin
 __pycache__/
+
+# runtime data (not source)
+frames_out/
+qlogs_client/
+scripts/runs/

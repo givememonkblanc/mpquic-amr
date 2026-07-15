@@ -40,6 +40,8 @@ add_executable(server_recv
   src/server/server_recv.c
   src/server/server_runtime.c
   src/server/frame_assembler.c
+  src/server/depth_preview.c
+  src/server/frame_writer.c
 )
 target_compile_options(server_recv PRIVATE -Wall -Wextra)
 target_link_libraries(server_recv
@@ -66,6 +68,18 @@ if(OpenCV_FOUND)
     src/client/client_paths.c
     src/client/client_session.c
     src/client/client_qlogger.c
+    # Modular schedulers (scheduler/). sched_pqi.c is REQUIRED — client_loop.c
+    # calls its helpers/PQI core. The rest back sched_dispatch() (not yet the
+    # live path; wired in a later behaviour-changing step).
+    src/client/scheduler/sched_pqi.c
+    src/client/scheduler/scheduler.c
+    src/client/scheduler/sched_minrtt.c
+    src/client/scheduler/sched_roundrobin.c
+    src/client/scheduler/sched_spquic.c
+    src/client/scheduler/sched_rssi_aware.c
+    src/client/scheduler/sched_ecf.c
+    src/client/scheduler/sched_blest.c
+    src/client/scheduler/sched_tof.c
     src/client/camera.cpp
     src/client/depthai_wrapper.cpp
   )

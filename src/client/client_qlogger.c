@@ -37,6 +37,7 @@ int qlog_init(qlog_t* q, const char* run_id, const char* sched_mode_name,
     q->start_wall_us = start_wall_us;
     q->start_mono_us = start_mono_us;
     q->last_frame_ts_us = 0;
+    q->last_path_i = -1;
     q->last_snap_us = 0;
 
     for (int i = 0; i < MAX_PATHS; i++) {
@@ -50,25 +51,41 @@ int qlog_init(qlog_t* q, const char* run_id, const char* sched_mode_name,
     snprintf(q->path_snap, sizeof(q->path_snap),
              "qlogs_client/%s_snap.csv", run_id);
 
-    q->f_events = fopen(q->path_events, "w");
+    /* APPEND, not truncate: the supervised reconnect loop re-inits tx state (and
+     * thus calls qlog_init) on every reconnection. A drive that reconnects at the
+     * coverage boundary would otherwise LOSE all data before the last connection.
+     * With "a" + header-only-when-empty, all connections of one drive accumulate
+     * into a single continuous file (picoquic's monotonic clock keeps t_us in
+     * order across reconnects). Per-drive uniqueness comes from MPQUIC_RUN_LABEL
+     * in the run_id, so different drives never share a file. */
+    q->f_events = fopen(q->path_events, "a");
     if (!q->f_events) {
         LOGF("[QLOG] ERROR: cannot open %s", q->path_events);
         return -1;
     }
-    write_events_csv_header(q->f_events);
+    if (ftell(q->f_events) == 0) write_events_csv_header(q->f_events);
 
-    q->f_snap = fopen(q->path_snap, "w");
+    q->f_snap = fopen(q->path_snap, "a");
     if (!q->f_snap) {
         LOGF("[QLOG] ERROR: cannot open %s", q->path_snap);
         fclose(q->f_events);
         q->f_events = NULL;
         return -1;
     }
-    write_snap_csv_header(q->f_snap);
+    if (ftell(q->f_snap) == 0) write_snap_csv_header(q->f_snap);
 
     q->initialized = 1;
     LOGF("[QLOG] initialized → qlogs_client/%s_{events,snap}.csv", run_id);
     return 0;
+}
+
+/* A stream gap longer than this counts as a real outage (a normal ~5 fps
+ * inter-frame cadence gap does NOT). Env override: MPQUIC_OUTAGE_THRESHOLD_US. */
+static uint64_t qlog_outage_threshold_us(void) {
+    static uint64_t v = 0; static int init = 0;
+    if (!init) { init = 1; const char* s = getenv("MPQUIC_OUTAGE_THRESHOLD_US");
+        v = (s && *s) ? strtoull(s, NULL, 10) : 500000ULL; }  /* default 500 ms */
+    return v;
 }
 
 void qlog_frame_event(qlog_t* q, int path_i, uint64_t frame_bytes,
@@ -78,12 +95,26 @@ void qlog_frame_event(qlog_t* q, int path_i, uint64_t frame_bytes,
 
     if (!q || !q->initialized || !q->f_events) return;
 
+    /* Real outage = inter-frame gap EXCEEDING the threshold (a stream stall,
+     * e.g. a path failover or coverage gap). Normal cadence gaps log 0 so
+     * sum(outage_us) is the true stalled time, not the run duration. */
     if (q->last_frame_ts_us != 0 && now_us > q->last_frame_ts_us) {
-        outage_us = now_us - q->last_frame_ts_us;
-        q->total_outage_us += outage_us;
-        if (outage_us > 0) q->outage_events++;
+        uint64_t gap_us = now_us - q->last_frame_ts_us;
+        if (gap_us > qlog_outage_threshold_us()) {
+            outage_us = gap_us;
+            q->total_outage_us += outage_us;
+            q->outage_events++;
+        }
     }
     q->last_frame_ts_us = now_us;
+
+    /* Mode-agnostic path-switch count: the chosen send path changed from the
+     * previous frame. Works for EVERY scheduler (rssi/pqi/minrtt/spquic); the
+     * PQI-only qlog_switch_event no longer drives this count. */
+    if (q->last_path_i >= 0 && path_i != q->last_path_i) {
+        q->switch_count++;
+    }
+    q->last_path_i = path_i;
 
     q->frame_count++;
     q->frame_bytes_total += frame_bytes;
@@ -104,9 +135,10 @@ void qlog_switch_event(qlog_t* q, uint64_t now_us, int from_path, int to_path,
                        const char* reason) {
     (void)now_us;
     if (!q || !q->initialized) return;
-    q->switch_count++;
-    LOGF("[QLOG-SWITCH] #%" PRIu64 "  path[%d] → path[%d] reason=%s  (frame_count=%" PRIu64 ")",
-         q->switch_count, from_path, to_path, reason ? reason : "?", q->frame_count);
+    /* switch_count is now owned by qlog_frame_event (mode-agnostic path-change
+     * detection); this remains PQI-path telemetry only — no increment here. */
+    LOGF("[QLOG-SWITCH] path[%d] → path[%d] reason=%s  (frame_count=%" PRIu64 ", switches=%" PRIu64 ")",
+         from_path, to_path, reason ? reason : "?", q->frame_count, q->switch_count);
 }
 
 void qlog_snapshot(qlog_t* q, picoquic_cnx_t* c, uint64_t now_us) {

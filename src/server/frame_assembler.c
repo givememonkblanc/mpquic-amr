@@ -20,6 +20,8 @@
 
 #include "picoquic.h"
 #include "frame_assembler.h"
+#include "depth_preview.h"
+#include "frame_writer.h"
 
 /* Scan out_dir for the highest existing frame serial (files named
  * frame_%06d_{d,r}.{png,jpg}). Returns 0 if the dir is empty/absent.
@@ -56,6 +58,40 @@ int fa_max_frame_idx_on_disk(const char* dir) {
 #  define LOG_ERR(fmt, ...) fprintf(stderr, "[ERR] " fmt "\n", ##__VA_ARGS__)
 #endif
 
+/* Receiver-side per-frame arrival log (goodput + interruption ground truth).
+ * Enabled by env MPQUIC_RX_QLOG=<path>; appends "t_us,type,bytes" per delivered
+ * frame (monotonic clock). Off when the env is unset. */
+#include <time.h>
+#include <inttypes.h>
+/* mkdir -p the parent directories of a file path (so MPQUIC_RX_QLOG can point
+ * into a not-yet-existing run folder without silently failing to open). */
+static void mkdir_parents(const char* path) {
+    char tmp[512]; size_t n = strlen(path);
+    if (n == 0 || n >= sizeof(tmp)) return;
+    memcpy(tmp, path, n + 1);
+    for (char* q = tmp + 1; *q; q++) {
+        if (*q == '/') { *q = '\0'; mkdir(tmp, 0755); *q = '/'; }
+    }
+}
+static void fa_rx_qlog(char ftype, size_t slen) {
+    static FILE* f = NULL; static int init = 0;
+    if (!init) {
+        init = 1;
+        const char* p = getenv("MPQUIC_RX_QLOG");
+        if (p && *p) {
+            mkdir_parents(p);
+            f = fopen(p, "a");
+            if (!f) LOG_ERR("[RX-QLOG] cannot open %s (logging disabled)", p);
+            else if (ftell(f) == 0) fprintf(f, "t_us,type,bytes\n");
+        }
+    }
+    if (!f) return;
+    struct timespec ts; clock_gettime(CLOCK_MONOTONIC, &ts);
+    uint64_t t = (uint64_t)ts.tv_sec * 1000000ULL + (uint64_t)ts.tv_nsec / 1000ULL;
+    fprintf(f, "%" PRIu64 ",%c,%zu\n", t, ftype ? ftype : '?', slen);
+    fflush(f);
+}
+
 /* 프레임 및 수신 처리 제한 설정 */
 #ifndef MAX_FRAME_SIZE
 #  define MAX_FRAME_SIZE (10*1024*1024)
@@ -87,474 +123,9 @@ typedef struct {
 
 static rx_bank_t g_bank;
 
-/* [저장 작업 큐 설정] */
-#ifndef SAVEQ_MAX
-#  define SAVEQ_MAX 4096      /* 큐 최대 크기 (메모리 상황에 따라 조절) */
-#endif
-#ifndef SAVE_POP_BATCH
-#  define SAVE_POP_BATCH 128   /* 한 번에 처리할 최대 프레임 수 */
-#endif
+/* Disk-save worker subsystem (save queue + worker thread + preview sinks
+ * + save_frame/save_frame_take) moved to frame_writer.c. */
 
-typedef struct {
-    app_ctx_t* app;
-    uint8_t* buf;
-    size_t len;
-    char frame_type;     /* 'd'=depth PNG, 'r'=RGB JPEG */
-} save_job_t;
-
-typedef struct {
-    save_job_t q[SAVEQ_MAX];
-    int h, t, n;              /* head, tail, count */
-    pthread_mutex_t m;
-    pthread_cond_t cv;
-    int inited;
-    int started;
-} saveq_t;
-
-static saveq_t g_saveq;
-static pthread_once_t g_once = PTHREAD_ONCE_INIT;
-
-static FILE* g_preview_fp = NULL;       /* depth sink (colormap JPEG) */
-static FILE* g_preview_fp_rgb = NULL;   /* separate RGB sink (raw JPEG) — for dual HLS */
-static int g_preview_enabled = 0;
-static int g_save_frames_enabled = 1;
-
-static int env_flag_enabled(const char* name, int default_value){
-    const char* v = getenv(name);
-    if (!v || !*v) return default_value;
-    if (strcmp(v, "0") == 0 || strcasecmp(v, "false") == 0 || strcasecmp(v, "no") == 0 || strcasecmp(v, "off") == 0) return 0;
-    return 1;
-}
-
-
-/* ============================================================
- * [3] 내부 유틸리티 및 초기화 함수
- * ============================================================ */
-
-static void* save_worker(void*);
-static int saveq_push_take(app_ctx_t*, uint8_t*, size_t, char);
-
-static void ensure_dir(const char* d){
-    if (!d || !*d) return;
-    struct stat st;
-    if (stat(d, &st) == 0) return;
-    mkdir(d, 0755);
-}
-
-static void saveq_init_once(void){
-    memset(&g_saveq, 0, sizeof(g_saveq));
-    pthread_mutex_init(&g_saveq.m, NULL);
-    pthread_cond_init(&g_saveq.cv, NULL);
-    g_saveq.inited = 1;
-
-    g_save_frames_enabled = env_flag_enabled("SVR_SAVE_FRAMES", 1);
-    g_preview_enabled = env_flag_enabled("SVR_PREVIEW", 0);
-
-    if (g_preview_enabled) {
-        const char* cmd = getenv("SVR_PREVIEW_CMD");
-        if (!cmd || !*cmd) {
-            cmd = "ffplay -loglevel warning -fflags nobuffer -flags low_delay -framedrop -window_title MPQUIC-Preview -f mjpeg -i -";
-        }
-
-        signal(SIGPIPE, SIG_IGN);
-        g_preview_fp = popen(cmd, "w");
-        if (!g_preview_fp) {
-            LOG_ERR("[PREVIEW] failed to start preview command: %s", cmd);
-            g_preview_enabled = 0;
-        } else {
-            setvbuf(g_preview_fp, NULL, _IONBF, 0);
-            LOG_INF("[PREVIEW] depth sink via command: %s", cmd);
-        }
-
-        /* Optional separate RGB sink. When set (e.g. a second ffmpeg→HLS encoder),
-         * RGB frames go here instead of sharing the depth pipe, so depth and RGB
-         * become two independent HLS streams. */
-        const char* cmd_rgb = getenv("SVR_PREVIEW_CMD_RGB");
-        if (cmd_rgb && *cmd_rgb) {
-            g_preview_fp_rgb = popen(cmd_rgb, "w");
-            if (!g_preview_fp_rgb) {
-                LOG_ERR("[PREVIEW] failed to start RGB sink command: %s", cmd_rgb);
-            } else {
-                setvbuf(g_preview_fp_rgb, NULL, _IONBF, 0);
-                LOG_INF("[PREVIEW] RGB sink via command: %s", cmd_rgb);
-            }
-        }
-    }
-
-    if (!g_save_frames_enabled) {
-        LOG_INF("[PREVIEW] disk frame saving disabled (SVR_SAVE_FRAMES=0)");
-    }
-}
-
-/**
- * @brief 디스크 저장 전담 워커 스레드를 시작합니다.
- */
-static void maybe_start_worker(void){
-    if (!g_saveq.inited) pthread_once(&g_once, saveq_init_once);
-    if (!g_saveq.started) {
-        g_saveq.started = 1;
-        pthread_t th;
-        if (pthread_create(&th, NULL, save_worker, NULL) == 0)
-            pthread_detach(th);
-    }
-}
-
-
-/* ============================================================
- * [4] Depth PNG → colormap JPEG 변환 (preview sink 용)
- * ============================================================ */
-
-static int is_png_data(const uint8_t* buf, size_t len){
-    static const unsigned char png_sig[8] = {0x89, 0x50, 0x4E, 0x47, 0x0D, 0x0A, 0x1A, 0x0A};
-    if (len < 8) return 0;
-    return memcmp(buf, png_sig, 8) == 0;
-}
-
-/* ── PNG read callback (libpng memory I/O) ──────────────────── */
-struct png_mem_io { const uint8_t* d; size_t s; size_t p; };
-static void png_mem_read_fn(png_structp p, png_bytep o, png_size_t n){
-    struct png_mem_io* m = (struct png_mem_io*)png_get_io_ptr(p);
-    size_t avail = m->s - m->p;
-    if (n > avail) n = avail;
-    memcpy(o, m->d + m->p, n);
-    m->p += n;
-}
-
-/* ── qsort comparator for uint16_t ──────────────────────────── */
-static int cmp_u16(const void* a, const void* b){
-    uint16_t va = *(const uint16_t*)a;
-    uint16_t vb = *(const uint16_t*)b;
-    return (va > vb) - (va < vb);
-}
-
-/**
- * Parse a 16-bit grayscale PNG from memory, apply a jet colormap,
- * and JPEG-encode the result into a heap buffer.
- *
- * Returns a malloc'd buffer holding the JPEG data (set *out_len),
- * or NULL on failure. Caller must free().
- */
-static uint8_t* depth_png_to_preview_jpeg(const uint8_t* png_data, size_t png_len,
-                                           size_t* out_len) {
-    *out_len = 0;
-
-    /* ── libpng: read from memory ──────────────────────── */
-    png_structp png = png_create_read_struct(PNG_LIBPNG_VER_STRING,
-                                              NULL, NULL, NULL);
-    if (!png) return NULL;
-    png_infop info = png_create_info_struct(png);
-    if (!info) { png_destroy_read_struct(&png, NULL, NULL); return NULL; }
-
-    if (setjmp(png_jmpbuf(png))) {
-        png_destroy_read_struct(&png, &info, NULL);
-        return NULL;
-    }
-
-    struct png_mem_io io = {png_data, png_len, 0};
-    png_set_read_fn(png, &io, png_mem_read_fn);
-
-    png_read_info(png, info);
-    int w = (int)png_get_image_width(png, info);
-    int h = (int)png_get_image_height(png, info);
-    int bit_depth = png_get_bit_depth(png, info);
-    int color_type = png_get_color_type(png, info);
-
-    /* Convert to 16-bit grayscale if needed */
-    if (color_type == PNG_COLOR_TYPE_PALETTE) png_set_palette_to_rgb(png);
-    if (png_get_valid(png, info, PNG_INFO_tRNS)) png_set_tRNS_to_alpha(png);
-    if (color_type == PNG_COLOR_TYPE_RGB || color_type == PNG_COLOR_TYPE_GRAY_ALPHA ||
-        color_type == PNG_COLOR_TYPE_RGB_ALPHA)
-        png_set_strip_alpha(png);
-    if (bit_depth < 8) png_set_packing(png);
-    if (color_type == PNG_COLOR_TYPE_GRAY && bit_depth < 16) png_set_expand_gray_1_2_4_to_8(png);
-    /* If it's already 16-bit gray, keep it — we want the full precision */
-    png_read_update_info(png, info);
-
-    int row_bytes = (int)png_get_rowbytes(png, info);
-    int channels = (int)png_get_channels(png, info);
-
-    /* Allocate rows and read */
-    uint8_t** rows = (uint8_t**)malloc(sizeof(uint8_t*) * (size_t)h);
-    for (int y = 0; y < h; y++) rows[y] = (uint8_t*)malloc((size_t)row_bytes);
-    png_read_image(png, rows);
-    png_read_end(png, NULL);
-    png_destroy_read_struct(&png, &info, NULL);
-
-    /* ── Normalize 16-bit → 8-bit (robust percentile) ──── */
-    int is_16bit = (bit_depth == 16 && channels == 1);
-    uint8_t* gray8 = (uint8_t*)malloc((size_t)(w * h));
-    uint16_t vmin = 0, vmax = 65535;
-
-    if (is_16bit) {
-        /* Gather all valid (>0) samples */
-        uint16_t* samples = (uint16_t*)malloc(sizeof(uint16_t) * (size_t)(w * h));
-        int n_valid = 0;
-        for (int y = 0; y < h; y++) {
-            uint16_t* row = (uint16_t*)rows[y];
-            for (int x = 0; x < w; x++) {
-                uint16_t v = row[x];
-                if (v > 0) samples[n_valid++] = v;
-            }
-        }
-        if (n_valid > 0) {
-            qsort(samples, (size_t)n_valid, sizeof(uint16_t), cmp_u16);
-            vmin = samples[n_valid / 50];       /*  2nd percentile */
-            vmax = samples[(n_valid * 49) / 50]; /* 98th percentile */
-            if (vmax <= vmin) vmax = vmin + 1;
-            /* Normalize per PIXEL from the original depth rows. `samples` is
-             * sorted (used only for the percentiles) — indexing it by raster
-             * position would scramble the image and read past n_valid. */
-            float scale = 255.0f / (float)(vmax - vmin);
-            for (int y = 0; y < h; y++) {
-                uint16_t* row = (uint16_t*)rows[y];
-                for (int x = 0; x < w; x++) {
-                    uint16_t v = row[x];
-                    int u8 = (v <= vmin) ? 0 : (int)((v - vmin) * scale);
-                    if (u8 > 255) u8 = 255;
-                    gray8[y * w + x] = (uint8_t)u8;
-                }
-            }
-        } else {
-            memset(gray8, 0, (size_t)(w * h)); /* no valid depth → all-black preview */
-        }
-        free(samples);
-    } else {
-        /* 8-bit gray — direct copy */
-        for (int y = 0; y < h; y++)
-            memcpy(gray8 + y * w, rows[y], (size_t)w);
-    }
-
-    /* Free PNG rows */
-    for (int y = 0; y < h; y++) free(rows[y]);
-    free(rows);
-
-    /* ── Apply jet colormap ────────────────────────────── */
-    static uint8_t jet_r[256], jet_g[256], jet_b[256];
-    static int jet_init = 0;
-    if (!jet_init) {
-        for (int i = 0; i < 256; i++) {
-            float x = i / 255.0f;
-            if (x < 0.125f) {
-                jet_r[i] = 0;
-                jet_g[i] = 0;
-                jet_b[i] = (uint8_t)((x / 0.125f) * 255.0f);
-            } else if (x < 0.375f) {
-                float t = (x - 0.125f) / 0.25f;
-                jet_r[i] = (uint8_t)(t * 255.0f);
-                jet_g[i] = (uint8_t)(t * 255.0f);
-                jet_b[i] = 255;
-            } else if (x < 0.625f) {
-                float t = (0.625f - x) / 0.25f;
-                jet_r[i] = 255;
-                jet_g[i] = 255;
-                jet_b[i] = (uint8_t)(t * 255.0f);
-            } else if (x < 0.875f) {
-                float t = (0.875f - x) / 0.25f;
-                jet_r[i] = (uint8_t)(t * 255.0f);
-                jet_g[i] = (uint8_t)(t * 255.0f);
-                jet_b[i] = 0;
-            } else {
-                jet_r[i] = 0;
-                jet_g[i] = 0;
-                jet_b[i] = 0;
-            }
-        }
-        jet_init = 1;
-    }
-
-    uint8_t* rgb = (uint8_t*)malloc(sizeof(uint8_t) * (size_t)(w * h * 3));
-    for (int i = 0; i < w * h; i++) {
-        int idx = gray8[i];
-        rgb[i * 3 + 0] = jet_r[idx];
-        rgb[i * 3 + 1] = jet_g[idx];
-        rgb[i * 3 + 2] = jet_b[idx];
-    }
-    free(gray8);
-
-    /* ── libjpeg: encode RGB → JPEG in memory ─────────── */
-    struct jpeg_compress_struct cinfo;
-    struct jpeg_error_mgr jerr;
-    cinfo.err = jpeg_std_error(&jerr);
-    jpeg_create_compress(&cinfo);
-
-    unsigned long jpg_size = 0;
-    uint8_t* jpg_data = NULL;
-    jpeg_mem_dest(&cinfo, &jpg_data, &jpg_size);
-
-    cinfo.image_width = w;
-    cinfo.image_height = h;
-    cinfo.input_components = 3;
-    cinfo.in_color_space = JCS_RGB;
-    jpeg_set_defaults(&cinfo);
-    jpeg_set_quality(&cinfo, 85, TRUE);
-    jpeg_start_compress(&cinfo, TRUE);
-
-    uint8_t* row_ptrs[1];
-    for (int y = 0; y < h; y++) {
-        row_ptrs[0] = rgb + y * w * 3;
-        jpeg_write_scanlines(&cinfo, row_ptrs, 1);
-    }
-    jpeg_finish_compress(&cinfo);
-    jpeg_destroy_compress(&cinfo);
-    free(rgb);
-
-    *out_len = (size_t)jpg_size;
-    return jpg_data;  /* caller must free */
-}
-
-
-/* ============================================================
- * [5] 디스크 저장 워커 로직
- * ============================================================ */
-
-static void* save_worker(void* arg){
-    (void)arg;
-    save_job_t batch[SAVE_POP_BATCH];
-
-    for(;;){
-        int k = 0;
-
-        /* 1) 큐에서 일괄(Batch)로 작업 뽑기 */
-        pthread_mutex_lock(&g_saveq.m);
-        while (g_saveq.n == 0) {
-            pthread_cond_wait(&g_saveq.cv, &g_saveq.m);
-        }
-
-        while (g_saveq.n > 0 && k < SAVE_POP_BATCH) {
-            batch[k++] = g_saveq.q[g_saveq.h];
-            g_saveq.h = (g_saveq.h + 1) % SAVEQ_MAX;
-            g_saveq.n--;
-        }
-        pthread_mutex_unlock(&g_saveq.m);
-
-        /* 2) 뽑힌 작업들을 디스크에 순차 기록 */
-        for (int i = 0; i < k; i++) {
-            save_job_t job = batch[i];
-
-            if (!job.app || !job.buf || job.len == 0) {
-                if (job.buf) free(job.buf);
-                continue;
-            }
-
-            ensure_dir(job.app->out_dir);
-
-            /* Monotonic per-frame serial. The old scheme (frame_pair_idx+1,
-             * advanced only on RGB completion) overwrote frame_000001_d every
-             * time RGB stalled/starved — depth got clobbered. Every completed
-             * frame now gets its own serial. */
-            int idx = job.app->frame_count + 1;
-            int frame_completed = 0;
-
-            int is_png = is_png_data(job.buf, job.len);
-            char type_char = job.frame_type ? job.frame_type : (is_png ? 'd' : 'r');
-
-            if (g_preview_enabled) {
-                /* Route by type: RGB → its own sink if present, else the depth
-                 * sink (backward compatible single-pipe preview). Depth PNG is
-                 * converted to a colormap JPEG; RGB is already JPEG. */
-                FILE* sink = (type_char == 'r' && g_preview_fp_rgb)
-                                 ? g_preview_fp_rgb : g_preview_fp;
-                if (sink) {
-                    size_t preview_len = 0;
-                    uint8_t* preview_buf = NULL;
-                    if (is_png) {
-                        preview_buf = depth_png_to_preview_jpeg(job.buf, job.len, &preview_len);
-                    }
-
-                    const void* write_buf = preview_buf ? preview_buf : job.buf;
-                    size_t write_len = preview_buf ? preview_len : job.len;
-
-                    size_t nw = fwrite(write_buf, 1, write_len, sink);
-                    if (preview_buf) free(preview_buf);
-
-                    if (nw == write_len) {
-                        frame_completed = 1;
-                    } else {
-                        LOG_WRN("[PREVIEW] sink write failed (type=%c); disabling it", type_char);
-                        pclose(sink);
-                        if (sink == g_preview_fp_rgb) {
-                            g_preview_fp_rgb = NULL;
-                        } else {
-                            g_preview_fp = NULL;
-                            /* depth sink gone; RGB-only preview may still run */
-                            if (!g_preview_fp_rgb) g_preview_enabled = 0;
-                        }
-                    }
-                }
-            }
-
-            if (g_save_frames_enabled) {
-                char tmp[512], dst[512];
-
-                const char* ext = (type_char == 'd') ? "png" : "jpg";
-                snprintf(tmp, sizeof(tmp), "%s/frame_%06d_%c.part", job.app->out_dir, idx, type_char);
-                snprintf(dst, sizeof(dst), "%s/frame_%06d_%c.%s",  job.app->out_dir, idx, type_char, ext);
-
-                FILE* f = fopen(tmp, "wb");
-                if (!f) {
-                    free(job.buf);
-                    continue;
-                }
-
-                size_t nw = fwrite(job.buf, 1, job.len, f);
-                fclose(f);
-
-                if (nw == job.len && rename(tmp, dst) == 0) {
-                    frame_completed = 1;
-                    job.app->bytes_saved_total += job.len;
-                }
-            }
-
-            if (frame_completed) {
-                job.app->frame_count = idx;      /* advance monotonic serial */
-                job.app->frame_pair_idx = idx;   /* kept in sync for any readers */
-            }
-            free(job.buf);
-        }
-    }
-    return NULL;
-}
-
-/**
- * @brief 버퍼의 소유권을 가져와 저장 큐에 추가합니다.
- */
-static int saveq_push_take(app_ctx_t* app, uint8_t* buf, size_t len, char frame_type){
-    if (!g_saveq.inited) pthread_once(&g_once, saveq_init_once);
-
-    pthread_mutex_lock(&g_saveq.m);
-    
-    /* 큐가 가득 찼다면 가장 오래된 데이터 드랍 */
-    if (g_saveq.n == SAVEQ_MAX) {
-        save_job_t old = g_saveq.q[g_saveq.h];
-        g_saveq.h = (g_saveq.h + 1) % SAVEQ_MAX;
-        g_saveq.n--;
-        if (old.buf) free(old.buf);
-    }
-
-    g_saveq.q[g_saveq.t] = (save_job_t){app, buf, len, frame_type};
-    g_saveq.t = (g_saveq.t + 1) % SAVEQ_MAX;
-    g_saveq.n++;
-    
-    pthread_cond_signal(&g_saveq.cv);
-    pthread_mutex_unlock(&g_saveq.m);
-    return 0;
-}
-
-int save_frame(app_ctx_t* app, const uint8_t* data, size_t len, char frame_type){
-    if (!app || !data || len == 0) return -1;
-    maybe_start_worker();
-
-    uint8_t* cp = malloc(len);
-    if (!cp) return -1;
-    memcpy(cp, data, len);
-    return saveq_push_take(app, cp, len, frame_type);
-}
-
-static int save_frame_take(app_ctx_t* app, uint8_t* take, size_t len, char frame_type){
-    if (!app || !take || len == 0) return -1;
-    maybe_start_worker();
-    return saveq_push_take(app, take, len, frame_type);
-}
 
 
 /* ============================================================
@@ -788,6 +359,11 @@ int fa_on_bytes(picoquic_cnx_t* cnx, app_ctx_t* app, uint64_t sid,
                         ftype ? ftype : '?', slen,
                         is_jpeg ? "JPEG" : is_png ? "PNG " : "INVALID",
                         stolen[0],stolen[1],stolen[2],stolen[3]);
+                /* Receiver-side ground truth: arrival time + size per delivered
+                 * frame. goodput = Σbytes/time; interruption = gaps in t_us.
+                 * Send-side qlog over-counts frames pushed into a dead path
+                 * during a coverage gap; this counts only what actually arrived. */
+                fa_rx_qlog(ftype, slen);
                 if (is_jpeg || is_png) save_frame_take(app, stolen, slen, ftype);
                 else free(stolen);
                 rx_clear(rx);

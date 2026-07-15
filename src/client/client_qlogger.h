@@ -55,10 +55,11 @@ typedef struct qlog_t {
     /* counters (reset at run start) */
     uint64_t    frame_count;
     uint64_t    frame_bytes_total;
-    uint64_t    switch_count;
+    uint64_t    switch_count;           /* mode-agnostic: send-path changes between frames */
+    int         last_path_i;            /* path of the previous frame (-1 = none), for switch detection */
     uint64_t    last_frame_ts_us;       /* monotonic timestamp of last frame */
-    uint64_t    total_outage_us;        /* sum of inter-frame gaps (excl. first) */
-    uint64_t    outage_events;          /* number of gaps > 0 */
+    uint64_t    total_outage_us;        /* sum of REAL outages (inter-frame gap > threshold) */
+    uint64_t    outage_events;          /* number of real outages (gap > threshold) */
 
     /* last snap timestamp */
     uint64_t    last_snap_us;

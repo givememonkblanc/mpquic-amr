@@ -43,11 +43,23 @@ typedef struct {
     int ready;
 } bind_t;
 
+typedef enum {
+    scheduler_mode_pqi = 0,              /* legacy/compared: PQI composite cost      */
+    scheduler_mode_rssi = 1,             /* PROPOSED: RSSI-aware (clean, PQI-free)    */
+    scheduler_mode_default = 2,          /* baseline: min-RTT (picoquic native)       */
+    scheduler_mode_spquic_migration = 3, /* baseline: SP-QUIC + connection migration   */
+    scheduler_mode_round_robin = 4,      /* baseline: round-robin                      */
+    scheduler_mode_ecf = 5,              /* baseline (optional): Earliest Completion First */
+    scheduler_mode_blest = 6,            /* baseline (optional): Blocking Estimation    */
+    scheduler_mode_tof = 7               /* baseline (optional): Time-in-Flight         */
+} scheduler_mode_t;
+
 typedef struct {
     char server_ip[128];
     char primary_local_ip[64];
     char backup_local_ip[64];
     int port;
+    scheduler_mode_t scheduler_mode;   /* parsed from MPQUIC_SCHED_MODE in client_options.c */
 } client_options_t;
 
 /*
@@ -63,12 +75,7 @@ typedef struct {
  *   R3-#5  (which MP-QUIC implementation)   → picoquic native default
  *   R2-#3  (handover vs failover clarity)   → mode 3 isolates SP-QUIC migration behavior
  */
-typedef enum {
-    scheduler_mode_pqi = 0,
-    scheduler_mode_rssi = 1,
-    scheduler_mode_default = 2,
-    scheduler_mode_spquic_migration = 3
-} scheduler_mode_t;
+/* scheduler_mode_t is defined above client_options_t (which now carries it). */
 
 typedef struct {
     bind_t b[MAX_PATHS];
@@ -77,6 +84,16 @@ typedef struct {
     int peer_close_seen;
     int handshake_done;
     struct sockaddr_storage peerA;
+    /* Optional distinct server address for the BACKUP path (env
+     * MPQUIC_SERVER_IP2). Rationale (2026-07-13): the Jetson kernel is built
+     * without CONFIG_IP_ADVANCED_ROUTER (no policy routing), so two paths to
+     * ONE server address cannot be split by source IP — backup traffic slid
+     * onto the Wi-Fi route and the "5G" path was never physically independent.
+     * With per-path destinations, plain destination routing does the split:
+     * primary → server LAN addr (connected route on Wi-Fi), backup → server
+     * public addr (default route via the cellular tether). */
+    struct sockaddr_storage peerB;
+    int has_peerB;
     uint64_t ready_ts_us;
 
     struct sockaddr_storage primary_local;
@@ -135,6 +152,7 @@ typedef struct {
     uint64_t exp_duration_us;
     int      exp_finished;   /* set when the experiment duration elapses = clean stop (no reconnect) */
     uint64_t total_frames_submitted;
+    uint64_t frames_dropped_backpressure;  /* frames dropped by real-time backpressure guard */
 
     /* Verbose per-tick state logging is rate-limited to 1 Hz (the packet loop
      * ticks at kHz rates under load, which used to produce multi-GB logs). */
@@ -200,6 +218,7 @@ int maybe_probe_desired_path(picoquic_cnx_t* c,
                              uint64_t now);
 
 int path_is_healthy(picoquic_cnx_t* c, tx_t* st, int i, uint64_t now);
+uint64_t path_silence_us(const tx_t* st, int i, uint64_t now);
 
 int client_cb(picoquic_cnx_t* cnx, uint64_t stream_id,
               uint8_t* bytes, size_t length,

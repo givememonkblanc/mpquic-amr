@@ -159,6 +159,16 @@ void ensure_path0_alive(picoquic_cnx_t* c) {
     }
 }
 
+/* Microseconds since path i last made forward progress (0 if never / invalid).
+ * Moved here from client_loop.c so the schedulers can share the canonical gate. */
+uint64_t path_silence_us(const tx_t* st, int i, uint64_t now) {
+    if (!st || i < 0 || i >= MAX_PATHS
+        || st->path_last_progress_us[i] == 0 || now <= st->path_last_progress_us[i]) {
+        return 0;
+    }
+    return now - st->path_last_progress_us[i];
+}
+
 int path_is_healthy(picoquic_cnx_t* c, tx_t* st, int i, uint64_t now) {
     picoquic_path_t* p;
     uint64_t stall_window;
@@ -198,7 +208,9 @@ void kick_path_verification(picoquic_cnx_t* c, tx_t* st, int i) {
     p = px_get_path(c, i);
     if (!p || !p->first_tuple) return;
 
-    peer = (struct sockaddr*)&st->peerA;
+    /* Re-challenge the path toward ITS OWN peer address — with per-path server
+     * addresses (peerB) the backup path's peer differs from peerA. */
+    peer = (struct sockaddr*)&p->first_tuple->peer_addr;
     local = (struct sockaddr*)&p->first_tuple->local_addr;
     picoquic_probe_new_path(c, peer, local, 0);
 

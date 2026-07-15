@@ -37,3 +37,10 @@ export REMOTE_QLOG_DIR="${REMOTE_QLOG_DIR:-/home/jetson/qlogs_client}"
 export DISABLE_EDGE_WIRED_IFACE="${DISABLE_EDGE_WIRED_IFACE:-0}"
 export SKIP_EDGE_ROUTE_SETUP="${SKIP_EDGE_ROUTE_SETUP:-1}"
 export TUNE_RP_FILTER="${TUNE_RP_FILTER:-0}"
+
+# ── Dual server address (2026-07-13) ──
+# Jetson kernel lacks CONFIG_IP_ADVANCED_ROUTER (no policy routing), so path
+# split is done by DESTINATION: primary→server LAN addr, backup→server PUBLIC
+# addr (egresses via the cellular tether's default route). Without this the
+# "5G" path silently rode the Wi-Fi route and died with it.
+export MPQUIC_SERVER_IP2="${MPQUIC_SERVER_IP2:-165.229.169.120}"

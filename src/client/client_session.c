@@ -25,6 +25,10 @@ static const char* sched_mode_name(scheduler_mode_t mode) {
     case scheduler_mode_rssi:             return "rssi";
     case scheduler_mode_default:          return "default";
     case scheduler_mode_spquic_migration: return "spquic";
+    case scheduler_mode_round_robin:      return "round-robin";
+    case scheduler_mode_ecf:              return "ecf";
+    case scheduler_mode_blest:            return "blest";
+    case scheduler_mode_tof:              return "tof";
     default:                              return "unknown";
     }
 }
@@ -39,7 +43,6 @@ int client_init_tx_state(tx_t* st,
                          picoquic_cnx_t* cnx,
                          const struct sockaddr_storage* peerA,
                          const client_options_t* opts) {
-    const char* sched_env;
     char run_id[256];
     struct timespec ts;
 
@@ -48,11 +51,28 @@ int client_init_tx_state(tx_t* st,
     memset(st, 0, sizeof(*st));
     st->cnx = cnx;
     st->peerA = *peerA;
+    /* Backup-path server address (see peerB rationale in client_runtime.h). */
+    {
+        const char* ip2 = getenv("MPQUIC_SERVER_IP2");
+        if (ip2 && *ip2) {
+            struct sockaddr_in* b = (struct sockaddr_in*)&st->peerB;
+            memset(&st->peerB, 0, sizeof(st->peerB));
+            b->sin_family = AF_INET;
+            b->sin_port = htons((uint16_t)opts->port);
+            if (inet_pton(AF_INET, ip2, &b->sin_addr) == 1) {
+                st->has_peerB = 1;
+                LOGF("[MAIN] backup-path server addr: %s:%d (MPQUIC_SERVER_IP2)",
+                     ip2, opts->port);
+            } else {
+                LOGF("[WARN] MPQUIC_SERVER_IP2='%s' unparsable; backup uses primary addr", ip2);
+            }
+        }
+    }
     st->conn_created_us = picoquic_current_time();
     st->ip_primary_be = inet_addr(opts->primary_local_ip);
     st->ip_backup_be = inet_addr(opts->backup_local_ip);
 
-    st->scheduler_mode = scheduler_mode_rssi;
+    st->scheduler_mode = opts->scheduler_mode;   /* parsed in client_options.c */
     st->pqi_last_choice = -1;
     st->wifi_last_rssi_dbm = INT_MIN;
     snprintf(st->wifi_ifname, sizeof(st->wifi_ifname), "%s", "wlP1p1s0");
@@ -61,25 +81,21 @@ int client_init_tx_state(tx_t* st,
         st->path_rssi_ewma_dbm[i] = INT_MIN;
     }
 
-    sched_env = getenv("MPQUIC_SCHED_MODE");
-    if (sched_env) {
-        if (strcmp(sched_env, "pqi") == 0) {
-            st->scheduler_mode = scheduler_mode_pqi;
-        } else if (strcmp(sched_env, "rssi") == 0) {
-            st->scheduler_mode = scheduler_mode_rssi;
-        } else if (strcmp(sched_env, "default") == 0) {
-            st->scheduler_mode = scheduler_mode_default;
-        } else if (strcmp(sched_env, "spquic") == 0) {
-            st->scheduler_mode = scheduler_mode_spquic_migration;
-        } else {
-            LOGF("[WARN] unknown MPQUIC_SCHED_MODE='%s'; using rssi", sched_env);
-        }
-    }
-
     LOGF("[MAIN] scheduler_mode=%s", sched_mode_name(st->scheduler_mode));
 
     clock_gettime(CLOCK_MONOTONIC, &ts);
-    snprintf(run_id, sizeof(run_id), "%s_%s", sched_mode_name(st->scheduler_mode), opts->server_ip);
+    /* Per-drive unique qlog naming: MPQUIC_RUN_LABEL (e.g. a run number) is
+     * appended so repeated drives of the same scheduler don't overwrite each
+     * other. Unset → legacy "<mode>_<server>" name. */
+    {
+        const char* run_label = getenv("MPQUIC_RUN_LABEL");
+        if (run_label && *run_label)
+            snprintf(run_id, sizeof(run_id), "%s_%s_%s",
+                     sched_mode_name(st->scheduler_mode), opts->server_ip, run_label);
+        else
+            snprintf(run_id, sizeof(run_id), "%s_%s",
+                     sched_mode_name(st->scheduler_mode), opts->server_ip);
+    }
     st->qlog = (qlog_t*)calloc(1, sizeof(qlog_t));
     if (st->qlog) {
         if (qlog_init(st->qlog, run_id, sched_mode_name(st->scheduler_mode),
